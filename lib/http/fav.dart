@@ -15,6 +15,7 @@ import 'package:PiliPlus/models_new/space/space_fav/data.dart';
 import 'package:PiliPlus/models_new/sub/sub_detail/data.dart';
 import 'package:PiliPlus/utils/accounts.dart';
 import 'package:PiliPlus/utils/app_sign.dart';
+import 'package:PiliPlus/utils/locale_utils.dart';
 import 'package:dio/dio.dart';
 
 abstract final class FavHttp {
@@ -576,11 +577,11 @@ abstract final class FavHttp {
     final params = {
       'build': 8430300,
       'version': '8.43.0',
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'channel': 'master',
       'mobi_app': 'android',
       'platform': 'android',
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'statistics': Constants.statisticsApp,
       'up_mid': mid,
     };

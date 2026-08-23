@@ -33,6 +33,7 @@ import 'package:PiliPlus/utils/app_sign.dart';
 import 'package:PiliPlus/utils/extension/string_ext.dart';
 import 'package:PiliPlus/utils/global_data.dart';
 import 'package:PiliPlus/utils/id_utils.dart';
+import 'package:PiliPlus/utils/locale_utils.dart';
 import 'package:PiliPlus/utils/recommend_filter.dart';
 import 'package:PiliPlus/utils/request_utils.dart';
 import 'package:PiliPlus/utils/storage.dart';
@@ -97,7 +98,7 @@ abstract final class VideoHttp {
   }) async {
     final params = {
       'build': 2001100,
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'channel': 'master',
       'column': 4,
       'device': 'pad',
@@ -119,7 +120,7 @@ abstract final class VideoHttp {
       'pull': freshIdx == 0 ? 'true' : 'false',
       'qn': 32,
       'recsys_mode': 0,
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'splash_id': '',
       'statistics': Constants.statistics,
       'voice_balance': 0,

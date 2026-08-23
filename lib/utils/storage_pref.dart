@@ -23,6 +23,7 @@ import 'package:PiliPlus/models/common/super_chat_time_type.dart';
 import 'package:PiliPlus/models/common/super_chat_type.dart';
 import 'package:PiliPlus/models/common/super_resolution_type.dart';
 import 'package:PiliPlus/models/common/theme/theme_type.dart';
+import 'package:PiliPlus/models/common/app_locale_type.dart';
 import 'package:PiliPlus/models/common/video/audio_quality.dart';
 import 'package:PiliPlus/models/common/video/cdn_type.dart';
 import 'package:PiliPlus/models/common/video/live_quality.dart';
@@ -310,6 +311,17 @@ abstract final class Pref {
     1 => ThemeMode.dark,
     _ => ThemeMode.system,
   };
+
+  static int get _appLocaleIndex => _setting.get(
+    SettingBoxKey.appLocale,
+    defaultValue: AppLocaleType.system.index,
+  );
+
+  static AppLocaleType get appLocale =>
+      AppLocaleType.values[_appLocaleIndex];
+
+  static set appLocale(AppLocaleType value) =>
+      _setting.put(SettingBoxKey.appLocale, value.index);
 
   static List<double> get springDescription => List<double>.from(
     _setting.get(SettingBoxKey.springDescription) ??

@@ -273,6 +273,7 @@ abstract final class SettingBoxKey {
       systemProxyPort = 'systemProxyPort';
 
   static const String themeMode = 'themeMode',
+      appLocale = 'appLocale',
       defaultTextScale = 'textScale',
       customFontPath = 'customFontPath',
       customFontFamily = 'customFontFamily',

@@ -12,6 +12,7 @@ import 'package:PiliPlus/models_new/pgc/pgc_info_model/result.dart';
 import 'package:PiliPlus/models_new/search/search_rcmd/data.dart';
 import 'package:PiliPlus/models_new/search/search_trending/data.dart';
 import 'package:PiliPlus/utils/extension/iterable_ext.dart';
+import 'package:PiliPlus/utils/locale_utils.dart';
 import 'package:PiliPlus/utils/request_utils.dart';
 import 'package:PiliPlus/utils/wbi_sign.dart';
 import 'package:dio/dio.dart';
@@ -281,10 +282,10 @@ abstract final class SearchHttp {
         'build': 8430300,
         'channel': 'master',
         'version': '8.43.0',
-        'c_locale': 'zh_CN',
+        'c_locale': currentApiLocaleCode(),
         'mobi_app': 'android',
         'platform': 'android',
-        's_locale': 'zh_CN',
+        's_locale': currentApiLocaleCode(),
         'from': 2,
       },
     );

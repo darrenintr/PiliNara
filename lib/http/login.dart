@@ -9,6 +9,7 @@ import 'package:PiliPlus/models_new/login_devices/data.dart';
 import 'package:PiliPlus/utils/accounts.dart';
 import 'package:PiliPlus/utils/accounts/account.dart';
 import 'package:PiliPlus/utils/app_sign.dart';
+import 'package:PiliPlus/utils/locale_utils.dart';
 import 'package:PiliPlus/utils/login_utils.dart';
 import 'package:PiliPlus/utils/utils.dart';
 import 'package:crypto/crypto.dart';
@@ -105,7 +106,7 @@ abstract final class LoginHttp {
     final data = {
       'build': '2001100',
       'buvid': buvid,
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'channel': 'master',
       'cid': cid,
       // if (deviceTouristId != null) 'device_tourist_id': deviceTouristId,
@@ -121,7 +122,7 @@ abstract final class LoginHttp {
       'mobi_app': 'android_hd',
       'platform': 'android',
       'recaptcha_token': ?recaptchaToken,
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'statistics': Constants.statistics,
       'tel': tel,
       'ts': (timestamp ~/ 1000).toString(),
@@ -155,7 +156,7 @@ abstract final class LoginHttp {
   //     'appkey': Constants.appKey,
   //     'build': '2001100',
   //     'buvid': buvid,
-  //     'c_locale': 'zh_CN',
+  //     'c_locale': currentApiLocaleCode(),
   //     'channel': 'master',
   //     'deviceInfo': 'xxxxxx',
   //     'disable_rcmd': '0',
@@ -165,7 +166,7 @@ abstract final class LoginHttp {
   //     'local_id': buvid,
   //     'mobi_app': 'android_hd',
   //     'platform': 'android',
-  //     's_locale': 'zh_CN',
+  //     's_locale': currentApiLocaleCode(),
   //     'statistics': Constants.statistics,
   //     'ts': (DateTime.now().millisecondsSinceEpoch ~/ 1000).toString(),
   //   };
@@ -208,7 +209,7 @@ abstract final class LoginHttp {
       'bili_local_id': deviceId,
       'build': '2001100',
       'buvid': buvid,
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'channel': 'master',
       'device': 'phone',
       'device_id': deviceId,
@@ -232,7 +233,7 @@ abstract final class LoginHttp {
       'permission': 'ALL',
       'platform': 'android',
       'recaptcha_token': ?recaptchaToken,
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'statistics': Constants.statistics,
       'username': username,
     };
@@ -276,7 +277,7 @@ abstract final class LoginHttp {
       'bili_local_id': deviceId,
       'build': '2001100',
       'buvid': buvid,
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'captcha_key': captchaKey,
       'channel': 'master',
       'cid': cid,
@@ -298,7 +299,7 @@ abstract final class LoginHttp {
       'local_id': buvid,
       'mobi_app': 'android_hd',
       'platform': 'android',
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'statistics': Constants.statistics,
       'tel': tel,
     };
@@ -455,7 +456,7 @@ abstract final class LoginHttp {
     final Map<String, String> data = {
       'build': '2001100',
       'buvid': buvid,
-      // 'c_locale': 'zh_CN',
+      // 'c_locale': currentApiLocaleCode(),
       // 'channel': 'master',
       'code': code,
       // 'device': 'phone',
@@ -467,7 +468,7 @@ abstract final class LoginHttp {
       'local_id': buvid,
       'mobi_app': 'android_hd',
       'platform': 'android',
-      // 's_locale': 'zh_CN',
+      // 's_locale': currentApiLocaleCode(),
       // 'statistics': Constants.statistics,
     };
     AppSign.appSign(data);

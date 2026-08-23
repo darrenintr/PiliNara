@@ -17,6 +17,7 @@ import 'package:PiliPlus/utils/app_sign.dart';
 import 'package:PiliPlus/utils/date_utils.dart';
 import 'package:PiliPlus/utils/extension/file_ext.dart';
 import 'package:PiliPlus/utils/extension/theme_ext.dart';
+import 'package:PiliPlus/utils/locale_utils.dart';
 import 'package:PiliPlus/utils/page_utils.dart';
 import 'package:PiliPlus/utils/platform_utils.dart';
 import 'package:PiliPlus/utils/storage.dart';
@@ -71,11 +72,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Future<void> _getInfo() async {
     Map<String, String> data = {
       'build': '2001100',
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'channel': 'master',
       'mobi_app': 'android_hd',
       'platform': 'android',
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'statistics': Constants.statistics,
     };
     Request()
@@ -352,11 +353,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
     final data = <String, String>{
       'access_key': accessKey,
       'build': '2001100',
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'channel': 'master',
       'mobi_app': 'android_hd',
       'platform': 'android',
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'statistics': Constants.statistics,
       if (type == ProfileType.uname)
         'uname': _textController.text

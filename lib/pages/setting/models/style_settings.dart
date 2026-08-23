@@ -40,6 +40,7 @@ import 'package:PiliPlus/utils/platform_utils.dart';
 import 'package:PiliPlus/utils/storage.dart';
 import 'package:PiliPlus/utils/storage_key.dart';
 import 'package:PiliPlus/utils/storage_pref.dart';
+import 'package:PiliPlus/models/common/app_locale_type.dart';
 import 'package:PiliPlus/utils/theme_utils.dart';
 import 'package:flutter/material.dart' hide StatefulBuilder;
 import 'package:flutter/services.dart';
@@ -343,6 +344,13 @@ List<SettingsModel> get styleSettings => [
       style: theme.textTheme.titleSmall,
     ),
     onTap: _showToastDialog,
+  ),
+  NormalModel(
+    leading: const Icon(Icons.translate),
+    title: '应用语言',
+    subtitle: '切换为应用界面语言，部分接口地区码会同步更新',
+    getSubtitle: () => '当前：${_currentLocaleLabel(Pref.appLocale)}',
+    onTap: _showAppLocaleDialog,
   ),
   NormalModel(
     onTap: _showThemeTypeDialog,
@@ -1146,6 +1154,52 @@ Future<void> _showThemeTypeDialog(
     setState();
   }
 }
+
+Future<void> _showAppLocaleDialog(
+  BuildContext context,
+  VoidCallback setState,
+) async {
+  final res = await showDialog<AppLocaleType>(
+    context: context,
+    builder: (context) => SelectDialog<AppLocaleType>(
+      title: '应用语言',
+      value: Pref.appLocale,
+      values: AppLocaleType.values
+          .map((e) => (e, _localeOptionLabel(e)))
+          .toList(),
+    ),
+  );
+  if (res != null && res != Pref.appLocale) {
+    Pref.appLocale = res;
+    // 立即应用：通过 Get.updateLocale 通知所有 GetMaterialApp 重新构建
+    final newLocale = res.locale;
+    if (newLocale != null) {
+      Get.updateLocale(newLocale);
+    }
+    SmartDialog.showToast('设置成功');
+    setState();
+  }
+}
+
+String _currentLocaleLabel(AppLocaleType type) {
+  if (type == AppLocaleType.system) {
+    final device = Get.deviceLocale;
+    final resolved = device == null
+        ? 'zh_CN'
+        : AppLocaleType.resolveApiCode(device);
+    return '跟随系统（$resolved）';
+  }
+  return _localeOptionLabel(type);
+}
+
+String _localeOptionLabel(AppLocaleType type) {
+  // "跟随系统 (zh_CN)" — 显示底层 API locale 便于用户预期接口返回的语言
+  if (type == AppLocaleType.system) {
+    return '跟随系统';
+  }
+  return '${type.label}（${type.effectiveApiCode}）';
+}
+
 
 Future<void> _showDefHomeDialog(
   BuildContext context,
