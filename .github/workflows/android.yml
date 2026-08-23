@@ -65,19 +65,9 @@ jobs:
                 git stash pop || true
               continue-on-error: true
 
-            - name: apply bottom sheet patch
-              working-directory: ${{ env.FLUTTER_ROOT }}
-              run: git apply $GITHUB_WORKSPACE/lib/scripts/bottom_sheet_patch.diff || true
-              continue-on-error: true
-
-            - name: apply modal barrier patch
-              working-directory: ${{ env.FLUTTER_ROOT }}
-              run: git apply $GITHUB_WORKSPACE/lib/scripts/modal_barrier_patch.diff || true
-              continue-on-error: true
-
-            - name: apply mouse cursor patch
-              working-directory: ${{ env.FLUTTER_ROOT }}
-              run: git apply $GITHUB_WORKSPACE/lib/scripts/mouse_cursor_patch.diff || true
+            - name: apply Flutter SDK patches
+              shell: pwsh
+              run: lib/scripts/patch.ps1 android
               continue-on-error: true
 
             - name: Write key
