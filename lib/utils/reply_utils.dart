@@ -109,7 +109,7 @@ abstract final class ReplyUtils {
             notifyType: .warning,
           );
         } else {
-          SmartDialog.showToast('评论检查通过：无账号状态下可见');
+          SmartDialog.showToast('评论检查通过：无账号状态下可见'.tr);
         }
         return;
       }
@@ -142,13 +142,13 @@ abstract final class ReplyUtils {
                     },
                   );
                 },
-                child: const Text('申诉'),
+                child: Text('申诉'.tr),
               ),
             if (!isManual)
               TextButton(
                 onPressed: Get.back,
                 child: Text(
-                  '关闭',
+                  '关闭'.tr,
                   style: TextStyle(color: colorScheme.outline),
                 ),
               ),
@@ -172,7 +172,7 @@ abstract final class ReplyUtils {
                           ),
                   ),
                   TextSpan(
-                    text: ' 评论检查结果',
+                    text: ' 评论检查结果'.tr,
                     style: TextStyle(color: color),
                   ),
                 ],

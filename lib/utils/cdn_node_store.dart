@@ -5,6 +5,7 @@ import 'package:PiliPlus/utils/storage.dart';
 import 'package:PiliPlus/utils/storage_key.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:get/get.dart';
 
 /// CDN 节点列表（数据源自 CCB 项目，assets 快照保底，可手动刷新）。
 /// 结构与上游 cdn.json 一致：{ "地区": ["host", ...] }

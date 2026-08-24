@@ -285,7 +285,7 @@ mixin BlockMixin on GetxController {
       if (isSkip) {
         _showBlockToast('${item.segmentType.shortTitle}片段跳过失败');
       } else {
-        _showBlockToast('跳转失败');
+        _showBlockToast('跳转失败'.tr);
       }
     }
   }
@@ -305,21 +305,21 @@ mixin BlockMixin on GetxController {
         contentPadding: const .symmetric(vertical: 10),
         children: [
           DialogOption(
-            child: const Text('赞成票', style: TextStyle(fontSize: 14)),
+            child: Text('赞成票'.tr, style: TextStyle(fontSize: 14)),
             onPressed: () {
               Get.back();
               _doVote(segment.uuid, 1);
             },
           ),
           DialogOption(
-            child: const Text('反对票', style: TextStyle(fontSize: 14)),
+            child: Text('反对票'.tr, style: TextStyle(fontSize: 14)),
             onPressed: () {
               Get.back();
               _doVote(segment.uuid, 0);
             },
           ),
           DialogOption(
-            child: const Text('更改类别', style: TextStyle(fontSize: 14)),
+            child: Text('更改类别'.tr, style: TextStyle(fontSize: 14)),
             onPressed: () {
               Get.back();
               _showCategoryDialog(segment);
@@ -333,7 +333,7 @@ mixin BlockMixin on GetxController {
   void _doVote(String uuid, int type) => SponsorBlock.voteOnSponsorTime(
     uuid: uuid,
     type: type,
-  ).then((i) => SmartDialog.showToast(i.isSuccess ? '投票成功' : '投票失败: $i'));
+  ).then((i) => SmartDialog.showToast(i.isSuccess ? '投票成功'.tr : '投票失败: $i'));
 
   void _showCategoryDialog(SegmentModel segment) {
     showDialog(
@@ -441,8 +441,8 @@ mixin BlockMixin on GetxController {
                         height: 36,
                         child: IconButton(
                           tooltip: item.skipType == SkipType.showOnly
-                              ? '跳至此片段'
-                              : '跳过此片段',
+                              ? '跳至此片段'.tr
+                              : '跳过此片段'.tr,
                           onPressed: () {
                             Get.back();
                             onSkip(

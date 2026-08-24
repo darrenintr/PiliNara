@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum VideoPubTimeType {
   all('不限'),
   day('最近一天'),

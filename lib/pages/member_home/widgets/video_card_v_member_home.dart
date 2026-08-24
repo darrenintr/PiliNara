@@ -12,6 +12,7 @@ import 'package:PiliPlus/utils/id_utils.dart';
 import 'package:PiliPlus/utils/page_utils.dart';
 import 'package:PiliPlus/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 // 视频卡片 - 垂直布局
 class VideoCardVMemberHome extends StatelessWidget {
@@ -120,19 +121,19 @@ class VideoCardVMemberHome extends StatelessWidget {
                               .join('|'),
                           top: 6,
                           right: 6,
-                          type: videoItem.badges!.first.text == '充电专属'
+                          type: videoItem.badges!.first.text == '充电专属'.tr
                               ? PBadgeType.error
                               : PBadgeType.primary,
                         )
                       else if (videoItem.isCooperation == true)
-                        const PBadge(
-                          text: '合作',
+                        PBadge(
+                          text: '合作'.tr,
                           top: 6,
                           right: 6,
                         )
                       else if (videoItem.isSteins == true)
-                        const PBadge(
-                          text: '互动',
+                        PBadge(
+                          text: '互动'.tr,
                           top: 6,
                           right: 6,
                         ),

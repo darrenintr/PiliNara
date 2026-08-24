@@ -380,7 +380,7 @@ class _MemberPageState extends State<MemberPage> {
           if (_userController.isFollowed == 1)
             PopupMenuItem(
               onTap: _userController.onRemoveFan,
-              child: const Row(
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.remove_circle_outline_outlined, size: 19),
@@ -406,7 +406,7 @@ class _MemberPageState extends State<MemberPage> {
         if (PlatformUtils.isMobile)
           PopupMenuItem(
             onTap: _createShortcut,
-            child: const Row(
+            child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(Icons.add_box_outlined, size: 19),
@@ -422,7 +422,7 @@ class _MemberPageState extends State<MemberPage> {
         //       name: _userController.username ?? '',
         //       count: _userController.chargeCount,
         //     ),
-        //     child: const Row(
+        //     child: Row(
         //       mainAxisSize: MainAxisSize.min,
         //       children: [
         //         Icon(Icons.electric_bolt, size: 19),

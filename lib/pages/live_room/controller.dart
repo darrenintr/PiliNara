@@ -91,7 +91,7 @@ class LiveRoomController extends GetxController {
         liveTime * 1000,
         DateTime.now().millisecondsSinceEpoch,
       );
-      text += duration.isEmpty ? '刚刚开播' : '开播$duration';
+      text += duration.isEmpty ? '刚刚开播'.tr : '开播$duration';
     }
     if (text.isEmpty) {
       return const SizedBox.shrink();
@@ -267,12 +267,12 @@ class LiveRoomController extends GetxController {
     );
     if (res case Success(:final response)) {
       if (response.liveStatus != 1) {
-        _showDialog('当前直播间未开播');
+        _showDialog('当前直播间未开播'.tr);
         return;
       }
       final playurl = response.playurlInfo?.playurl;
       if (playurl == null) {
-        _showDialog('无法获取播放地址');
+        _showDialog('无法获取播放地址'.tr);
         return;
       }
       ruid = response.uid;
@@ -459,7 +459,7 @@ class LiveRoomController extends GetxController {
     final currentUrl = videoUrl;
     final url = _preferredCastUrl() ?? currentUrl;
     if (url == null || url.isEmpty) {
-      SmartDialog.showToast('播放地址未就绪');
+      SmartDialog.showToast('播放地址未就绪'.tr);
       return;
     }
     final castTitle = title.value.isNotEmpty ? title.value : null;
@@ -481,7 +481,7 @@ class LiveRoomController extends GetxController {
           TextButton(
             onPressed: Get.back,
             child: Text(
-              '关闭',
+              '关闭'.tr,
               style: TextStyle(color: ThemeUtils.theme.colorScheme.outline),
             ),
           ),
@@ -494,7 +494,7 @@ class LiveRoomController extends GetxController {
                 ..back()
                 ..back();
             },
-            child: const Text('退出'),
+            child: Text('退出'.tr),
           ),
         ],
       ),
@@ -825,7 +825,7 @@ class LiveRoomController extends GetxController {
       anchorId: roomInfoH5.value?.roomInfo?.uid,
     );
     if (res.isSuccess) {
-      SmartDialog.showToast('点赞成功');
+      SmartDialog.showToast('点赞成功'.tr);
     } else {
       res.toast();
     }
@@ -834,7 +834,7 @@ class LiveRoomController extends GetxController {
 
   void onSendDanmaku([bool fromEmote = false]) {
     if (kReleaseMode && !isLogin) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('账号未登录'.tr);
       return;
     }
     Get.key.currentState!.push(
@@ -868,7 +868,7 @@ class LiveRoomController extends GetxController {
 
   void reportSC(SuperChatItem item) {
     if (!isLogin) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('账号未登录'.tr);
       return;
     }
     autoWrapReportDialog(

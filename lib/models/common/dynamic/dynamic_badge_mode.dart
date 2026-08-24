@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum DynamicBadgeMode {
   hidden('隐藏'),
   point('红点'),

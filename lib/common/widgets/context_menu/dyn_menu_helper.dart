@@ -9,7 +9,7 @@ Widget dynTextMenuBuilder(
     ..insertOrAdd(
       3,
       ContextMenuButtonItem(
-        label: '文本',
+        label: '文本'.tr,
         onPressed: () {
           state.hideAndClear();
           _showTextDialog(text);
@@ -19,7 +19,7 @@ Widget dynTextMenuBuilder(
     ..insertOrAdd(
       4,
       ContextMenuButtonItem(
-        label: '表情',
+        label: '表情'.tr,
         onPressed: () {
           state.hideAndClear();
           _showEmoteDialog(moduleDynamic);
@@ -46,7 +46,7 @@ void _addDynFilterItem(
 
           showConfirmDialog(
             context: Get.context!,
-            title: const Text('是否将以下内容加入动态过滤：'),
+            title: Text('是否将以下内容加入动态过滤：'.tr),
             content: Text(
               escapedText,
               style: const TextStyle(
@@ -61,7 +61,7 @@ void _addDynFilterItem(
                   ? <String>[]
                   : currentStored.split('\n');
               if (existingKeywords.contains(escapedText)) {
-                SmartDialog.showToast('该关键词已在过滤列表中');
+                SmartDialog.showToast('该关键词已在过滤列表中'.tr);
                 return;
               }
               final newStored = currentStored.isEmpty
@@ -74,11 +74,11 @@ void _addDynFilterItem(
                 caseSensitive: true,
               );
               DynamicsDataModel.enableFilter = true;
-              SmartDialog.showToast('已保存');
+              SmartDialog.showToast('已保存'.tr);
             },
           );
         },
-        label: '加入过滤',
+        label: '加入过滤'.tr,
       ),
     );
   }

@@ -99,7 +99,7 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     return SimpleScaffold(
       appBar: AppBar(
-        title: _isPortrait ? const Text('设置') : Text(_type.title),
+        title: _isPortrait ? Text('设置') : Text(_type.title),
       ),
       body: ViewSafeArea(
         child: _isPortrait
@@ -244,7 +244,7 @@ class _SettingPageState extends State<SettingPage> {
       builder: (context) {
         final theme = Theme.of(context);
         return AlertDialog(
-          title: const Text('提示'),
+          title: Text('提示'),
           content: Text(
             "确认要退出以下账号登录吗\n\n${result.map((i) => i.mid.toString()).join('\n')}",
           ),
@@ -281,7 +281,7 @@ class _SettingPageState extends State<SettingPage> {
                   SmartDialog.showToast(res['msg'].toString());
                 }
               },
-              child: const Text('确认'),
+              child: Text('确认'),
             ),
           ],
         );
@@ -301,7 +301,7 @@ class _SettingPageState extends State<SettingPage> {
       child: InkWell(
         onTap: () => Get.toNamed('/settingsSearch'),
         borderRadius: const BorderRadius.all(Radius.circular(50)),
-        child: const Padding(
+        child: Padding(
           padding: EdgeInsets.symmetric(vertical: 8),
           child: Center(
             child: Row(

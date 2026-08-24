@@ -40,7 +40,7 @@ class _ReplySearchPageState extends State<ReplySearchPage> {
       appBar: AppBar(
         actions: [
           IconButton(
-            tooltip: '搜索',
+            tooltip: '搜索'.tr,
             onPressed: _controller.submit,
             icon: const Icon(Icons.search, size: 22),
           ),
@@ -53,11 +53,11 @@ class _ReplySearchPageState extends State<ReplySearchPage> {
           textInputAction: TextInputAction.search,
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
-            hintText: '搜索',
+            hintText: '搜索'.tr,
             visualDensity: .standard,
             border: InputBorder.none,
             suffixIcon: IconButton(
-              tooltip: '清空',
+              tooltip: '清空'.tr,
               icon: const Icon(Icons.clear, size: 22),
               onPressed: _controller.onClear,
             ),
@@ -70,9 +70,9 @@ class _ReplySearchPageState extends State<ReplySearchPage> {
           children: [
             TabBar(
               controller: _controller.tabController,
-              tabs: const [
-                Tab(text: '视频'),
-                Tab(text: '专栏'),
+              tabs: [
+                Tab(text: '视频'.tr),
+                Tab(text: '专栏'.tr),
               ],
               onTap: (index) {
                 if (!_controller.tabController.indexIsChanging) {

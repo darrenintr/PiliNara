@@ -494,7 +494,7 @@ class EpisodePanelState extends State<EpisodePanel>
                             type: PBadgeType.gray,
                           ),
                         if (isCharging == true)
-                          const PBadge(
+                          PBadge(
                             text: '充电专属',
                             top: 6,
                             right: 6,

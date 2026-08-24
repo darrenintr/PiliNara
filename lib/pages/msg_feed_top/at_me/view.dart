@@ -33,7 +33,7 @@ class _AtMePageState extends State<AtMePage> {
     final theme = Theme.of(context);
     return SimpleScaffold(
       appBar: AppBar(
-        title: const Text('@我的'),
+        title: Text('@我的'.tr),
         actions: [
           IconButton(
             onPressed: () => Get.to(
@@ -96,7 +96,7 @@ class _AtMePageState extends State<AtMePage> {
               final item = response[index];
               void onLongPress() => showConfirmDialog(
                 context: context,
-                title: const Text('确定删除该通知?'),
+                title: Text('确定删除该通知?'.tr),
                 onConfirm: () => _atMeController.onRemove(item.id!, index),
               );
               return ListTile(

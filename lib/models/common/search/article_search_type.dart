@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum ArticleOrderType {
   totalrank('综合排序'),
   pubdate('最新发布'),

@@ -42,7 +42,7 @@ class _ContactPageState extends State<ContactPage>
   Widget build(BuildContext context) {
     return SimpleScaffold(
       appBar: AppBar(
-        title: const Text('通讯录'),
+        title: Text('通讯录'.tr),
         actions: [
           IconButton(
             onPressed: () async {
@@ -67,9 +67,9 @@ class _ContactPageState extends State<ContactPage>
         children: [
           TabBar(
             controller: _controller,
-            tabs: const [
-              Tab(text: '我的关注'),
-              Tab(text: '我的粉丝'),
+            tabs: [
+              Tab(text: '我的关注'.tr),
+              Tab(text: '我的粉丝'.tr),
             ],
           ),
           Expanded(

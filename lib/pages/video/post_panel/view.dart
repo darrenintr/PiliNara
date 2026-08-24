@@ -72,7 +72,7 @@ class PostPanel extends CommonSlidePage {
             iconButton(
               context: context,
               size: 26,
-              tooltip: '设为当前',
+              tooltip: '设为当前'.tr,
               icon: const Icon(Icons.my_location),
               onPressed: () {
                 updateSegment(
@@ -86,7 +86,7 @@ class PostPanel extends CommonSlidePage {
             iconButton(
               context: context,
               size: 26,
-              tooltip: isFirst ? '视频开头' : '视频结尾',
+              tooltip: isFirst ? '视频开头'.tr : '视频结尾'.tr,
               icon: isFirst
                   ? const Icon(Icons.first_page)
                   : const Icon(Icons.last_page),
@@ -102,7 +102,7 @@ class PostPanel extends CommonSlidePage {
             iconButton(
               context: context,
               size: 26,
-              tooltip: '编辑',
+              tooltip: '编辑'.tr,
               icon: const Icon(Icons.edit),
               onPressed: () async {
                 String initV = value;
@@ -121,7 +121,7 @@ class PostPanel extends CommonSlidePage {
                       TextButton(
                         onPressed: Get.back,
                         child: Text(
-                          '取消',
+                          '取消'.tr,
                           style: TextStyle(
                             color: theme.colorScheme.outline,
                           ),
@@ -129,7 +129,7 @@ class PostPanel extends CommonSlidePage {
                       ),
                       TextButton(
                         onPressed: () => Get.back(result: initV),
-                        child: const Text('确定'),
+                        child: Text('确定'.tr),
                       ),
                     ],
                   ),
@@ -197,11 +197,11 @@ class _PostPanelState extends State<PostPanel>
         child: Row(
           children: [
             const SizedBox(width: 16),
-            const Expanded(child: Text('提交片段', style: TextStyle(fontSize: 16))),
+            Expanded(child: Text('提交片段'.tr, style: TextStyle(fontSize: 16))),
             iconButton(
               size: 32,
               context: context,
-              tooltip: '添加片段',
+              tooltip: '添加片段'.tr,
               onPressed: () {
                 setState(() {
                   list.insert(
@@ -223,7 +223,7 @@ class _PostPanelState extends State<PostPanel>
             iconButton(
               size: 32,
               context: context,
-              tooltip: '关闭',
+              tooltip: '关闭'.tr,
               onPressed: Get.back,
               icon: const Icon(Icons.close),
             ),
@@ -240,22 +240,22 @@ class _PostPanelState extends State<PostPanel>
                 bottom: kFloatingActionButtonMargin + bottom,
               ),
               child: FloatingActionButton(
-                tooltip: '提交',
+                tooltip: '提交'.tr,
                 onPressed: () => showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: const Text('确定无误再提交'),
+                    title: Text('确定无误再提交'.tr),
                     actions: [
                       TextButton(
                         onPressed: Get.back,
                         child: Text(
-                          '取消',
+                          '取消'.tr,
                           style: TextStyle(color: theme.colorScheme.outline),
                         ),
                       ),
                       TextButton(
                         onPressed: _onPost,
-                        child: const Text('确定提交'),
+                        child: Text('确定提交'.tr),
                       ),
                     ],
                   ),
@@ -303,7 +303,7 @@ class _PostPanelState extends State<PostPanel>
 
     if (res case Success(:final response)) {
       Get.back();
-      SmartDialog.showToast('提交成功');
+      SmartDialog.showToast('提交成功'.tr);
       list.clear();
       videoDetailController.handleSBData(response);
       if (videoDetailController.blockListener == null) {
@@ -347,7 +347,7 @@ class _PostPanelState extends State<PostPanel>
                   spacing: 16,
                   children: [
                     PopupMenuText(
-                      title: '分类',
+                      title: '分类'.tr,
                       value: () => item.category,
                       onSelected: (e) {
                         bool flag = false;
@@ -392,7 +392,7 @@ class _PostPanelState extends State<PostPanel>
                       getSelectTitle: (category) => category.title,
                     ),
                     PopupMenuText(
-                      title: '行为类别',
+                      title: '行为类别'.tr,
                       value: () => item.actionType,
                       onSelected: (e) {
                         bool flag = false;
@@ -436,7 +436,7 @@ class _PostPanelState extends State<PostPanel>
           child: iconButton(
             context: context,
             size: 26,
-            tooltip: '移除',
+            tooltip: '移除'.tr,
             icon: const Icon(Icons.clear),
             onPressed: () {
               setState(() {
@@ -451,7 +451,7 @@ class _PostPanelState extends State<PostPanel>
           child: iconButton(
             context: context,
             size: 26,
-            tooltip: '预览',
+            tooltip: '预览'.tr,
             icon: const Icon(Icons.preview_outlined),
             onPressed: () async {
               final player = plPlayerController.videoPlayerController;

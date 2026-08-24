@@ -117,8 +117,8 @@ class FavVideoCardH extends StatelessWidget {
                           type: PBadgeType.gray,
                         ),
                         if (item.type == 12)
-                          const PBadge(
-                            text: '音频',
+                          PBadge(
+                            text: '音频'.tr,
                             top: 6.0,
                             right: 6.0,
                             type: PBadgeType.gray,
@@ -213,18 +213,18 @@ class FavVideoCardH extends StatelessWidget {
               bottom: -8,
               child: iconButton(
                 icon: const Icon(Icons.clear),
-                tooltip: '取消收藏',
+                tooltip: '取消收藏'.tr,
                 iconColor: colorScheme.outline,
                 onPressed: () => showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: const Text('提示'),
-                    content: const Text('要取消收藏吗?'),
+                    title: Text('提示'.tr),
+                    content: Text('要取消收藏吗?'.tr),
                     actions: [
                       TextButton(
                         onPressed: Get.back,
                         child: Text(
-                          '取消',
+                          '取消'.tr,
                           style: TextStyle(color: colorScheme.outline),
                         ),
                       ),
@@ -233,7 +233,7 @@ class FavVideoCardH extends StatelessWidget {
                           Get.back();
                           ctr!.onCancelFav(index!, item.id!, item.type!);
                         },
-                        child: const Text('确定取消'),
+                        child: Text('确定取消'.tr),
                       ),
                     ],
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 const List<({Color color, String label})> colorThemeTypes = [
   (color: Color(0xFF5CB67B), label: '默认绿'),

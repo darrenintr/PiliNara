@@ -1,6 +1,7 @@
 import 'package:PiliPlus/common/skeleton/skeleton.dart';
 import 'package:PiliPlus/utils/global_data.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DynamicCardSkeleton extends StatelessWidget {
   const DynamicCardSkeleton({super.key});
@@ -93,7 +94,7 @@ class DynamicCardSkeleton extends StatelessWidget {
             if (GlobalData().dynamicsWaterfallFlow) const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const ['转发', '评论', '点赞']
+              children: ['转发'.tr, '评论'.tr, '点赞'.tr]
                   .map(
                     (e) => TextButton.icon(
                       onPressed: () {},

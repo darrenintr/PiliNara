@@ -173,7 +173,7 @@ mixin HeaderMixin<T extends StatefulWidget> on State<T> {
                 child: ListView(
                   padding: EdgeInsets.zero,
                   children: [
-                    const SizedBox(
+                    SizedBox(
                       height: 45,
                       child: Center(
                         child: Text('弹幕设置', style: TextStyle(fontSize: 14)),
@@ -215,7 +215,7 @@ mixin HeaderMixin<T extends StatefulWidget> on State<T> {
                         ),
                       ),
                     ],
-                    const Text('按类型屏蔽'),
+                    Text('按类型屏蔽'),
                     SingleChildScrollView(
                       scrollDirection: .horizontal,
                       padding: const .symmetric(vertical: 10),
@@ -235,7 +235,7 @@ mixin HeaderMixin<T extends StatefulWidget> on State<T> {
                         ).toList(),
                       ),
                     ),
-                    const Text('其他'),
+                    Text('其他'),
                     SingleChildScrollView(
                       scrollDirection: .horizontal,
                       padding: const .symmetric(vertical: 10),

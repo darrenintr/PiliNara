@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum SuperChatTimeType {
   whenPersist('仅SC常驻模式下显示'),
   always('始终显示'),

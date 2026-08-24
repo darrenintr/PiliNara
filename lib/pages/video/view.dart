@@ -476,8 +476,8 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
 
       // 重新创建 TabController，因为旧的 vsync (State) 已经失效
       final List<String> initialTabs = [
-        videoDetailController.isFileSource ? '离线视频' : '简介',
-        if (videoDetailController.showReply) '评论',
+        videoDetailController.isFileSource ? '离线视频'.tr : '简介'.tr,
+        if (videoDetailController.showReply) '评论'.tr,
       ];
       videoDetailController.tabCtr = TabController(
         vsync: videoDetailController,
@@ -1282,13 +1282,13 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
     final String playStat;
     if (videoDetailController.playedTime == null) {
       icon = Icons.play_arrow_rounded;
-      playStat = '立即';
+      playStat = '立即'.tr;
     } else if (plPlayerController!.isCompleted) {
       icon = CustomIcons.replay_rounded;
-      playStat = '重新';
+      playStat = '重新'.tr;
     } else {
       icon = Icons.play_arrow_rounded;
-      playStat = '继续';
+      playStat = '继续'.tr;
     }
     final playBtn = Row(
       spacing: 2,
@@ -1320,7 +1320,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
                       width: 42,
                       height: 34,
                       child: IconButton(
-                        tooltip: '返回',
+                        tooltip: '返回'.tr,
                         icon: Icon(
                           FontAwesomeIcons.arrowLeft,
                           size: 15,
@@ -1333,7 +1333,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
                       width: 42,
                       height: 34,
                       child: IconButton(
-                        tooltip: '返回主页',
+                        tooltip: '返回主页'.tr,
                         icon: Icon(
                           FontAwesomeIcons.house,
                           size: 15,
@@ -1631,7 +1631,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildTabBar(
-                    introText: '相关视频',
+                    introText: '相关视频'.tr,
                     showIntro: videoDetailController.isFileSource
                         ? true
                         : showIntro,
@@ -1781,7 +1781,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
                   width: 42,
                   height: 34,
                   child: IconButton(
-                    tooltip: '返回',
+                    tooltip: '返回'.tr,
                     icon: const Icon(
                       FontAwesomeIcons.arrowLeft,
                       size: 15,
@@ -1800,7 +1800,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
                   width: 42,
                   height: 34,
                   child: IconButton(
-                    tooltip: '返回主页',
+                    tooltip: '返回主页'.tr,
                     icon: const Icon(
                       FontAwesomeIcons.house,
                       size: 15,
@@ -1851,38 +1851,38 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
     itemBuilder: (BuildContext context) => <PopupMenuEntry>[
       PopupMenuItem(
         onTap: introController.viewLater,
-        child: const Text('稍后再看'),
+        child: Text('稍后再看'.tr),
       ),
       if (videoDetailController.epId == null)
         PopupMenuItem(
           onTap: () => videoDetailController.showNoteList(context),
-          child: const Text('查看笔记'),
+          child: Text('查看笔记'.tr),
         ),
       if (!videoDetailController.isFileSource)
         PopupMenuItem(
           onTap: () => videoDetailController.onDownload(this.context),
-          child: const Text('缓存视频'),
+          child: Text('缓存视频'.tr),
         ),
       if (videoDetailController.cover.value.isNotEmpty)
         PopupMenuItem(
           onTap: () =>
               ImageUtils.downloadImg([videoDetailController.cover.value]),
-          child: const Text('保存封面'),
+          child: Text('保存封面'.tr),
         ),
       if (!videoDetailController.isFileSource && videoDetailController.isUgc)
         PopupMenuItem(
           onTap: videoDetailController.toAudioPage,
-          child: const Text('听音频'),
+          child: Text('听音频'.tr),
         ),
       PopupMenuItem(
         onTap: () {
           if (!Accounts.main.isLogin) {
-            SmartDialog.showToast('账号未登录');
+            SmartDialog.showToast('账号未登录'.tr);
           } else {
             PageUtils.reportVideo(videoDetailController.aid);
           }
         },
-        child: const Text('举报'),
+        child: Text('举报'.tr),
       ),
     ],
   );
@@ -2032,9 +2032,9 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
   }) {
     final tabs = [
       if (showIntro)
-        videoDetailController.isFileSource ? '离线视频' : introText ?? '简介',
-      if (videoDetailController.showReply) '评论',
-      if (_shouldShowSeasonPanel) '播放列表',
+        videoDetailController.isFileSource ? '离线视频'.tr : introText ?? '简介'.tr,
+      if (videoDetailController.showReply) '评论'.tr,
+      if (_shouldShowSeasonPanel) '播放列表'.tr,
     ];
     final oldTabCtr = videoDetailController.tabCtr;
     final oldTabCtrDisposed = oldTabCtr.animation == null;
@@ -2077,10 +2077,10 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
             }
             String text = tabs[value];
             if (videoDetailController.isFileSource ||
-                text == '简介' ||
-                text == '相关视频') {
+                text == '简介'.tr ||
+                text == '相关视频'.tr) {
               videoDetailController.introScrollCtr?.animToTop();
-            } else if (text.startsWith('评论')) {
+            } else if (text.startsWith('评论'.tr)) {
               _videoReplyController.animateToTop();
             }
           }
@@ -2092,7 +2092,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
           }
         },
         tabs: tabs.map((text) {
-          if (text == '评论') {
+          if (text == '评论'.tr) {
             return Obx(() {
               final count = _videoReplyController.count.value;
               return Tab(
@@ -2144,7 +2144,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
                 ),
                 onPressed: videoDetailController.showShootDanmakuSheet,
                 child: Text(
-                  '发弹幕',
+                  '发弹幕'.tr,
                   style: TextStyle(
                     fontSize: 12,
                     color: colorScheme.onSurfaceVariant,
@@ -2690,7 +2690,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
 
   void onReversePlay({required bool isSeason}) {
     if (isSeason && videoDetailController.isPlayAll) {
-      SmartDialog.showToast('当前为播放全部，合集不支持倒序');
+      SmartDialog.showToast('当前为播放全部，合集不支持倒序'.tr);
       return;
     }
 

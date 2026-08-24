@@ -355,8 +355,8 @@ Widget? addWidget(
                                         color: theme.colorScheme.primary,
                                       ),
                                     ),
-                                    const TextSpan(
-                                      text: ' 起',
+                                    TextSpan(
+                                      text: ' 起'.tr,
                                       style: TextStyle(fontSize: 12),
                                     ),
                                   ],
@@ -477,7 +477,7 @@ Widget? addWidget(
                     ),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  child: const Text('参与'),
+                  child: Text('参与'.tr),
                 ),
               ],
             ),

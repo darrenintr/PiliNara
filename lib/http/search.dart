@@ -18,6 +18,7 @@ import 'package:PiliPlus/utils/wbi_sign.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 
 abstract final class SearchHttp {
   // 获取搜索建议
@@ -96,7 +97,7 @@ abstract final class SearchHttp {
         final vVoucher = dataData['v_voucher'];
         if (vVoucher != null) {
           RequestUtils.validate(vVoucher, onSuccess);
-          return const Error('触发风控');
+          return Error('触发风控'.tr);
         }
         dynamic data;
         try {
@@ -127,7 +128,7 @@ abstract final class SearchHttp {
         return Error(resData['message'], code: resData['code']);
       }
     } else {
-      return const Error('服务器错误');
+      return Error('服务器错误'.tr);
     }
   }
 
@@ -161,7 +162,7 @@ abstract final class SearchHttp {
       queryParameters: params,
     );
     if (res.data is! Map) {
-      return const Error('没有相关数据');
+      return Error('没有相关数据'.tr);
     }
     if (res.data['code'] == 0) {
       try {
@@ -170,7 +171,7 @@ abstract final class SearchHttp {
         return Error('$e\n\n$s');
       }
     } else {
-      return Error(res.data['message'] ?? '没有相关数据');
+      return Error(res.data['message'] ?? '没有相关数据'.tr);
     }
   }
 

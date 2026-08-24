@@ -16,6 +16,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 
 abstract final class Update {
   // 检查更新
@@ -32,7 +33,7 @@ abstract final class Update {
       );
       if (res.data is Map || res.data.isEmpty) {
         if (!isAuto) {
-          SmartDialog.showToast('检查更新失败，GitHub接口未返回数据，请检查网络');
+          SmartDialog.showToast('检查更新失败，GitHub接口未返回数据，请检查网络'.tr);
         }
         return;
       }
@@ -43,7 +44,7 @@ abstract final class Update {
       );
       if (data == null) {
         if (!isAuto) {
-          SmartDialog.showToast('已是最新版本');
+          SmartDialog.showToast('已是最新版本'.tr);
         }
         return;
       }
@@ -51,7 +52,7 @@ abstract final class Update {
           DateTime.parse(data['created_at']).millisecondsSinceEpoch ~/ 1000;
       if (BuildConfig.buildTime >= latest) {
         if (!isAuto) {
-          SmartDialog.showToast('已是最新版本');
+          SmartDialog.showToast('已是最新版本'.tr);
         }
       } else if (isAuto && Pref.skipVersion == data['tag_name']) {
         // 用户已选择跳过此版本，静默忽略
@@ -70,7 +71,7 @@ abstract final class Update {
                   child: Text(text),
                 );
             return AlertDialog(
-              title: const Text('🎉 发现新版本 '),
+              title: Text('🎉 发现新版本 '.tr),
               content: SizedBox(
                 height: 280,
                 child: SingleChildScrollView(
@@ -107,14 +108,14 @@ abstract final class Update {
                       );
                     },
                     child: Text(
-                      '不再提醒',
+                      '不再提醒'.tr,
                       style: TextStyle(color: colorScheme.outline),
                     ),
                   ),
                 TextButton(
                   onPressed: SmartDialog.dismiss,
                   child: Text(
-                    '取消',
+                    '取消'.tr,
                     style: TextStyle(color: colorScheme.outline), 
                   ),
                 ),

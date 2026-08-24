@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum WebviewMenuItem {
   refresh('刷新'),
   copy('复制链接'),

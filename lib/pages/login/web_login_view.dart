@@ -142,7 +142,7 @@ class _WebLoginViewState extends State<WebLoginView>
   @override
   Widget build(BuildContext context) {
     if (!Platform.isAndroid) {
-      return const Center(child: Text('网页登录仅支持 Android APK'));
+      return Center(child: Text('网页登录仅支持 Android APK'.tr));
     }
 
     return Column(
@@ -217,7 +217,7 @@ class _WebLoginViewState extends State<WebLoginView>
             child: OutlinedButton.icon(
               onPressed: () => _detectLoginStatus(showResultToast: true),
               icon: const Icon(Icons.verified_user_outlined),
-              label: const Text('检测登录'),
+              label: Text('检测登录'.tr),
             ),
           ),
         ),
@@ -233,19 +233,19 @@ class _WebLoginViewState extends State<WebLoginView>
     final open = await showDialog<bool>(
       context: this.context,
       builder: (context) => AlertDialog(
-        title: const Text('打开外部应用'),
+        title: Text('打开外部应用'.tr),
         content: Text(uri.toString()),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
             child: Text(
-              '取消',
+              '取消'.tr,
               style: TextStyle(color: ColorScheme.of(context).outline),
             ),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('打开'),
+            child: Text('打开'.tr),
           ),
         ],
       ),

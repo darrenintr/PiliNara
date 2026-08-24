@@ -5,6 +5,7 @@ import 'package:PiliPlus/pages/fav/pgc/view.dart';
 import 'package:PiliPlus/pages/fav/topic/view.dart';
 import 'package:PiliPlus/pages/fav/video/view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 enum FavTabType {
   video('视频', FavVideoPage()),

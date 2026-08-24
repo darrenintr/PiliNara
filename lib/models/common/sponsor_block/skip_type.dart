@@ -1,4 +1,5 @@
 import 'package:PiliPlus/models/common/enum_with_label.dart';
+import 'package:get/get.dart';
 
 enum SkipType implements EnumWithLabel {
   alwaysSkip('总是跳过'),

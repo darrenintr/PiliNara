@@ -91,7 +91,7 @@ class _AboutPageState extends State<AboutPage> {
     final showAppBar = widget.showAppBar;
     final padding = MediaQuery.viewPaddingOf(context);
     return SimpleScaffold(
-      appBar: showAppBar ? AppBar(title: const Text('关于')) : null,
+      appBar: showAppBar ? AppBar(title: Text('关于'.tr)) : null,
       body: ListView(
         padding: EdgeInsets.only(
           left: showAppBar ? padding.left : 0,
@@ -125,9 +125,9 @@ class _AboutPageState extends State<AboutPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '基于PiliPlus做了一些自用修改',
+                  '基于PiliPlus做了一些自用修改'.tr,
                   style: TextStyle(color: outline),
-                  semanticsLabel: '与你一起，发现不一样的世界',
+                  semanticsLabel: '与你一起，发现不一样的世界'.tr,
                 ),
                 const Icon(
                   Icons.accessibility_new,
@@ -143,7 +143,7 @@ class _AboutPageState extends State<AboutPage> {
             onSecondaryTap: PlatformUtils.isMobile
                 ? null
                 : () => Utils.copyText(currentVersion),
-            title: const Text('当前版本'),
+            title: Text('当前版本'.tr),
             leading: const Icon(Icons.commit_outlined),
             trailing: Text(
               currentVersion,
@@ -187,14 +187,14 @@ Commit Hash: ${BuildConfig.commitHash}''',
             ListTile(
               onTap: PiliAndroidHelper.openLinkVerifySettings,
               leading: const Icon(MdiIcons.linkBoxOutline),
-              title: const Text('打开受支持的链接'),
+              title: Text('打开受支持的链接'.tr),
               trailing: Icon(Icons.arrow_forward, size: 16, color: outline),
             ),
           ListTile(
             onTap: () =>
                 PageUtils.launchURL('${Constants.sourceCodeUrl}/issues'),
             leading: const Icon(Icons.feedback_outlined),
-            title: const Text('问题反馈'),
+            title: Text('问题反馈'.tr),
             trailing: Icon(Icons.arrow_forward, size: 16, color: outline),
           ),
           ListTile(
@@ -204,8 +204,8 @@ Commit Hash: ${BuildConfig.commitHash}''',
                 ? null
                 : LoggerUtils.clearLogs,
             leading: const Icon(Icons.bug_report_outlined),
-            title: const Text('错误日志'),
-            subtitle: Text('长按清除日志', style: subTitleStyle),
+            title: Text('错误日志'.tr),
+            subtitle: Text('长按清除日志'.tr, style: subTitleStyle),
             trailing: Icon(Icons.arrow_forward, size: 16, color: outline),
           ),
           ListTile(
@@ -213,13 +213,13 @@ Commit Hash: ${BuildConfig.commitHash}''',
               if (cacheSize.value.isNotEmpty) {
                 showConfirmDialog(
                   context: context,
-                  title: const Text('提示'),
-                  content: const Text('该操作将清除图片及网络请求缓存数据，确认清除？'),
+                  title: Text('提示'.tr),
+                  content: Text('该操作将清除图片及网络请求缓存数据，确认清除？'.tr),
                   onConfirm: () async {
-                    SmartDialog.showLoading(msg: '正在清除...');
+                    SmartDialog.showLoading(msg: '正在清除...'.tr);
                     try {
                       await CacheManager.clearLibraryCache();
-                      SmartDialog.showToast('清除成功');
+                      SmartDialog.showToast('清除成功'.tr);
                     } catch (err) {
                       SmartDialog.showToast(err.toString());
                     } finally {
@@ -231,7 +231,7 @@ Commit Hash: ${BuildConfig.commitHash}''',
               }
             },
             leading: const Icon(Icons.delete_outline),
-            title: const Text('清除缓存'),
+            title: Text('清除缓存'.tr),
             subtitle: Obx(
               () => Text(
                 '图片及网络缓存 ${cacheSize.value}',
@@ -240,11 +240,11 @@ Commit Hash: ${BuildConfig.commitHash}''',
             ),
           ),
           ListTile(
-            title: const Text('导入/导出登录信息'),
+            title: Text('导入/导出登录信息'.tr),
             leading: const Icon(Icons.import_export_outlined),
             onTap: () => showImportExportDialog<Map>(
               context,
-              title: '登录信息',
+              title: '登录信息'.tr,
               localFileName: () => 'account',
               onExport: () =>
                   Utils.jsonEncoder.convert(Accounts.account.toMap()),
@@ -262,26 +262,26 @@ Commit Hash: ${BuildConfig.commitHash}''',
             ),
           ),
           ListTile(
-            title: const Text('导入/导出设置'),
+            title: Text('导入/导出设置'.tr),
             dense: false,
             leading: const Icon(Icons.import_export_outlined),
             onTap: () => showImportExportDialog<Map<String, dynamic>>(
               context,
-              title: '设置',
+              title: '设置'.tr,
               localFileName: () => 'setting_${DeviceUtils.platformName}',
               onExport: GStorage.exportAllSettings,
               onImport: GStorage.importAllJsonSettings,
             ),
           ),
           ListTile(
-            title: const Text('重置所有设置'),
+            title: Text('重置所有设置'.tr),
             leading: const Icon(Icons.settings_backup_restore_outlined),
             onTap: () => showDialog(
               context: context,
               builder: (context) {
                 return SimpleDialog(
                   clipBehavior: Clip.hardEdge,
-                  title: const Text('是否重置所有设置？'),
+                  title: Text('是否重置所有设置？'.tr),
                   children: [
                     DialogOption(
                       onPressed: () async {
@@ -290,17 +290,17 @@ Commit Hash: ${BuildConfig.commitHash}''',
                           GStorage.setting.clear(),
                           GStorage.video.clear(),
                         ]);
-                        SmartDialog.showToast('重置成功');
+                        SmartDialog.showToast('重置成功'.tr);
                       },
-                      child: const Text('重置可导出的设置', style: style),
+                      child: Text('重置可导出的设置'.tr, style: style),
                     ),
                     DialogOption(
                       onPressed: () async {
                         Get.back();
                         await GStorage.clear();
-                        SmartDialog.showToast('重置成功');
+                        SmartDialog.showToast('重置成功'.tr);
                       },
-                      child: const Text('重置所有数据（含登录信息）', style: style),
+                      child: Text('重置所有数据（含登录信息）'.tr, style: style),
                     ),
                   ],
                 );

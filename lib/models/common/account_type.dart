@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum AccountType {
   main('主账号'),
   heartbeat('记录观看'),

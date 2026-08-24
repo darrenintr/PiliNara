@@ -12,6 +12,7 @@ import 'package:PiliPlus/utils/parse_bool.dart';
 import 'package:PiliPlus/utils/parse_int.dart';
 import 'package:PiliPlus/utils/parse_string.dart';
 import 'package:PiliPlus/utils/storage_pref.dart';
+import 'package:get/get.dart';
 
 class DynamicsDataModel {
   bool? hasMore;
@@ -170,7 +171,7 @@ class DynamicItemModel {
   bool get hasOnlyFansVideoBadge =>
       (basic?.isOnlyFans ?? false) &&
       type == 'DYNAMIC_TYPE_AV' &&
-      modules.moduleDynamic?.major?.archive?.badge?.text == '充电专属';
+      modules.moduleDynamic?.major?.archive?.badge?.text == '充电专属'.tr;
 }
 
 class Fallback {
@@ -806,8 +807,8 @@ class ReserveBtn {
   ReserveBtn.fromJson(Map<String, dynamic> json) {
     status = safeToInt(json['status']);
     type = safeToInt(json['type']);
-    checkText = json['check']?['text'] ?? '已预约';
-    uncheckText = json['uncheck']?['text'] ?? '预约';
+    checkText = json['check']?['text'] ?? '已预约'.tr;
+    uncheckText = json['uncheck']?['text'] ?? '预约'.tr;
     disable = safeToInt(json['uncheck']?['disable']);
     jumpText = json['jump_style']?['text'];
     jumpUrl = json['jump_url'];
@@ -1134,7 +1135,7 @@ class Badge {
   String? text;
 
   Badge.fromJson(Map<String, dynamic> json) {
-    text = json['text'] == '投稿视频' ? null : json['text'];
+    text = json['text'] == '投稿视频'.tr ? null : json['text'];
   }
 }
 

@@ -24,8 +24,7 @@ import 'package:cached_network_image_ce/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get.dart' hide Node;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:re_highlight/languages/all.dart';
 import 'package:re_highlight/re_highlight.dart';
@@ -647,14 +646,14 @@ class OpusContent extends StatelessWidget {
                                           null,
                                         );
                                       },
-                                      child: const Text('视频'),
+                                      child: Text('视频'.tr),
                                     ),
                                     DialogOption(
                                       onPressed: () {
                                         Get.back();
                                         PageUtils.pushDynFromId(id: card.oid!);
                                       },
-                                      child: const Text('动态/专栏'),
+                                      child: Text('动态/专栏'.tr),
                                     ),
                                   ],
                                 ),

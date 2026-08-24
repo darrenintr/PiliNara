@@ -3,6 +3,7 @@ import 'package:PiliPlus/http/user.dart';
 import 'package:PiliPlus/models_new/coin_log/data.dart';
 import 'package:PiliPlus/models_new/coin_log/list.dart';
 import 'package:PiliPlus/pages/log_table/controller.dart';
+import 'package:get/get.dart';
 
 class ExpLogController extends LogController<CoinLogData, CoinLogItem> {
   @override
@@ -19,12 +20,12 @@ class ExpLogController extends LogController<CoinLogData, CoinLogItem> {
   }
 
   @override
-  final CoinLogItem header = const CoinLogItem(
-    time: '时间',
-    delta: '变化',
-    reason: '原因',
+  final CoinLogItem header = CoinLogItem(
+    time: '时间'.tr,
+    delta: '变化'.tr,
+    reason: '原因'.tr,
   );
 
   @override
-  final String title = '经验记录';
+  final String title = '经验记录'.tr;
 }

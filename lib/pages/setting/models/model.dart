@@ -308,8 +308,8 @@ SettingsModel getListBanWordModel({
           return ListEditorDialog(
             title: title,
             initialItems: items,
-            hintText: '输入关键词或正则表达式',
-            itemLabel: '关键词',
+            hintText: '输入关键词或正则表达式'.tr,
+            itemLabel: '关键词'.tr,
           );
         },
       );
@@ -330,7 +330,7 @@ SettingsModel getListBanWordModel({
                   })
                   .join('|');
         onChanged(RegExp(regexPattern, caseSensitive: false));
-        SmartDialog.showToast('已保存');
+        SmartDialog.showToast('已保存'.tr);
         GStorage.setting.put(key, banWord);
       }
     },
@@ -371,16 +371,16 @@ SettingsModel getListUidWithNameModel({
           return ListEditorDialog(
             title: title,
             initialItems: items,
-            hintText: '输入用户UID',
+            hintText: '输入用户UID'.tr,
             itemLabel: 'UID',
             keyboardType: TextInputType.number,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             allowEdit: false,
             validator: (value) {
-              if (value.isEmpty) return '请输入UID';
+              if (value.isEmpty) return '请输入UID'.tr;
               final uid = int.tryParse(value);
-              if (uid == null) return 'UID必须是数字';
-              if (uid <= 0) return 'UID必须大于0';
+              if (uid == null) return 'UID必须是数字'.tr;
+              if (uid <= 0) return 'UID必须大于0'.tr;
               return null;
             },
           );
@@ -412,7 +412,7 @@ SettingsModel getListUidWithNameModel({
         setUidsMap(newMap);
         onUpdate();
         setState();
-        SmartDialog.showToast('已保存');
+        SmartDialog.showToast('已保存'.tr);
       }
     },
   );
@@ -432,7 +432,7 @@ SettingsModel getListUidModel({
     title: title,
     getSubtitle: () {
       final uids = getUids();
-      if (uids.isEmpty) return '点击添加';
+      if (uids.isEmpty) return '点击添加'.tr;
       return '已屏蔽 ${uids.length} 个用户';
     },
     onTap: (context, setState) async {
@@ -445,16 +445,16 @@ SettingsModel getListUidModel({
           return ListEditorDialog(
             title: title,
             initialItems: items,
-            hintText: '输入用户UID',
+            hintText: '输入用户UID'.tr,
             itemLabel: 'UID',
             keyboardType: TextInputType.number,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             allowEdit: false,
             validator: (value) {
-              if (value.isEmpty) return '请输入UID';
+              if (value.isEmpty) return '请输入UID'.tr;
               final uid = int.tryParse(value);
-              if (uid == null) return 'UID必须是数字';
-              if (uid <= 0) return 'UID必须大于0';
+              if (uid == null) return 'UID必须是数字'.tr;
+              if (uid <= 0) return 'UID必须大于0'.tr;
               return null;
             },
           );
@@ -470,7 +470,7 @@ SettingsModel getListUidModel({
         setUids(newUids);
         onUpdate();
         setState();
-        SmartDialog.showToast('已保存');
+        SmartDialog.showToast('已保存'.tr);
       }
     },
   );
@@ -509,7 +509,7 @@ SettingsModel getVideoFilterSelectModel({
                     ..sort())
                   .map((e) => (e, suffix == null ? e.toString() : '$e $suffix'))
                   .toList()
-                ..add((-1, '自定义')),
+                ..add((-1, '自定义'.tr)),
         ),
       );
       if (result != null) {
@@ -530,7 +530,7 @@ SettingsModel getVideoFilterSelectModel({
                 TextButton(
                   onPressed: Get.back,
                   child: Text(
-                    '取消',
+                    '取消'.tr,
                     style: TextStyle(color: ColorScheme.of(context).outline),
                   ),
                 ),
@@ -544,7 +544,7 @@ SettingsModel getVideoFilterSelectModel({
                       SmartDialog.showToast(e.toString());
                     }
                   },
-                  child: const Text('确定'),
+                  child: Text('确定'.tr),
                 ),
               ],
             ),

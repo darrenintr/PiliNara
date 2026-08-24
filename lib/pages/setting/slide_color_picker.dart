@@ -152,14 +152,14 @@ class _SlideColorPickerState extends State<SlideColorPicker> {
                     Get.back();
                     widget.onChanged(null);
                   },
-                  child: const Text('重置'),
+                  child: Text('重置'.tr),
                 ),
               ],
               const Spacer(),
               TextButton(
                 onPressed: Get.back,
                 child: Text(
-                  '取消',
+                  '取消'.tr,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.outline,
                   ),
@@ -170,7 +170,7 @@ class _SlideColorPickerState extends State<SlideColorPicker> {
                   Get.back();
                   widget.onChanged(DmUtils.decimalToColor(_rgb));
                 },
-                child: const Text('确定'),
+                child: Text('确定'.tr),
               ),
               const SizedBox(width: 16),
             ],

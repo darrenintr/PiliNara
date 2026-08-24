@@ -238,7 +238,7 @@ class UserInfoCard extends StatelessWidget {
                 color: colorScheme.vipColor,
               ),
               child: Text(
-                card.vip?.label?.text ?? '大会员',
+                card.vip?.label?.text ?? '大会员'.tr,
                 strutStyle: const StrutStyle(
                   height: 1,
                   leading: 0,
@@ -336,7 +336,7 @@ class UserInfoCard extends StatelessWidget {
                 style: TextStyle(fontSize: 13, color: colorScheme.primary),
               )
             : Text(
-                '添加备注',
+                '添加备注'.tr,
                 style: TextStyle(fontSize: 13, color: colorScheme.outline),
               ),
       ),
@@ -405,7 +405,7 @@ class UserInfoCard extends StatelessWidget {
               ),
             ),
             TextSpan(
-              text: ' 该账号封禁中',
+              text: ' 该账号封禁中'.tr,
               style: TextStyle(
                 color: isLight
                     ? colorScheme.onErrorContainer
@@ -517,15 +517,15 @@ class UserInfoCard extends StatelessWidget {
                     ],
                     TextSpan(
                       text: isOwner
-                          ? '编辑资料'
+                          ? '编辑资料'.tr
                           : switch (relation) {
-                              0 || -1 => '关注',
-                              1 => '悄悄关注',
-                              2 => '已关注',
-                              // 3 => '回关',
-                              4 || 6 => '已互关',
-                              128 => '移除黑名单',
-                              -10 => '特别关注', // 该状态码并不是官方状态码
+                              0 || -1 => '关注'.tr,
+                              1 => '悄悄关注'.tr,
+                              2 => '已关注'.tr,
+                              // 3 => '回关'.tr,
+                              4 || 6 => '已互关'.tr,
+                              128 => '移除黑名单'.tr,
+                              -10 => '特别关注'.tr, // 该状态码并不是官方状态码
                               _ => relation.toString(),
                             },
                     ),
@@ -898,7 +898,7 @@ class UserInfoCard extends StatelessWidget {
           colorScheme,
           charges,
           chargeCount,
-          '人为TA充电',
+          '人为TA充电'.tr,
           () => UpowerRankPage.toUpowerRank(
             mid: card.mid!,
             name: card.name!,
@@ -910,7 +910,7 @@ class UserInfoCard extends StatelessWidget {
           colorScheme,
           guards,
           guardCount,
-          '人加入大航海',
+          '人加入大航海'.tr,
           () => MemberGuard.toMemberGuard(
             mid: card.mid!,
             name: card.name!,
@@ -965,7 +965,7 @@ class UserInfoCard extends StatelessWidget {
             ),
           ),
           Text(
-            '${flag ? '等${item.items!.length}人' : ''}也关注了TA',
+            '${flag ? '等${item.items!.length}人' : ''}也关注了TA'.tr,
             style: TextStyle(fontSize: 13, color: colorScheme.outline),
           ),
           Icon(

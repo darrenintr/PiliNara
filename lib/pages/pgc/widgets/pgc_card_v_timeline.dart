@@ -7,6 +7,7 @@ import 'package:PiliPlus/models_new/pgc/pgc_timeline/episode.dart';
 import 'package:PiliPlus/utils/page_utils.dart';
 import 'package:PiliPlus/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 // 视频卡片 - 垂直布局
 class PgcCardVTimeline extends StatelessWidget {
@@ -49,8 +50,8 @@ class PgcCardVTimeline extends StatelessWidget {
                         height: maxHeight,
                       ),
                       if (item.follow == 1)
-                        const PBadge(
-                          text: '已追番',
+                        PBadge(
+                          text: '已追番'.tr,
                           right: 6,
                           top: 6,
                         ),

@@ -1,6 +1,7 @@
 import 'package:PiliPlus/models_new/download/download_collection.dart';
 import 'package:PiliPlus/services/download/download_collection_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 Future<String?> showDownloadFolderNameDialog({
   required BuildContext context,
@@ -17,14 +18,14 @@ Future<String?> showDownloadFolderNameDialog({
         autofocus: true,
         maxLines: 1,
         maxLength: 30,
-        decoration: const InputDecoration(
-          hintText: '请输入文件夹名称',
+        decoration: InputDecoration(
+          hintText: '请输入文件夹名称'.tr,
         ),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(dialogContext).pop(),
-          child: const Text('取消'),
+          child: Text('取消'.tr),
         ),
         TextButton(
           onPressed: () {
@@ -34,7 +35,7 @@ Future<String?> showDownloadFolderNameDialog({
             }
             Navigator.of(dialogContext).pop(text);
           },
-          child: const Text('确定'),
+          child: Text('确定'.tr),
         ),
       ],
     ),
@@ -66,9 +67,9 @@ Future<List<String>?> showDownloadFolderPickerDialog({
             child: SizedBox(
               width: double.maxFinite,
               child: folders.isEmpty
-                  ? const Padding(
+                  ? Padding(
                       padding: EdgeInsets.symmetric(vertical: 20),
-                      child: Text('还没有文件夹，先新建一个吧。'),
+                      child: Text('还没有文件夹，先新建一个吧。'.tr),
                     )
                   : SingleChildScrollView(
                       child: Column(
@@ -102,7 +103,7 @@ Future<List<String>?> showDownloadFolderPickerDialog({
               onPressed: () async {
                 final name = await showDownloadFolderNameDialog(
                   context: dialogContext,
-                  title: '新建文件夹',
+                  title: '新建文件夹'.tr,
                   initialValue: collectionService.buildDefaultFolderTitle(),
                 );
                 if (name == null) {
@@ -113,16 +114,16 @@ Future<List<String>?> showDownloadFolderPickerDialog({
                 selectedIds.add(folder.id);
                 setState(() {});
               },
-              child: const Text('新建文件夹'),
+              child: Text('新建文件夹'.tr),
             ),
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(),
-              child: const Text('取消'),
+              child: Text('取消'.tr),
             ),
             TextButton(
               onPressed: () =>
                   Navigator.of(dialogContext).pop(selectedIds.toList()),
-              child: const Text('完成'),
+              child: Text('完成'.tr),
             ),
           ],
         ),

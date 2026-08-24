@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum MsgUnReadType {
   pm('私信'),
   reply('回复我的'),

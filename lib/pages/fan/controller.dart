@@ -46,7 +46,7 @@ class FansController extends FollowTypeController {
       loadingState
         ..value.data!.removeAt(index)
         ..refresh();
-      SmartDialog.showToast('移除成功');
+      SmartDialog.showToast('移除成功'.tr);
     } else {
       res.toast();
     }

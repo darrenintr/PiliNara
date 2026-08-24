@@ -47,11 +47,11 @@ class _DownloadVideoSortPageState extends State<DownloadVideoSortPage> {
             onPressed: () async {
               await widget.onSave(_sortList.map((item) => item.cid).toList());
               if (mounted) {
-                SmartDialog.showToast('排序完成');
+                SmartDialog.showToast('排序完成'.tr);
                 Get.back();
               }
             },
-            child: const Text('完成'),
+            child: Text('完成'.tr),
           ),
           const SizedBox(width: 16),
         ],

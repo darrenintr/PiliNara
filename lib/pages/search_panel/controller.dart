@@ -90,7 +90,7 @@ class SearchPanelController<R extends SearchNumData<T>, T>
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: 20),
-        const Text('关键词过滤', style: TextStyle(fontSize: 16)),
+        Text('关键词过滤'.tr, style: TextStyle(fontSize: 16)),
         const SizedBox(height: 10),
         if (hasAny) ...[
           Wrap(
@@ -150,7 +150,7 @@ class SearchPanelController<R extends SearchNumData<T>, T>
                 onPressed: () => _editKeywords(
                   context,
                   setState,
-                  title: '包含关键词',
+                  title: '包含关键词'.tr,
                   keywords: includeKeywords,
                   theme: theme,
                   isInclude: true,
@@ -159,7 +159,7 @@ class SearchPanelController<R extends SearchNumData<T>, T>
                   hasInc ? Icons.edit : Icons.add,
                   size: 16,
                 ),
-                label: Text(hasInc ? '编辑包含词' : '添加包含词'),
+                label: Text(hasInc ? '编辑包含词'.tr : '添加包含词'.tr),
               ),
             ),
             const SizedBox(width: 8),
@@ -168,7 +168,7 @@ class SearchPanelController<R extends SearchNumData<T>, T>
                 onPressed: () => _editKeywords(
                   context,
                   setState,
-                  title: '排除关键词',
+                  title: '排除关键词'.tr,
                   keywords: excludeKeywords,
                   theme: theme,
                   isInclude: false,
@@ -177,7 +177,7 @@ class SearchPanelController<R extends SearchNumData<T>, T>
                   hasExc ? Icons.edit : Icons.remove,
                   size: 16,
                 ),
-                label: Text(hasExc ? '编辑排除词' : '添加排除词'),
+                label: Text(hasExc ? '编辑排除词'.tr : '添加排除词'.tr),
               ),
             ),
           ],
@@ -189,7 +189,7 @@ class SearchPanelController<R extends SearchNumData<T>, T>
               excludeKeywords.clear();
               setState(() {});
             },
-            child: const Text('清除所有关键词'),
+            child: Text('清除所有关键词'.tr),
           ),
       ],
     );
@@ -208,15 +208,15 @@ class SearchPanelController<R extends SearchNumData<T>, T>
       builder: (context) => ListEditorDialog(
         title: title,
         initialItems: List.from(keywords),
-        hintText: '输入关键词或正则表达式',
-        itemLabel: isInclude ? '包含词' : '排除词',
+        hintText: '输入关键词或正则表达式'.tr,
+        itemLabel: isInclude ? '包含词'.tr : '排除词'.tr,
         validator: (value) {
-          if (value.isEmpty) return '请输入关键词';
+          if (value.isEmpty) return '请输入关键词'.tr;
           try {
             RegExp(value);
             return null;
           } catch (_) {
-            return '无效的正则表达式';
+            return '无效的正则表达式'.tr;
           }
         },
       ),

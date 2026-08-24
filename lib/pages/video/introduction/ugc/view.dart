@@ -392,7 +392,7 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
           ],
           if (videoDetail.isUpowerExclusive == true) ...[
             _labelWidget(
-              '充电专属',
+              '充电专属'.tr,
               colorScheme.isDark
                   ? colorScheme.error
                   : colorScheme.errorContainer,
@@ -403,7 +403,7 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
             const TextSpan(text: ' '),
           ] else if (videoDetail.rights?.isSteinGate == 1) ...[
             _labelWidget(
-              '互动视频',
+              '互动视频'.tr,
               colorScheme.secondaryContainer,
               colorScheme.onSecondaryContainer,
             ),
@@ -450,12 +450,12 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
           ),
           child: Text(
             switch (attr) {
-              1 => '悄悄关注',
-              2 => '已关注',
-              4 || 6 => '已互关',
-              128 => '已拉黑',
-              -10 => '特别关注',
-              _ => ' 关注 ',
+              1 => '悄悄关注'.tr,
+              2 => '已关注'.tr,
+              4 || 6 => '已互关'.tr,
+              128 => '已拉黑'.tr,
+              -10 => '特别关注'.tr,
+              _ => ' 关注 '.tr,
             },
             style: const TextStyle(fontSize: 13),
           ),
@@ -481,7 +481,7 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
               icon: const Icon(FontAwesomeIcons.thumbsUp),
               selectIcon: const Icon(FontAwesomeIcons.solidThumbsUp),
               selectStatus: introController.hasLike.value,
-              semanticsLabel: '点赞',
+              semanticsLabel: '点赞'.tr,
               text: !isLoading ? NumUtils.numFormat(stat!.like) : null,
               onStartTriple: introController.onStartTriple,
               onCancelTriple: introController.onCancelTriple,
@@ -495,7 +495,7 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
                 introController.actionDislikeVideo,
               ),
               selectStatus: introController.hasDislike.value,
-              semanticsLabel: '点踩',
+              semanticsLabel: '点踩'.tr,
               text: "点踩",
             ),
           ),
@@ -506,7 +506,7 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
               selectIcon: const Icon(FontAwesomeIcons.b),
               onTap: introController.actionCoinVideo,
               selectStatus: introController.hasCoin,
-              semanticsLabel: '投币',
+              semanticsLabel: '投币'.tr,
               text: !isLoading ? NumUtils.numFormat(stat!.coin) : null,
             ),
           ),
@@ -521,7 +521,7 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
                 isLongPress: true,
               ),
               selectStatus: introController.hasFav.value,
-              semanticsLabel: '收藏',
+              semanticsLabel: '收藏'.tr,
               text: !isLoading ? NumUtils.numFormat(stat!.favorite) : null,
             ),
           ),
@@ -532,15 +532,15 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
               onTap: () =>
                   introController.handleAction(introController.viewLater),
               selectStatus: introController.hasLater.value,
-              semanticsLabel: '再看',
-              text: '再看',
+              semanticsLabel: '再看'.tr,
+              text: '再看'.tr,
             ),
           ),
           ActionItem(
             icon: const Icon(FontAwesomeIcons.shareFromSquare),
             onTap: () => introController.actionShareVideo(context),
             selectStatus: false,
-            semanticsLabel: '分享',
+            semanticsLabel: '分享'.tr,
             text: !isLoading ? NumUtils.numFormat(stat!.share!) : null,
           ),
           if (Pref.enableAiChat)
@@ -548,7 +548,7 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
               icon: const Icon(Icons.auto_awesome),
               onTap: widget.showAiChatBottomSheet,
               selectStatus: false,
-              semanticsLabel: 'AI分析',
+              semanticsLabel: 'AI分析'.tr,
               text: 'AI',
             ),
         ],
@@ -614,7 +614,7 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
                               if (!mounted) return;
                               final confirmed = await showConfirmDialog(
                                 context: context,
-                                title: const Text('空降助手：搬运视频同步'),
+                                title: Text('空降助手：搬运视频同步'.tr),
                                 content: Text(
                                   '${hasPortVideo ? "" : "是否将"}该视频${hasPortVideo ? "已" : ""}绑定到此YouTube视频($ytbId)',
                                 ),
@@ -990,7 +990,7 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
             MdiIcons.incognito,
             size: 15,
             color: colorScheme.outline,
-            semanticLabel: '无痕',
+            semanticLabel: '无痕'.tr,
           ),
         if (introController.isShowOnlineTotal)
           Obx(
@@ -1024,7 +1024,7 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
           }
         },
         child: Image.asset(
-          semanticLabel: 'AI总结',
+          semanticLabel: 'AI总结'.tr,
           Assets.ai,
           height: 18,
           width: 18,
@@ -1045,7 +1045,7 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
               (item) => SearchText(
                 fontSize: 13,
                 text: switch (item.tagType) {
-                  'bgm' => item.tagName!.replaceFirst('发现', '♫ BGM：'),
+                  'bgm' => item.tagName!.replaceFirst('发现'.tr, '♫ BGM：'),
                   'topic' => '#${item.tagName}',
                   _ => item.tagName!,
                 },

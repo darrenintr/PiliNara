@@ -61,7 +61,7 @@ class _MainReplyPageState extends State<MainReplyPage>
   Widget build(BuildContext context) {
     final colorScheme = ColorScheme.of(context);
     return SimpleScaffold(
-      appBar: AppBar(title: const Text('查看评论')),
+      appBar: AppBar(title: Text('查看评论'.tr)),
       body: fabAnimWrapper(
         child: refreshIndicator(
           onRefresh: _controller.onRefresh,
@@ -101,7 +101,7 @@ class _MainReplyPageState extends State<MainReplyPage>
                 );
               } catch (_) {}
             },
-            tooltip: '评论',
+            tooltip: '评论'.tr,
             child: const Icon(Icons.reply),
           ),
         ),
@@ -131,7 +131,7 @@ class _MainReplyPageState extends State<MainReplyPage>
                       margin: EdgeInsets.only(bottom: padding.bottom),
                       height: 125,
                       child: Text(
-                        _controller.isEnd ? '没有更多了' : '加载中...',
+                        _controller.isEnd ? '没有更多了'.tr : '加载中...'.tr,
                         style: TextStyle(
                           fontSize: 12,
                           color: colorScheme.outline,
@@ -161,7 +161,7 @@ class _MainReplyPageState extends State<MainReplyPage>
                 },
               )
             : HttpError(
-                errMsg: '还没有评论',
+                errMsg: '还没有评论'.tr,
                 onReload: _controller.onReload,
               ),
       Error(:final errMsg) => HttpError(
@@ -217,7 +217,7 @@ class _MainReplyPageState extends State<MainReplyPage>
       Get.to(
         SimpleScaffold(
           appBar: AppBar(
-            title: const Text('评论详情'),
+            title: Text('评论详情'.tr),
             shape: Border(
               bottom: BorderSide(
                 color: colorScheme.outline.withValues(alpha: 0.1),

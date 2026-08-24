@@ -17,7 +17,7 @@ Future<bool> showConfirmDialog({
             TextButton(
               onPressed: Get.back,
               child: Text(
-                '取消',
+                '取消'.tr,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.outline,
                 ),
@@ -28,7 +28,7 @@ Future<bool> showConfirmDialog({
                 Get.back(result: true);
                 onConfirm?.call();
               },
-              child: const Text('确认'),
+              child: Text('确认'.tr),
             ),
           ],
         ),
@@ -68,10 +68,10 @@ void showPgcFollowDialog({
       clipBehavior: Clip.hardEdge,
       contentPadding: const EdgeInsets.symmetric(vertical: 12),
       children: [
-        ...const [
-          (followStatus: 3, title: '看过'),
-          (followStatus: 2, title: '在看'),
-          (followStatus: 1, title: '想看'),
+        ...[
+          (followStatus: 3, title: '看过'.tr),
+          (followStatus: 2, title: '在看'.tr),
+          (followStatus: 1, title: '想看'.tr),
         ].map(
           (item) => statusItem(
             enabled: followStatus != item.followStatus,

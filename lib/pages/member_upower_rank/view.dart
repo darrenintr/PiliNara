@@ -100,7 +100,7 @@ class _UpowerRankPageState extends State<UpowerRankPage>
                 },
               ),
               style: TextButton.styleFrom(visualDensity: VisualDensity.compact),
-              child: const Text('充电'),
+              child: Text('充电'.tr),
             ),
             const SizedBox(width: 12),
           ],
@@ -238,8 +238,8 @@ class _UpowerRankPageState extends State<UpowerRankPage>
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const TextSpan(
-                              text: ' 天',
+                            TextSpan(
+                              text: ' 天'.tr,
                               style: TextStyle(fontSize: 13),
                             ),
                           ],

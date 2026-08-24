@@ -24,6 +24,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:live_photo_maker/live_photo_maker.dart';
 import 'package:saver_gallery/saver_gallery.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:get/get.dart';
 
 abstract final class ImageUtils {
   static bool silentDownImg = Pref.silentDownImg;
@@ -53,7 +54,7 @@ abstract final class ImageUtils {
   // 复制图片到剪贴板
   static Future<void> copyImg(String url) async {
     try {
-      SmartDialog.showLoading(msg: '正在复制');
+      SmartDialog.showLoading(msg: '正在复制'.tr);
       final file = (await CacheManager.manager.getFileFromCache(
         url.http2https,
       ))?.file;
@@ -72,7 +73,7 @@ abstract final class ImageUtils {
       final bytes = await (file ?? tempFile!).readAsBytes();
       await FlutterClipboard.copyImage(bytes);
       SmartDialog.dismiss(status: SmartStatus.loading);
-      SmartDialog.showToast('已复制');
+      SmartDialog.showToast('已复制'.tr);
       tempFile?.tryDel();
     } catch (e) {
       SmartDialog.dismiss(status: SmartStatus.loading);
@@ -89,15 +90,15 @@ abstract final class ImageUtils {
         status == PermissionStatus.permanentlyDenied) {
       SmartDialog.show(
         builder: (context) => AlertDialog(
-          title: const Text('提示'),
-          content: const Text('存储权限未授权'),
+          title: Text('提示'.tr),
+          content: Text('存储权限未授权'.tr),
           actions: [
             TextButton(
               onPressed: () {
                 SmartDialog.dismiss();
                 openAppSettings();
               },
-              child: const Text('去授权'),
+              child: Text('去授权'.tr),
             ),
           ],
         ),
@@ -129,7 +130,7 @@ abstract final class ImageUtils {
       if (PlatformUtils.isMobile && !await checkPermissionDependOnSdkInt()) {
         return false;
       }
-      if (!silentDownImg) SmartDialog.showLoading(msg: '正在下载');
+      if (!silentDownImg) SmartDialog.showLoading(msg: '正在下载'.tr);
 
       String videoName = "video_${Utils.getFileName(liveUrl)}";
       String videoPath = '$tmpDirPath/$videoName';
@@ -141,7 +142,7 @@ abstract final class ImageUtils {
         final imageFile = await CacheManager.manager.getSingleFile(
           url.http2https,
         );
-        if (!silentDownImg) SmartDialog.showLoading(msg: '正在保存');
+        if (!silentDownImg) SmartDialog.showLoading(msg: '正在保存'.tr);
         bool success = await LivePhotoMaker.create(
           coverImage: imageFile.path,
           imagePath: null,
@@ -150,13 +151,13 @@ abstract final class ImageUtils {
           height: height,
         ).whenComplete(File(videoPath).tryDel);
         if (success) {
-          SmartDialog.showToast(' 已保存 ');
+          SmartDialog.showToast(' 已保存 '.tr);
         } else {
-          SmartDialog.showToast('保存失败');
+          SmartDialog.showToast('保存失败'.tr);
           return false;
         }
       } else {
-        if (!silentDownImg) SmartDialog.showLoading(msg: '正在保存');
+        if (!silentDownImg) SmartDialog.showLoading(msg: '正在保存'.tr);
         await saveFileImg(
           filePath: videoPath,
           fileName: videoName,
@@ -181,7 +182,7 @@ abstract final class ImageUtils {
     if (!silentDownImg) {
       cancelToken = CancelToken();
       SmartDialog.showLoading(
-        msg: '正在下载原图',
+        msg: '正在下载原图'.tr,
         clickMaskDismiss: true,
         onDismiss: cancelToken.cancel,
       );
@@ -223,15 +224,15 @@ abstract final class ImageUtils {
         }
       }
       if (cancelToken?.isCancelled == true) {
-        SmartDialog.showToast('已取消下载');
+        SmartDialog.showToast('已取消下载'.tr);
         return false;
       } else {
-        SmartDialog.showToast(success ? ' 已保存 ' : '保存失败');
+        SmartDialog.showToast(success ? ' 已保存 '.tr : '保存失败'.tr);
       }
       return success;
     } catch (e) {
       if (cancelToken?.isCancelled == true) {
-        SmartDialog.showToast('已取消下载');
+        SmartDialog.showToast('已取消下载'.tr);
       } else {
         SmartDialog.showToast(e.toString());
       }
@@ -286,7 +287,7 @@ abstract final class ImageUtils {
     SaveResult? res;
     fileName += '.$ext';
     if (PlatformUtils.isMobile) {
-      SmartDialog.showLoading(msg: '正在保存');
+      SmartDialog.showLoading(msg: '正在保存'.tr);
       res = await SaverGallery.saveImage(
         bytes,
         fileName: fileName,
@@ -295,7 +296,7 @@ abstract final class ImageUtils {
       );
       SmartDialog.dismiss();
       if (res.isSuccess) {
-        SmartDialog.showToast(' 已保存 ');
+        SmartDialog.showToast(' 已保存 '.tr);
       } else {
         SmartDialog.showToast('保存失败，${res.errorMessage}');
       }
@@ -311,7 +312,7 @@ abstract final class ImageUtils {
         return null;
       }
       await File(savePath).writeAsBytes(bytes);
-      SmartDialog.showToast(' 已保存 ');
+      SmartDialog.showToast(' 已保存 '.tr);
       res = SaveResult(true, null);
     }
     return res;
@@ -351,7 +352,7 @@ abstract final class ImageUtils {
     }
     if (needToast) {
       if (res.isSuccess) {
-        SmartDialog.showToast(' 已保存 ');
+        SmartDialog.showToast(' 已保存 '.tr);
       } else {
         SmartDialog.showToast('保存失败，${res.errorMessage}');
       }

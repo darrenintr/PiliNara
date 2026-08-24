@@ -9,6 +9,7 @@ import 'package:flutter/services.dart'
         MouseTrackerAnnotation,
         PointerEnterEventListener,
         PointerExitEventListener;
+import 'package:get/get.dart';
 
 /// https://github.com/suragch/audio_video_progress_bar
 
@@ -908,7 +909,7 @@ class RenderProgressBar extends RenderBox implements MouseTrackerAnnotation {
     config
       ..textDirection = TextDirection.ltr
       ..label =
-          '进度条' //'Progress bar';
+          '进度条'.tr //'Progress bar';
       ..value = '${(_thumbValue * 100).round()}%'
       // increase action
       ..onIncrease = increaseAction;

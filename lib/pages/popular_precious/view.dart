@@ -26,7 +26,7 @@ class _PopularPreciousPageState extends State<PopularPreciousPage>
   @override
   Widget build(BuildContext context) {
     return SimpleScaffold(
-      appBar: AppBar(title: const Text('入站必刷')),
+      appBar: AppBar(title: Text('入站必刷'.tr)),
       body: refreshIndicator(
         onRefresh: _controller.onRefresh,
         child: CustomScrollView(
@@ -60,7 +60,7 @@ class _PopularPreciousPageState extends State<PopularPreciousPage>
                   dimension: item.dimension,
                   extraArguments: {
                     'sourceType': SourceType.playlist,
-                    'favTitle': '入站必刷',
+                    'favTitle': '入站必刷'.tr,
                     'mediaId': _controller.mediaId,
                     'desc': true,
                     'oid': item.aid,

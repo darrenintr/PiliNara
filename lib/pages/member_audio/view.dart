@@ -94,7 +94,7 @@ class _MemberAudioState extends State<MemberAudio>
                                 color: colorScheme.secondary,
                               ),
                               label: Text(
-                                '播放全部',
+                                '播放全部'.tr,
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: colorScheme.secondary,

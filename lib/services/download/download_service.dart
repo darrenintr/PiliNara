@@ -140,7 +140,7 @@ class DownloadService extends GetxService {
       width: 0,
       height: 0,
       rotate: 0,
-      downloadTitle: '视频已缓存完成',
+      downloadTitle: '视频已缓存完成'.tr,
       downloadSubtitle: videoDetail?.title ?? videoArc!.title,
     );
     final currentTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
@@ -806,7 +806,7 @@ class DownloadService extends GetxService {
     ValueChanged<double>? onProgress,
   ) async {
     final srcDir = Directory(entry.entryDirPath);
-    if (!srcDir.existsSync()) throw '缓存目录不存在';
+    if (!srcDir.existsSync()) throw '缓存目录不存在'.tr;
 
     final baseDir = Directory(_exportBasePath);
     if (!baseDir.existsSync()) await baseDir.create(recursive: true);

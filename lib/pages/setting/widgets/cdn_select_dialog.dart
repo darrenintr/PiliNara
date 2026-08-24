@@ -14,6 +14,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show kDebugMode, debugPrint;
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 
 sealed class CdnSelectResult {
   const CdnSelectResult();
@@ -88,7 +89,7 @@ class CdnSpeedTester {
       videoType: VideoType.ugc,
     );
     final item = result.dataOrNull?.dash?.video?.first;
-    if (item == null) throw Exception('无法获取视频流');
+    if (item == null) throw Exception('无法获取视频流'.tr);
     return sample = item;
   }
 
@@ -138,10 +139,10 @@ class CdnSpeedTester {
           }
         },
       );
-      result ??= snapshot() ?? '测速失败';
+      result ??= snapshot() ?? '测速失败'.tr;
     } on DioException catch (e) {
       if (e.type == DioExceptionType.cancel) {
-        result ??= '测速超时';
+        result ??= '测速超时'.tr;
       } else {
         result ??= _describeError(e);
       }
@@ -156,10 +157,10 @@ class CdnSpeedTester {
   String _describeError(DioException error) {
     final statusCode = error.response?.statusCode;
     if (statusCode != null && 400 <= statusCode && statusCode < 500) {
-      return '此视频可能无法替换为该CDN';
+      return '此视频可能无法替换为该CDN'.tr;
     }
     final message = error.toString();
-    return message.isEmpty ? '测速失败' : message;
+    return message.isEmpty ? '测速失败'.tr : message;
   }
 
   void dispose() {
@@ -363,7 +364,7 @@ class _CdnSelectDialogState extends State<CdnSelectDialog> {
     const services = CDNService.values;
     return AlertDialog(
       clipBehavior: Clip.hardEdge,
-      title: const Text('CDN 设置'),
+      title: Text('CDN 设置'.tr),
       constraints: const BoxConstraints.tightFor(width: 320),
       contentPadding: const EdgeInsets.fromLTRB(8, 8, 8, 12),
       content: SingleChildScrollView(
@@ -374,14 +375,14 @@ class _CdnSelectDialogState extends State<CdnSelectDialog> {
               M3eOptionItem(
                 selected: true,
                 selectionControl: true,
-                title: Text(CdnNodeStore.labelOf(customHost) ?? '自定义节点'),
+                title: Text(CdnNodeStore.labelOf(customHost) ?? '自定义节点'.tr),
                 subtitle: Text(
                   customHost,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 trailing: IconButton(
-                  tooltip: '清除自定义 CDN',
+                  tooltip: '清除自定义 CDN'.tr,
                   visualDensity: VisualDensity.compact,
                   icon: const Icon(Icons.close),
                   onPressed: () =>
@@ -400,7 +401,7 @@ class _CdnSelectDialogState extends State<CdnSelectDialog> {
                     ? ValueListenableBuilder(
                         valueListenable: _speedResults[service.index],
                         builder: (context, value, _) => Text(
-                          value ?? '测速中',
+                          value ?? '测速中'.tr,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -414,15 +415,15 @@ class _CdnSelectDialogState extends State<CdnSelectDialog> {
             const SizedBox(height: 8),
             M3eOptionItem(
               leading: const Icon(Icons.travel_explore_outlined),
-              title: const Text('从节点列表选择'),
-              subtitle: const Text('按地区选择全国 CDN 节点'),
+              title: Text('从节点列表选择'.tr),
+              subtitle: Text('按地区选择全国 CDN 节点'.tr),
               trailing: const Icon(Icons.chevron_right),
               onTap: _pickNode,
             ),
             M3eOptionItem(
               leading: const Icon(Icons.edit_outlined),
-              title: const Text('手动输入'),
-              subtitle: const Text('输入任意节点 host 或完整 URL'),
+              title: Text('手动输入'.tr),
+              subtitle: Text('输入任意节点 host 或完整 URL'.tr),
               trailing: const Icon(Icons.chevron_right),
               onTap: _inputCustom,
             ),
@@ -457,7 +458,7 @@ class _CdnInputDialogState extends State<_CdnInputDialog> {
   void _onConfirm() {
     final host = VideoUtils.normalizeCustomCDNHost(_controller.text);
     if (host == null) {
-      setState(() => _errorText = '请输入有效的 host 或完整 URL');
+      setState(() => _errorText = '请输入有效的 host 或完整 URL'.tr);
       return;
     }
     Navigator.pop(context, host);
@@ -466,13 +467,13 @@ class _CdnInputDialogState extends State<_CdnInputDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('自定义 CDN 节点'),
+      title: Text('自定义 CDN 节点'.tr),
       content: TextField(
         controller: _controller,
         autofocus: true,
         decoration: InputDecoration(
           hintText: 'upos-sz-mirrorali.bilivideo.com',
-          helperText: '支持输入完整 URL，自动提取 host',
+          helperText: '支持输入完整 URL，自动提取 host'.tr,
           errorText: _errorText,
         ),
         onChanged: (_) {
@@ -486,13 +487,13 @@ class _CdnInputDialogState extends State<_CdnInputDialog> {
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(
-            '取消',
+            '取消'.tr,
             style: TextStyle(color: ColorScheme.of(context).outline),
           ),
         ),
         TextButton(
           onPressed: _onConfirm,
-          child: const Text('确定'),
+          child: Text('确定'.tr),
         ),
       ],
     );

@@ -185,34 +185,34 @@ class _SendDanmakuPanelState extends CommonTextPubPageState<SendDanmakuPanel> {
         Row(
           children: [
             Text(
-              '弹幕字号',
+              '弹幕字号'.tr,
               style: TextStyle(
                 fontSize: 15,
                 color: themeData.colorScheme.onSurface,
               ),
             ),
             const SizedBox(width: 16),
-            _buildFontSizeItem(18, '小'),
+            _buildFontSizeItem(18, '小'.tr),
             const SizedBox(width: 5),
-            _buildFontSizeItem(25, '标准'),
+            _buildFontSizeItem(25, '标准'.tr),
           ],
         ),
         const SizedBox(height: 12),
         Row(
           children: [
             Text(
-              '弹幕样式',
+              '弹幕样式'.tr,
               style: TextStyle(
                 fontSize: 15,
                 color: themeData.colorScheme.onSurface,
               ),
             ),
             const SizedBox(width: 16),
-            _buildPositionItem(1, '滚动'),
+            _buildPositionItem(1, '滚动'.tr),
             const SizedBox(width: 5),
-            _buildPositionItem(5, '顶部'),
+            _buildPositionItem(5, '顶部'.tr),
             const SizedBox(width: 5),
-            _buildPositionItem(4, '底部'),
+            _buildPositionItem(4, '底部'.tr),
           ],
         ),
         const SizedBox(height: 12),
@@ -220,7 +220,7 @@ class _SendDanmakuPanelState extends CommonTextPubPageState<SendDanmakuPanel> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '弹幕颜色',
+              '弹幕颜色'.tr,
               style: TextStyle(
                 fontSize: 15,
                 color: themeData.colorScheme.onSurface,
@@ -349,7 +349,7 @@ class _SendDanmakuPanelState extends CommonTextPubPageState<SendDanmakuPanel> {
             () {
               final isEmoji = panelType.value == PanelType.emoji;
               return iconButton(
-                tooltip: '弹幕样式',
+                tooltip: '弹幕样式'.tr,
                 onPressed: () {
                   updatePanelType(
                     isEmoji ? PanelType.keyboard : PanelType.emoji,
@@ -412,7 +412,7 @@ class _SendDanmakuPanelState extends CommonTextPubPageState<SendDanmakuPanel> {
           const SizedBox(width: 12),
           Obx(
             () => iconButton(
-              tooltip: '发送',
+              tooltip: '发送'.tr,
               iconSize: 22,
               iconColor: enablePublish.value
                   ? themeData.colorScheme.primary
@@ -447,7 +447,7 @@ class _SendDanmakuPanelState extends CommonTextPubPageState<SendDanmakuPanel> {
 
   @override
   Future<void> onCustomPublish({List? pictures}) async {
-    SmartDialog.showLoading(msg: '发送中...');
+    SmartDialog.showLoading(msg: '发送中...'.tr);
     bool isColorful = _color.value == Colors.transparent;
     final res = await DanmakuHttp.shootDanmaku(
       oid: widget.cid,
@@ -463,7 +463,7 @@ class _SendDanmakuPanelState extends CommonTextPubPageState<SendDanmakuPanel> {
     if (res case Success(:final response)) {
       hasPub = true;
       Get.back();
-      SmartDialog.showToast('发送成功');
+      SmartDialog.showToast('发送成功'.tr);
       VideoDanmaku? extra;
       if (response.dmid case final dmid?) {
         extra = VideoDanmaku(

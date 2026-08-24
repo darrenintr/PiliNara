@@ -8,6 +8,7 @@ import 'package:PiliPlus/utils/page_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:PiliPlus/http/search.dart';
+import 'package:get/get.dart';
 
 /// 观看记录快捷卡片（我的页面横向列表）
 class HistoryCardItem extends StatelessWidget {
@@ -46,7 +47,7 @@ class HistoryCardItem extends StatelessWidget {
       if (item.liveStatus == 1) {
         PageUtils.toLiveRoom(item.history.oid);
       } else {
-        SmartDialog.showToast('直播未开播');
+        SmartDialog.showToast('直播未开播'.tr);
       }
     } else if (_isPgc) {
       PageUtils.viewPgc(epId: item.history.epid);
@@ -125,7 +126,7 @@ class HistoryCardItem extends StatelessWidget {
                     // 右上角：直播状态 / 专栏标记 / pgc badge
                     if (_isLive)
                       PBadge(
-                        text: item.liveStatus == 1 ? '直播中' : '未开播',
+                        text: item.liveStatus == 1 ? '直播中'.tr : '未开播'.tr,
                         top: 6.0,
                         right: 6.0,
                         type: item.liveStatus == 1
@@ -133,8 +134,8 @@ class HistoryCardItem extends StatelessWidget {
                             : PBadgeType.gray,
                       )
                     else if (_isArticle)
-                      const PBadge(
-                        text: '专栏',
+                      PBadge(
+                        text: '专栏'.tr,
                         top: 6.0,
                         right: 6.0,
                         type: PBadgeType.secondary,
@@ -150,7 +151,7 @@ class HistoryCardItem extends StatelessWidget {
                     if (_isVideo && hasDuration)
                       PBadge(
                         text: item.progress == -1
-                            ? '已看完'
+                            ? '已看完'.tr
                             : '${DurationUtils.formatDuration(item.progress)}/${DurationUtils.formatDuration(item.duration)}',
                         right: 6.0,
                         bottom: 6.0,

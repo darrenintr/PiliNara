@@ -5,10 +5,11 @@ import 'package:PiliPlus/utils/storage_key.dart';
 import 'package:PiliPlus/utils/storage_pref.dart';
 import 'package:PiliPlus/utils/user_whitelist.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 List<SettingsModel> get dynamicsSettings => [
   getListBanWordModel(
-    title: '关键词过滤',
+    title: '关键词过滤'.tr,
     key: SettingBoxKey.banWordForDyn,
     onChanged: (value) {
       DynamicsDataModel.banWordForDyn = value;
@@ -16,7 +17,7 @@ List<SettingsModel> get dynamicsSettings => [
     },
   ),
   getListUidModel(
-    title: '屏蔽用户',
+    title: '屏蔽用户'.tr,
     getUids: () => Pref.dynamicsBlockedMids,
     setUids: (uids) {
       Pref.dynamicsBlockedMids = uids;
@@ -28,9 +29,9 @@ List<SettingsModel> get dynamicsSettings => [
     },
   ),
   getListUidWithNameModel(
-    title: '白名单用户',
+    title: '白名单用户'.tr,
     leading: const Icon(Icons.person_add_alt_1_outlined),
-    emptySubtitle: '点击添加白名单用户',
+    emptySubtitle: '点击添加白名单用户'.tr,
     countSubtitleBuilder: (count) => '已加入白名单 $count 个用户',
     getUidsMap: () => Pref.whitelistMids,
     setUidsMap: UserWhitelist.save,
@@ -39,8 +40,8 @@ List<SettingsModel> get dynamicsSettings => [
     },
   ),
   SwitchModel(
-    title: '屏蔽带货动态',
-    subtitle: '过滤包含商品推广的动态',
+    title: '屏蔽带货动态'.tr,
+    subtitle: '过滤包含商品推广的动态'.tr,
     leading: const Icon(Icons.shopping_bag_outlined),
     setKey: SettingBoxKey.antiGoodsDyn,
     defaultVal: false,
@@ -49,8 +50,8 @@ List<SettingsModel> get dynamicsSettings => [
     },
   ),
   SwitchModel(
-    title: '屏蔽无权查看的动态',
-    subtitle: '过滤当前账号无权查看的受限动态,如充电专属(文章,图文等)动态',
+    title: '屏蔽无权查看的动态'.tr,
+    subtitle: '过滤当前账号无权查看的受限动态,如充电专属(文章,图文等)动态'.tr,
     leading: const Icon(Icons.visibility_off_outlined),
     setKey: SettingBoxKey.removeBlockedDyn,
     defaultVal: false,
@@ -59,8 +60,8 @@ List<SettingsModel> get dynamicsSettings => [
     },
   ),
   SwitchModel(
-    title: '屏蔽充电专属视频动态',
-    subtitle: '过滤充电专属视频动态',
+    title: '屏蔽充电专属视频动态'.tr,
+    subtitle: '过滤充电专属视频动态'.tr,
     leading: const Icon(Icons.video_library_outlined),
     setKey: SettingBoxKey.removeOnlyFansVideoDyn,
     defaultVal: false,

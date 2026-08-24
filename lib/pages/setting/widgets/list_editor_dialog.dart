@@ -15,7 +15,7 @@ class ListEditorDialog extends StatefulWidget {
   // When false, existing items use SelectableText instead of editable TextField
   final bool allowEdit;
 
-  const ListEditorDialog({
+  ListEditorDialog({
     super.key,
     required this.title,
     required this.initialItems,
@@ -252,7 +252,7 @@ class _ListEditorDialogState extends State<ListEditorDialog> {
             }
             Get.back(result: _items);
           },
-          child: const Text('保存'),
+          child: Text('保存'),
         ),
       ],
     );

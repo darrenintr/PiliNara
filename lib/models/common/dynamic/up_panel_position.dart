@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum UpPanelPosition {
   top('顶部'),
   leftFixed('左侧常驻'),

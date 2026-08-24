@@ -14,6 +14,7 @@ import 'package:PiliPlus/utils/extension/dimension_ext.dart';
 import 'package:PiliPlus/utils/page_utils.dart';
 import 'package:PiliPlus/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 // 视频卡片 - 水平布局
 class VideoCardHMemberVideo extends StatelessWidget {
@@ -96,7 +97,7 @@ class VideoCardHMemberVideo extends StatelessWidget {
                               height: maxHeight,
                             ),
                             if (fromViewAid == videoItem.param)
-                              const Positioned.fill(
+                              Positioned.fill(
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
                                     borderRadius: Style.mdRadius,
@@ -104,7 +105,7 @@ class VideoCardHMemberVideo extends StatelessWidget {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      '上次观看',
+                                      '上次观看'.tr,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
@@ -121,7 +122,7 @@ class VideoCardHMemberVideo extends StatelessWidget {
                                     .join('|'),
                                 right: 6.0,
                                 top: 6.0,
-                                type: videoItem.badges!.first.text == '充电专属'
+                                type: videoItem.badges!.first.text == '充电专属'.tr
                                     ? PBadgeType.error
                                     : PBadgeType.primary,
                               ),
@@ -155,7 +156,7 @@ class VideoCardHMemberVideo extends StatelessWidget {
                                       text:
                                           videoItem.history!.progress ==
                                               videoItem.history!.duration
-                                          ? '已看完'
+                                          ? '已看完'.tr
                                           : '${DurationUtils.formatDuration(videoItem.history!.progress)}/${DurationUtils.formatDuration(videoItem.history!.duration)}',
                                       right: 6.0,
                                       bottom: 6.0,

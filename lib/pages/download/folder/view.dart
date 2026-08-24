@@ -59,7 +59,7 @@ class _DownloadFolderPageState extends State<DownloadFolderPage> {
     final folderIds = await showDownloadFolderPickerDialog(
       context: context,
       collectionService: _collectionService,
-      title: '添加到文件夹',
+      title: '添加到文件夹'.tr,
     );
     if (folderIds == null || folderIds.isEmpty) {
       return;
@@ -69,7 +69,7 @@ class _DownloadFolderPageState extends State<DownloadFolderPage> {
       folderIds,
     );
     _controller.handleSelect();
-    SmartDialog.showToast('已更新文件夹');
+    SmartDialog.showToast('已更新文件夹'.tr);
   }
 
   Future<void> _exportSelected() async {
@@ -99,7 +99,7 @@ class _DownloadFolderPageState extends State<DownloadFolderPage> {
       widget.folderId,
       entries.map((item) => item.cid).toList(),
     );
-    SmartDialog.showToast('已按缓存时间重置');
+    SmartDialog.showToast('已按缓存时间重置'.tr);
   }
 
   void _onSortSelected(_FolderSortAction action) {
@@ -119,7 +119,7 @@ class _DownloadFolderPageState extends State<DownloadFolderPage> {
     final currentTitle = _controller.title.value;
     final name = await showDownloadFolderNameDialog(
       context: context,
-      title: '重命名文件夹',
+      title: '重命名文件夹'.tr,
       initialValue: currentTitle,
     );
     if (name == null || name == currentTitle) {
@@ -131,8 +131,8 @@ class _DownloadFolderPageState extends State<DownloadFolderPage> {
   Future<void> _deleteFolder() async {
     showConfirmDialog(
       context: context,
-      title: const Text('确定删除该文件夹？'),
-      content: const Text('只会删除文件夹关联，不会删除本地缓存文件。'),
+      title: Text('确定删除该文件夹？'.tr),
+      content: Text('只会删除文件夹关联，不会删除本地缓存文件。'.tr),
       onConfirm: () async {
         await _collectionService.deleteFolder(widget.folderId);
         if (mounted) {
@@ -174,11 +174,11 @@ class _DownloadFolderPageState extends State<DownloadFolderPage> {
                     ),
                   );
                   SmartDialog.showToast(
-                    res.every((item) => item) ? '更新成功' : '更新失败',
+                    res.every((item) => item) ? '更新成功'.tr : '更新失败'.tr,
                   );
                 },
                 child: Text(
-                  '更新',
+                  '更新'.tr,
                   style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                 ),
               ),
@@ -188,7 +188,7 @@ class _DownloadFolderPageState extends State<DownloadFolderPage> {
                 ),
                 onPressed:
                     _controller.checkedCount == 0 ? null : _addSelectedToFolder,
-                child: const Text('添加到'),
+                child: Text('添加到'.tr),
               ),
               if (Platform.isAndroid)
                 TextButton(
@@ -197,14 +197,14 @@ class _DownloadFolderPageState extends State<DownloadFolderPage> {
                   ),
                   onPressed:
                       _controller.checkedCount == 0 ? null : _exportSelected,
-                  child: const Text('导出'),
+                  child: Text('导出'.tr),
                 ),
             ],
             child: AppBar(
               title: Obx(() => Text(_controller.title.value)),
               actions: [
                 IconButton(
-                  tooltip: '多选',
+                  tooltip: '多选'.tr,
                   onPressed: () {
                     if (enableMultiSelect) {
                       _controller.handleSelect();
@@ -216,19 +216,19 @@ class _DownloadFolderPageState extends State<DownloadFolderPage> {
                 ),
                 Builder(
                   builder: (context) => IconButton(
-                    tooltip: '排序',
+                    tooltip: '排序'.tr,
                     icon: const Icon(Icons.sort),
                     onPressed: () {
                       showStaticPositionMenu<_FolderSortAction>(
                         context: context,
-                        items: const [
+                        items: [
                           CustomPopupMenuItem(
                             value: _FolderSortAction.manual,
-                            child: Text('手动排序'),
+                            child: Text('手动排序'.tr),
                           ),
                           CustomPopupMenuItem(
                             value: _FolderSortAction.reset,
-                            child: Text('按缓存时间'),
+                            child: Text('按缓存时间'.tr),
                           ),
                         ],
                       ).then((value) {
@@ -244,14 +244,14 @@ class _DownloadFolderPageState extends State<DownloadFolderPage> {
                       showStaticPositionMenu<int>(
                         context: context,
                         items: [
-                          const CustomPopupMenuItem(
+                          CustomPopupMenuItem(
                             value: 0,
-                            child: Text('重命名'),
+                            child: Text('重命名'.tr),
                           ),
                           CustomPopupMenuItem(
                             value: 1,
                             child: Text(
-                              '删除文件夹',
+                              '删除文件夹'.tr,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.error,
                               ),
@@ -274,11 +274,11 @@ class _DownloadFolderPageState extends State<DownloadFolderPage> {
               ViewSliverSafeArea(
                 sliver: Obx(() {
                   if (_controller.entries.isEmpty) {
-                    return const SliverToBoxAdapter(
+                    return SliverToBoxAdapter(
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 48),
                         child: Center(
-                          child: Text('文件夹里还没有视频'),
+                          child: Text('文件夹里还没有视频'.tr),
                         ),
                       ),
                     );
@@ -305,8 +305,8 @@ class _DownloadFolderPageState extends State<DownloadFolderPage> {
                           folderId: widget.folderId,
                           entries: [entry],
                         ),
-                        deleteLabel: '移出文件夹',
-                        deleteConfirmText: '确定从当前文件夹移除？',
+                        deleteLabel: '移出文件夹'.tr,
+                        deleteConfirmText: '确定从当前文件夹移除？'.tr,
                         controller: _controller,
                         playContext: DownloadVideoPlayContext.folder(
                           widget.folderId,

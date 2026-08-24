@@ -46,10 +46,10 @@ class _DownloadingPageState extends State<DownloadingPage>
           appBar: MultiSelectAppBarWidget(
             ctr: this,
             child: AppBar(
-              title: const Text('正在缓存'),
+              title: Text('正在缓存'.tr),
               actions: [
                 IconButton(
-                  tooltip: '多选',
+                  tooltip: '多选'.tr,
                   onPressed: () {
                     if (enableMultiSelect) {
                       handleSelect();
@@ -105,7 +105,7 @@ class _DownloadingPageState extends State<DownloadingPage>
   void onRemove() {
     showConfirmDialog(
       context: context,
-      title: const Text('确定删除选中视频？'),
+      title: Text('确定删除选中视频？'.tr),
       onConfirm: () async {
         SmartDialog.showLoading();
         final allChecked = this.allChecked.toSet();

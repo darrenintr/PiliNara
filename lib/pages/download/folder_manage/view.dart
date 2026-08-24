@@ -41,7 +41,7 @@ class _DownloadFolderManagePageState extends State<DownloadFolderManagePage> {
   Future<void> _renameFolder(DownloadFolder folder) async {
     final name = await showDownloadFolderNameDialog(
       context: context,
-      title: '重命名文件夹',
+      title: '重命名文件夹'.tr,
       initialValue: folder.title,
     );
     if (name == null || name == folder.title) {
@@ -57,8 +57,8 @@ class _DownloadFolderManagePageState extends State<DownloadFolderManagePage> {
   Future<void> _deleteFolder(DownloadFolder folder) async {
     showConfirmDialog(
       context: context,
-      title: const Text('确定删除该文件夹？'),
-      content: const Text('只会删除文件夹关联，不会删除本地缓存文件。'),
+      title: Text('确定删除该文件夹？'.tr),
+      content: Text('只会删除文件夹关联，不会删除本地缓存文件。'.tr),
       onConfirm: () async {
         await widget.collectionService.deleteFolder(folder.id);
         _folders.removeWhere((item) => item.id == folder.id);
@@ -73,7 +73,7 @@ class _DownloadFolderManagePageState extends State<DownloadFolderManagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('排序文件夹'),
+        title: Text('排序文件夹'.tr),
         actions: [
           TextButton(
             onPressed: () async {
@@ -81,11 +81,11 @@ class _DownloadFolderManagePageState extends State<DownloadFolderManagePage> {
                 _folders.map((item) => item.id).toList(),
               );
               if (mounted) {
-                SmartDialog.showToast('排序完成');
+                SmartDialog.showToast('排序完成'.tr);
                 Get.back();
               }
             },
-            child: const Text('完成'),
+            child: Text('完成'.tr),
           ),
           const SizedBox(width: 16),
         ],
@@ -111,12 +111,12 @@ class _DownloadFolderManagePageState extends State<DownloadFolderManagePage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
-                    tooltip: '重命名',
+                    tooltip: '重命名'.tr,
                     onPressed: () => _renameFolder(folder),
                     icon: const Icon(Icons.drive_file_rename_outline),
                   ),
                   IconButton(
-                    tooltip: '删除',
+                    tooltip: '删除'.tr,
                     onPressed: () => _deleteFolder(folder),
                     icon: const Icon(Icons.delete_outline),
                   ),

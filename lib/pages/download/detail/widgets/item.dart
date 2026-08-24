@@ -30,7 +30,7 @@ import 'package:get/get.dart';
 import 'package:path/path.dart' as path;
 
 class DetailItem extends StatelessWidget {
-  const DetailItem({
+  DetailItem({
     super.key,
     required this.entry,
     this.progress,
@@ -457,7 +457,7 @@ class DetailItem extends StatelessWidget {
               items: [
                 CustomPopupMenuItem<void>(
                   height: 38,
-                  child: const Text('查看详情页', style: TextStyle(fontSize: 13)),
+                  child: Text('查看详情页', style: TextStyle(fontSize: 13)),
                   onTap: () {
                     if (entry.ep case final ep?) {
                       if (ep.from == VideoType.pugv.name) {
@@ -486,7 +486,7 @@ class DetailItem extends StatelessWidget {
                 if (PlatformUtils.isDesktop)
                   CustomPopupMenuItem<void>(
                     height: 38,
-                    child: const Text(
+                    child: Text(
                       '打开本地文件夹',
                       style: TextStyle(fontSize: 13),
                     ),
@@ -520,7 +520,7 @@ class DetailItem extends StatelessWidget {
                 if (canDel && Platform.isAndroid)
                   CustomPopupMenuItem<void>(
                     height: 38,
-                    child: const Text('导出', style: TextStyle(fontSize: 13)),
+                    child: Text('导出', style: TextStyle(fontSize: 13)),
                     onTap: () async {
                       if (!await ImageUtils.checkPermissionDependOnSdkInt()) {
                         return;
@@ -570,7 +570,7 @@ class DetailItem extends StatelessWidget {
                 if (canDel)
                   CustomPopupMenuItem<void>(
                     height: 38,
-                    child: const Text('更新弹幕', style: TextStyle(fontSize: 13)),
+                    child: Text('更新弹幕', style: TextStyle(fontSize: 13)),
                     onTap: () async {
                       final res = await downloadService.downloadDanmaku(
                         entry: entry,

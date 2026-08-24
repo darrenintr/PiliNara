@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum LiveQuality {
   dolby(30000, '杜比'),
   origin4K(25000, '4K 原画'),

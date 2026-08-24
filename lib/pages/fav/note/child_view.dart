@@ -76,7 +76,7 @@ class _FavNoteChildPageState extends State<FavNoteChildPage>
                 const SizedBox(width: 16),
                 iconButton(
                   size: 32,
-                  tooltip: '取消',
+                  tooltip: '取消'.tr,
                   context: context,
                   icon: const Icon(Icons.clear),
                   onPressed: _favNoteController.onDisable,
@@ -99,13 +99,13 @@ class _FavNoteChildPageState extends State<FavNoteChildPage>
                     checked: !_favNoteController.allSelected.value,
                     disableSelect: false,
                   ),
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.only(
                       top: 14,
                       bottom: 14,
                       right: 12,
                     ),
-                    child: Text('全选'),
+                    child: Text('全选'.tr),
                   ),
                 ),
                 const Spacer(),
@@ -118,12 +118,12 @@ class _FavNoteChildPageState extends State<FavNoteChildPage>
                     if (_favNoteController.checkedCount != 0) {
                       showConfirmDialog(
                         context: context,
-                        title: const Text('确定删除已选中的笔记吗？'),
+                        title: Text('确定删除已选中的笔记吗？'.tr),
                         onConfirm: _favNoteController.onRemove,
                       );
                     }
                   },
-                  child: const Text('删除'),
+                  child: Text('删除'.tr),
                 ),
                 const SizedBox(width: 16),
               ],

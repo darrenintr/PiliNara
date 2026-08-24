@@ -61,7 +61,7 @@ void imageSaveDialog({
                       if (aid != null || bvid != null)
                         iconButton(
                           iconSize: _iconSize,
-                          tooltip: '稍后再看',
+                          tooltip: '稍后再看'.tr,
                           onPressed: () => {
                             SmartDialog.dismiss(),
                             UserHttp.toViewLater(aid: aid, bvid: bvid),
@@ -72,7 +72,7 @@ void imageSaveDialog({
                         if (PlatformUtils.isMobile)
                           iconButton(
                             iconSize: _iconSize,
-                            tooltip: '分享',
+                            tooltip: '分享'.tr,
                             onPressed: () {
                               SmartDialog.dismiss();
                               ImageUtils.onShareImg(cover);
@@ -81,7 +81,7 @@ void imageSaveDialog({
                           ),
                         iconButton(
                           iconSize: _iconSize,
-                          tooltip: '保存封面图',
+                          tooltip: '保存封面图'.tr,
                           onPressed: () async {
                             bool saveStatus = await ImageUtils.downloadImg([
                               cover,

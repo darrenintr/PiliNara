@@ -37,7 +37,7 @@ class _PopularSeriesPageState extends State<PopularSeriesPage> with GridMixin {
           if (config != null) {
             return Text(config.name!);
           }
-          return const Text('每周必看');
+          return Text('每周必看'.tr);
         }),
       ),
       body: refreshIndicator(

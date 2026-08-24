@@ -32,9 +32,9 @@ class MemberContributeCtr extends GetxController
         // show if exist
         if (_ctr.hasSeasonOrSeries == true) {
           items!.add(
-            const SpaceTab2Item(
+            SpaceTab2Item(
               param: 'ugcSeason',
-              title: '全部合集/列表',
+              title: '全部合集/列表'.tr,
             ),
           );
         }

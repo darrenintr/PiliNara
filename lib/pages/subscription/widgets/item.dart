@@ -23,8 +23,8 @@ class SubItem extends StatelessWidget {
   Widget build(BuildContext context) {
     String heroTag = Utils.makeHeroTag(item.id);
     final type = switch (item.type) {
-      11 => '收藏夹',
-      21 => '合集',
+      11 => '收藏夹'.tr,
+      21 => '合集'.tr,
       _ => '其它(${item.type})',
     };
     void onLongPress() => imageSaveDialog(

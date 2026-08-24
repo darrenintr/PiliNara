@@ -160,11 +160,11 @@ class _DynTopicPageState extends State<DynTopicPage>
                   ),
                 );
               } else {
-                SmartDialog.showToast('账号未登录');
+                SmartDialog.showToast('账号未登录'.tr);
               }
             },
             icon: const Icon(CustomIcons.topic_tag, size: 20),
-            label: const Text('参与话题'),
+            label: Text('参与话题'.tr),
           ),
         ),
       ),
@@ -228,7 +228,7 @@ class _DynTopicPageState extends State<DynTopicPage>
                         ),
                       ),
                       Text(
-                        ' 发起',
+                        ' 发起'.tr,
                         style: TextStyle(color: colorScheme.outline),
                       ),
                     ],
@@ -328,14 +328,14 @@ class _DynTopicPageState extends State<DynTopicPage>
                 PopupMenuItem(
                   onTap: _controller.onFav,
                   child: Text(
-                    '${_controller.isFav.value ? '取消' : ''}收藏',
+                    '${_controller.isFav.value ? '取消' : ''}收藏'.tr,
                   ),
                 ),
                 PopupMenuItem(
-                  child: const Text('举报'),
+                  child: Text('举报'.tr),
                   onTap: () {
                     if (!_controller.isLogin) {
-                      SmartDialog.showToast('账号未登录');
+                      SmartDialog.showToast('账号未登录'.tr);
                       return;
                     }
                     PageUtils.inAppWebview(

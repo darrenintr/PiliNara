@@ -850,7 +850,7 @@ class RenderEditable extends RenderBox
   /// font.
   ///
   /// In some cases the same Unicode character may be rendered differently depending
-  /// on the locale. For example the '骨' character is rendered differently in
+  /// on the locale. For example the '骨'.tr character is rendered differently in
   /// the Chinese and Japanese locales. In these cases the [locale] may be used
   /// to select a locale-specific font.
   ///

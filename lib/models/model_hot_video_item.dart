@@ -3,6 +3,7 @@ import 'package:PiliPlus/models/model_owner.dart';
 import 'package:PiliPlus/models/model_video.dart';
 import 'package:PiliPlus/models_new/video/video_detail/dimension.dart';
 import 'package:PiliPlus/pages/common/multi_select/base.dart';
+import 'package:get/get.dart';
 
 // 稍后再看, 排行榜等网页返回也使用该类
 class HotVideoItemModel extends HorizontalVideoModel with MultiSelectData {
@@ -40,9 +41,9 @@ class HotVideoItemModel extends HorizontalVideoModel with MultiSelectData {
     redirectUrl = json['redirect_url'];
     progress = json['progress'];
     if (json['charging_pay']?['level'] != null) {
-      badge = '充电专属';
+      badge = '充电专属'.tr;
     } else if (json['rights']?['is_cooperation'] == 1) {
-      badge = '合作';
+      badge = '合作'.tr;
     } else {
       badge = json['pgc_label'];
     }

@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart' show DateFormat;
+import 'package:get/get.dart';
 
 abstract final class DateFormatUtils {
   static final shortFormat = DateFormat('MM-dd');
@@ -21,7 +22,7 @@ abstract final class DateFormatUtils {
     final diff = now.difference(date);
 
     final diffInMins = diff.inMinutes;
-    if (diffInMins < 1) return '刚刚';
+    if (diffInMins < 1) return '刚刚'.tr;
     if (diffInMins < 60) return '$diffInMins分钟前';
 
     final diffInHours = diff.inHours;

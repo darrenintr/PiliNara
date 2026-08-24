@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum DynamicsTabType {
   all('全部'),
   video('投稿'),

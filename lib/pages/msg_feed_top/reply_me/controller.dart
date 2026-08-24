@@ -4,6 +4,7 @@ import 'package:PiliPlus/models_new/msg/msg_reply/data.dart';
 import 'package:PiliPlus/models_new/msg/msg_reply/item.dart';
 import 'package:PiliPlus/pages/common/common_list_controller.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 
 class ReplyMeController
     extends CommonListController<MsgReplyData, MsgReplyItem> {
@@ -44,7 +45,7 @@ class ReplyMeController
         loadingState
           ..value.data!.removeAt(index)
           ..refresh();
-        SmartDialog.showToast('删除成功');
+        SmartDialog.showToast('删除成功'.tr);
       } else {
         res.toast();
       }

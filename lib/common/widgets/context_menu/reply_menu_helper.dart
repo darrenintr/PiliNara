@@ -19,7 +19,7 @@ void showReplyCopyDialog(
               buttonItems.insertOrAdd(
                 3,
                 ContextMenuButtonItem(
-                  label: showEmote ? '文本' : '表情',
+                  label: showEmote ? '文本'.tr : '表情'.tr,
                   onPressed: () {
                     state.hideAndClear();
                     showEmote = !showEmote;
@@ -37,7 +37,7 @@ void showReplyCopyDialog(
 
                     showConfirmDialog(
                       context: context,
-                      title: const Text('是否将以下内容加入评论过滤：'),
+                      title: Text('是否将以下内容加入评论过滤：'.tr),
                       content: Text(
                         escapedText,
                         style: const TextStyle(
@@ -51,7 +51,7 @@ void showReplyCopyDialog(
                             ? <String>[]
                             : currentStored.split('\n');
                         if (existingKeywords.contains(escapedText)) {
-                          SmartDialog.showToast('该关键词已在过滤列表中');
+                          SmartDialog.showToast('该关键词已在过滤列表中'.tr);
                           return;
                         }
                         final newStored = currentStored.isEmpty
@@ -67,11 +67,11 @@ void showReplyCopyDialog(
                           caseSensitive: true,
                         );
                         ReplyGrpc.enableFilter = true;
-                        SmartDialog.showToast('已保存');
+                        SmartDialog.showToast('已保存'.tr);
                       },
                     );
                   },
-                  label: '加入过滤',
+                  label: '加入过滤'.tr,
                 ),
               );
             }

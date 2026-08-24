@@ -180,21 +180,21 @@ class _GeetestWebviewDialogState extends State<GeetestWebviewDialog> {
   Widget build(BuildContext context) {
     if (Platform.isLinux) {
       return AlertDialog(
-        title: const Text('验证码'),
+        title: Text('验证码'.tr),
         content: SizedBox(
           width: 300,
           height: 400,
           child: Center(
             child: _linuxWebviewLoading
                 ? const CircularProgressIndicator()
-                : const Text('请在弹出的新窗口中完成验证'),
+                : Text('请在弹出的新窗口中完成验证'.tr),
           ),
         ),
         actions: [
           TextButton(
             onPressed: Get.back,
             child: Text(
-              '取消',
+              '取消'.tr,
               style: TextStyle(color: ColorScheme.of(context).outline),
             ),
           ),
@@ -284,7 +284,7 @@ class _GeetestWebviewDialogState extends State<GeetestWebviewDialog> {
           child: IconButton(
             icon: const Icon(Icons.close),
             onPressed: Get.back,
-            tooltip: '关闭',
+            tooltip: '关闭'.tr,
           ),
         ),
       ],

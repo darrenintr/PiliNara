@@ -21,6 +21,7 @@ import 'package:PiliPlus/utils/global_data.dart';
 import 'package:PiliPlus/utils/wbi_sign.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 
 abstract final class UserHttp {
   // static Future<dynamic> userStat({required int mid}) async {
@@ -181,7 +182,7 @@ abstract final class UserHttp {
       options: Options(contentType: Headers.formUrlEncodedContentType),
     );
     if (res.data['code'] == 0) {
-      SmartDialog.showToast('yeah！稍后再看');
+      SmartDialog.showToast('yeah！稍后再看'.tr);
       return const Success(null);
     } else {
       SmartDialog.showToast(res.data['message'].toString());
@@ -201,7 +202,7 @@ abstract final class UserHttp {
       options: Options(contentType: Headers.formUrlEncodedContentType),
     );
     if (res.data['code'] == 0) {
-      SmartDialog.showToast('yeah！成功移除');
+      SmartDialog.showToast('yeah！成功移除'.tr);
       return const Success(null);
     } else {
       SmartDialog.showToast(res.data['message'].toString());

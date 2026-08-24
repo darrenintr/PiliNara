@@ -4,6 +4,7 @@ import 'package:PiliPlus/pages/setting/models/model.dart';
 import 'package:PiliPlus/pages/setting/models/reply_settings.dart';
 import 'package:PiliPlus/utils/storage_pref.dart';
 import 'package:flutter/material.dart' hide ListTile;
+import 'package:get/get.dart';
 
 class ReplySetting extends StatefulWidget {
   const ReplySetting({
@@ -50,7 +51,7 @@ class _ReplySettingState extends State<ReplySetting> {
     final theme = Theme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: showAppBar ? AppBar(title: const Text('评论区过滤设置')) : null,
+      appBar: showAppBar ? AppBar(title: Text('评论区过滤设置'.tr)) : null,
       body: ListView(
         padding: EdgeInsets.only(
           left: showAppBar ? padding.left : 0,
@@ -63,12 +64,12 @@ class _ReplySettingState extends State<ReplySetting> {
           ListTile(
             dense: true,
             subtitle: Text(
-              '* 屏蔽用户后，该用户发布的评论将不会显示。\n'
-              '* 评论区屏蔽用户优先于白名单生效。\n'
-              '* 白名单用户与动态流/推荐流共享，白名单优先于带货屏蔽和常规过滤。\n'
-              '* 关键词过滤支持正则表达式，多个关键词使用|分隔。\n'
-              '* 等级过滤：屏蔽低于所设等级的用户发布的评论，0 为关闭。\n'
-              '* 设置立即生效，刷新评论区即可看到过滤结果。',
+              '* 屏蔽用户后，该用户发布的评论将不会显示。\n'.tr +
+              '* 评论区屏蔽用户优先于白名单生效。\n'.tr +
+              '* 白名单用户与动态流/推荐流共享，白名单优先于带货屏蔽和常规过滤。\n'.tr +
+              '* 关键词过滤支持正则表达式，多个关键词使用|分隔。\n'.tr +
+              '* 等级过滤：屏蔽低于所设等级的用户发布的评论，0 为关闭。\n'.tr +
+              '* 设置立即生效，刷新评论区即可看到过滤结果。'.tr,
               style: theme.textTheme.labelSmall!.copyWith(
                 color: theme.colorScheme.outline.withValues(alpha: 0.7),
               ),
@@ -85,9 +86,9 @@ class _ReplySettingState extends State<ReplySetting> {
       children: [
         ListTile(
           leading: const Icon(Icons.shield_outlined),
-          title: const Text('屏蔽低等级用户评论'),
+          title: Text('屏蔽低等级用户评论'.tr),
           subtitle: Text(
-            _level == 0 ? '已关闭' : '屏蔽 Lv${_level - 1} 及以下的评论',
+            _level == 0 ? '已关闭'.tr : '屏蔽 Lv${_level - 1} 及以下的评论',
           ),
         ),
         Padding(
@@ -101,7 +102,7 @@ class _ReplySettingState extends State<ReplySetting> {
                   max: 6,
                   divisions: 6,
                   value: _level.toDouble(),
-                  label: _level == 0 ? '关闭' : 'Lv$_level',
+                  label: _level == 0 ? '关闭'.tr : 'Lv$_level',
                   onChanged: (v) {
                     final level = v.round();
                     setState(() => _level = level);

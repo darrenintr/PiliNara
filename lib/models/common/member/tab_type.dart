@@ -1,4 +1,5 @@
 import 'package:PiliPlus/utils/storage_pref.dart';
+import 'package:get/get.dart';
 
 enum MemberTabType {
   def('默认'),

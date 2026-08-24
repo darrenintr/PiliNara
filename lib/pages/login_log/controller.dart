@@ -3,6 +3,7 @@ import 'package:PiliPlus/http/user.dart';
 import 'package:PiliPlus/models_new/login_log/data.dart';
 import 'package:PiliPlus/models_new/login_log/list.dart';
 import 'package:PiliPlus/pages/log_table/controller.dart';
+import 'package:get/get.dart';
 
 class LoginLogController extends LogController<LoginLogData, LoginLogItem> {
   @override
@@ -19,12 +20,12 @@ class LoginLogController extends LogController<LoginLogData, LoginLogItem> {
   }
 
   @override
-  final LoginLogItem header = const LoginLogItem(
-    timeAt: '时间',
-    ip: '变化',
-    geo: '地理位置',
+  final LoginLogItem header = LoginLogItem(
+    timeAt: '时间'.tr,
+    ip: '变化'.tr,
+    geo: '地理位置'.tr,
   );
 
   @override
-  final String title = '登录记录';
+  final String title = '登录记录'.tr;
 }

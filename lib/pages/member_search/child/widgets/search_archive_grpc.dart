@@ -20,6 +20,7 @@ import 'package:PiliPlus/utils/utils.dart';
 import 'package:fixnum/fixnum.dart' show Int64;
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:get/get.dart';
 
 class SearchArchiveGrpc extends StatelessWidget {
   const SearchArchiveGrpc({
@@ -88,8 +89,8 @@ class SearchArchiveGrpc extends StatelessWidget {
                               height: maxHeight,
                             ),
                             if (item.isPugv)
-                              const PBadge(
-                                text: '课堂',
+                              PBadge(
+                                text: '课堂'.tr,
                                 top: 6.0,
                                 right: 6.0,
                               ),
@@ -140,11 +141,11 @@ class SearchArchiveGrpc extends StatelessWidget {
                 PopupMenuItem(
                   height: 45,
                   onTap: () => UserHttp.toViewLater(bvid: bvid),
-                  child: const Row(
+                  child: Row(
                     spacing: 6,
                     children: [
                       Icon(MdiIcons.clockTimeEightOutline, size: 16),
-                      Text('稍后再看', style: TextStyle(fontSize: 13)),
+                      Text('稍后再看'.tr, style: TextStyle(fontSize: 13)),
                     ],
                   ),
                 ),

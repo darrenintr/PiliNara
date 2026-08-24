@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum BtmProgressBehavior {
   alwaysShow('始终展示'),
   alwaysHide('始终隐藏'),

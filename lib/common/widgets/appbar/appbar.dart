@@ -25,7 +25,7 @@ class MultiSelectAppBarWidget extends StatelessWidget
       return AppBar(
         bottom: child.bottom,
         leading: IconButton(
-          tooltip: '取消',
+          tooltip: '取消'.tr,
           onPressed: ctr.handleSelect,
           icon: const Icon(Icons.close_outlined),
         ),
@@ -34,7 +34,7 @@ class MultiSelectAppBarWidget extends StatelessWidget
           TextButton(
             style: style,
             onPressed: () => ctr.handleSelect(checked: true),
-            child: const Text('全选'),
+            child: Text('全选'.tr),
           ),
           ...?actions,
           TextButton(
@@ -46,7 +46,7 @@ class MultiSelectAppBarWidget extends StatelessWidget
               ctr.onRemove();
             },
             child: Text(
-              '移除',
+              '移除'.tr,
               style: TextStyle(color: colorScheme.error),
             ),
           ),

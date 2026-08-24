@@ -368,7 +368,7 @@ abstract final class PiliScheme {
           case 'livearea':
             Get.to(
               SimpleScaffold(
-                appBar: AppBar(title: const Text('直播')),
+                appBar: AppBar(title: Text('直播'.tr)),
                 body: const ViewSafeArea(child: LivePage()),
               ),
             );
@@ -376,7 +376,7 @@ abstract final class PiliScheme {
           case 'rank':
             Get.to(
               SimpleScaffold(
-                appBar: AppBar(title: const Text('排行榜')),
+                appBar: AppBar(title: Text('排行榜'.tr)),
                 body: const ViewSafeArea(child: RankPage()),
               ),
             );
@@ -639,7 +639,7 @@ abstract final class PiliScheme {
                 title: res.title,
                 extraArguments: {
                   'sourceType': SourceType.playlist,
-                  'favTitle': '播放列表',
+                  'favTitle': '播放列表'.tr,
                   'mediaId': mediaId,
                   'desc': true,
                   'isContinuePlaying': true,
@@ -655,7 +655,7 @@ abstract final class PiliScheme {
         return false;
       case 'bangumi':
         // www.bilibili.com/bangumi/play/ep{eid}?start_progress={offset}&thumb_up_dm_id={dmid}
-        // if (kDebugMode) debugPrint('番剧');
+        // if (kDebugMode) debugPrint('番剧'.tr);
         bool hasMatch = PageUtils.viewPgcFromUri(
           path,
           progress: _videoProgress(uri.queryParameters),
@@ -666,7 +666,7 @@ abstract final class PiliScheme {
         launchURL();
         return false;
       case 'video':
-        // if (kDebugMode) debugPrint('投稿');
+        // if (kDebugMode) debugPrint('投稿'.tr);
         final res = IdUtils.matchAvorBv(input: path);
         if (res.isNotEmpty) {
           final queryParameters = uri.queryParameters;
@@ -710,7 +710,7 @@ abstract final class PiliScheme {
           launchURL();
           return false;
         }
-        // if (kDebugMode) debugPrint('专栏');
+        // if (kDebugMode) debugPrint('专栏'.tr);
         String? id = RegExp(
           r'cv(\d+)',
           caseSensitive: false,
@@ -729,7 +729,7 @@ abstract final class PiliScheme {
         launchURL();
         return false;
       case 'space':
-        // if (kDebugMode) debugPrint('个人空间');
+        // if (kDebugMode) debugPrint('个人空间'.tr);
         String? mid = uriDigitRegExp.firstMatch(path)?.group(1);
         if (mid != null) {
           PageUtils.toDupNamed(
@@ -890,7 +890,7 @@ abstract final class PiliScheme {
       aid ??= IdUtils.bv2av(bvid!);
       bvid ??= IdUtils.av2bv(aid);
       if (showDialog) {
-        SmartDialog.showLoading<dynamic>(msg: '获取中...');
+        SmartDialog.showLoading<dynamic>(msg: '获取中...'.tr);
       }
       final res = await SearchHttp.ab2cWithDimension(
         bvid: bvid,

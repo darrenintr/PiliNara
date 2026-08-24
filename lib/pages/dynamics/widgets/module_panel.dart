@@ -16,6 +16,7 @@ import 'package:PiliPlus/utils/page_utils.dart';
 import 'package:cached_network_image_ce/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 Widget noneWidget(ThemeData theme, String? tips) => Row(
   spacing: 5,
@@ -26,7 +27,7 @@ Widget noneWidget(ThemeData theme, String? tips) => Row(
       color: theme.colorScheme.outline,
     ),
     Text(
-      tips ?? '已失效',
+      tips ?? '已失效'.tr,
       style: TextStyle(color: theme.colorScheme.outline),
     ),
   ],

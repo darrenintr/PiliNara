@@ -73,16 +73,16 @@ class MemberFavItem extends StatelessWidget {
                     ),
                   ),
                   if (item.type == 21)
-                    const PBadge(
+                    PBadge(
                       right: 6,
                       top: 6,
-                      text: '合集',
+                      text: '合集'.tr,
                     )
                   else if (item.type == 11)
-                    const PBadge(
+                    PBadge(
                       right: 6,
                       top: 6,
-                      text: '收藏夹',
+                      text: '收藏夹'.tr,
                     ),
                 ],
               ),

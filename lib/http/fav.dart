@@ -17,6 +17,7 @@ import 'package:PiliPlus/utils/accounts.dart';
 import 'package:PiliPlus/utils/app_sign.dart';
 import 'package:PiliPlus/utils/locale_utils.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 
 abstract final class FavHttp {
   static Future<LoadingState<void>> favFavFolder(Object mediaId) async {
@@ -412,7 +413,7 @@ abstract final class FavHttp {
     if (res.data['code'] == 0) {
       return Success(FavFolderData.fromJson(res.data['data']));
     } else {
-      return Error(res.data['message'] ?? '账号未登录');
+      return Error(res.data['message'] ?? '账号未登录'.tr);
     }
   }
 

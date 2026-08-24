@@ -64,7 +64,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return SimpleScaffold(
-      appBar: AppBar(title: const Text('账号资料')),
+      appBar: AppBar(title: Text('账号资料'.tr)),
       body: _buildBody(theme, _loadingState),
     );
   }
@@ -137,7 +137,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           divider1,
           _item(
             theme: theme,
-            title: '头像',
+            title: '头像'.tr,
             widget: Padding(
               padding: const EdgeInsets.symmetric(vertical: 5),
               child: NetworkImgLayer(
@@ -158,15 +158,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
           divider,
           _item(
             theme: theme,
-            title: '昵称',
+            title: '昵称'.tr,
             text: response.name,
             onTap: () {
               if (response.coins! < 6) {
-                SmartDialog.showToast('硬币不足');
+                SmartDialog.showToast('硬币不足'.tr);
               } else {
                 _editDialog(
                   type: ProfileType.uname,
-                  title: '昵称',
+                  title: '昵称'.tr,
                   text: response.name!,
                 );
               }
@@ -175,7 +175,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           divider,
           _item(
             theme: theme,
-            title: '性别',
+            title: '性别'.tr,
             text: _sex(response.sex!),
             onTap: () => showDialog(
               context: context,
@@ -185,7 +185,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           divider,
           _item(
             theme: theme,
-            title: '出生年月',
+            title: '出生年月'.tr,
             text: response.birthday,
             onTap: () =>
                 showDatePicker(
@@ -205,18 +205,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
           divider,
           _item(
             theme: theme,
-            title: '个性签名',
+            title: '个性签名'.tr,
             text: response.sign,
             onTap: () => _editDialog(
               type: ProfileType.sign,
-              title: '个性签名',
+              title: '个性签名'.tr,
               text: response.sign ?? '',
             ),
           ),
           divider1,
           _item(
             theme: theme,
-            title: '头像挂件',
+            title: '头像挂件'.tr,
             onTap: () => PageUtils.inAppWebview(
               'https://www.bilibili.com/h5/mall/pendant/home',
             ),
@@ -232,7 +232,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           divider1,
           _item(
             theme: theme,
-            title: '哔哩哔哩认证',
+            title: '哔哩哔哩认证'.tr,
             onTap: () => PageUtils.inAppWebview(
               'https://account.bilibili.com/official/mobile/home',
             ),
@@ -252,9 +252,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
       clipBehavior: Clip.hardEdge,
       contentPadding: const EdgeInsets.symmetric(vertical: 12),
       children: [
-        _sexDialogItem(1, current, '男'),
-        _sexDialogItem(0, current, '保密'),
-        _sexDialogItem(2, current, '女'),
+        _sexDialogItem(1, current, '男'.tr),
+        _sexDialogItem(0, current, '保密'.tr),
+        _sexDialogItem(2, current, '女'.tr),
       ],
     );
   }
@@ -321,7 +321,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             TextButton(
               onPressed: Get.back,
               child: Text(
-                '取消',
+                '取消'.tr,
                 style: TextStyle(color: theme.colorScheme.outline),
               ),
             ),
@@ -333,7 +333,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   _update(type: type);
                 }
               },
-              child: const Text('确定'),
+              child: Text('确定'.tr),
             ),
           ],
         );
@@ -347,7 +347,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }) async {
     final accessKey = Accounts.main.accessKey;
     if (accessKey == null || accessKey.isEmpty) {
-      SmartDialog.showToast('请退出账号后重新登录');
+      SmartDialog.showToast('请退出账号后重新登录'.tr);
       return;
     }
     final data = <String, String>{
@@ -401,7 +401,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             } else if (type == ProfileType.sex) {
               data.sex = datum;
             }
-            SmartDialog.showToast('修改成功');
+            SmartDialog.showToast('修改成功'.tr);
             if (mounted) {
               setState(() {});
             }
@@ -416,10 +416,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   String _sex(int sex) {
     return switch (sex) {
-      0 => '保密',
-      1 => '男',
-      2 => '女',
-      _ => '未知',
+      0 => '保密'.tr,
+      1 => '男'.tr,
+      2 => '女'.tr,
+      _ => '未知'.tr,
     };
   }
 
@@ -433,7 +433,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }) {
     return ListTile(
       onTap: onTap,
-      dense: title != '头像',
+      dense: title != '头像'.tr,
       leading: Text(
         title,
         style: const TextStyle(
@@ -484,7 +484,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ?.split('/')
             .elementAtOrNull(1);
         if (mimeType == 'gif') {
-          SmartDialog.showToast('不能选GIF');
+          SmartDialog.showToast('不能选GIF'.tr);
           return;
         }
         if (PlatformUtils.isMobile) {
@@ -492,7 +492,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             sourcePath: imagePath,
             uiSettings: [
               AndroidUiSettings(
-                toolbarTitle: '裁剪',
+                toolbarTitle: '裁剪'.tr,
                 toolbarColor: theme.colorScheme.secondaryContainer,
                 toolbarWidgetColor: theme.colorScheme.onSecondaryContainer,
                 statusBarLight: theme.isLight,
@@ -503,7 +503,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 initAspectRatio: const CropAspectRatioPresetCustom(),
               ),
               IOSUiSettings(
-                title: '裁剪',
+                title: '裁剪'.tr,
                 aspectRatioPresets: const [CropAspectRatioPresetCustom()],
                 cropStyle: CropStyle.circle,
                 aspectRatioLockEnabled: true,
@@ -530,7 +530,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               )
               .then((res) {
                 if (res.data['code'] == 0) {
-                  SmartDialog.showToast('修改成功');
+                  SmartDialog.showToast('修改成功'.tr);
                   Future.delayed(const Duration(milliseconds: 500), () {
                     if (mounted) {
                       _getInfo();

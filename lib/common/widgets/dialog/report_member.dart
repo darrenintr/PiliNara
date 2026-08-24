@@ -39,7 +39,7 @@ Future<void> showMemberReportDialog(
             mainAxisSize: .min,
             crossAxisAlignment: .start,
             children: [
-              const Padding(
+              Padding(
                 padding: .only(left: 18),
                 child: Text('举报内容（必选，可多选）'),
               ),
@@ -85,7 +85,7 @@ Future<void> showMemberReportDialog(
                   },
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: .only(left: 18),
                 child: Text('举报理由（单选，非必选）'),
               ),
@@ -158,7 +158,7 @@ Future<void> showMemberReportDialog(
                 );
               }
             },
-            child: const Text('确定'),
+            child: Text('确定'),
           ),
         ],
       );

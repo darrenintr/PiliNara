@@ -45,7 +45,7 @@ class _MyReplyState extends State<MyReply> with DynMixin {
   Widget build(BuildContext context) {
     return SimpleScaffold(
       appBar: AppBar(
-        title: const Text('我的评论'),
+        title: Text('我的评论'.tr),
         actions: [
           if (kDebugMode)
             IconButton(
@@ -62,12 +62,12 @@ class _MyReplyState extends State<MyReply> with DynMixin {
               icon: const Icon(Icons.clear_all),
             ),
           IconButton(
-            tooltip: '导出',
+            tooltip: '导出'.tr,
             onPressed: _showExportDialog,
             icon: const Icon(Icons.file_upload_outlined),
           ),
           IconButton(
-            tooltip: '导入',
+            tooltip: '导入'.tr,
             onPressed: _showImportDialog,
             icon: const Icon(Icons.file_download_outlined),
           ),
@@ -157,7 +157,7 @@ class _MyReplyState extends State<MyReply> with DynMixin {
         children: [
           ListTile(
             dense: true,
-            title: const Text('导出至剪贴板', style: style),
+            title: Text('导出至剪贴板'.tr, style: style),
             onTap: () {
               Get.back();
               exportToClipBoard(onExport: _onExport);
@@ -165,7 +165,7 @@ class _MyReplyState extends State<MyReply> with DynMixin {
           ),
           ListTile(
             dense: true,
-            title: const Text('导出文件至本地', style: style),
+            title: Text('导出文件至本地'.tr, style: style),
             onTap: () {
               Get.back();
               exportToLocalFile(
@@ -201,12 +201,12 @@ class _MyReplyState extends State<MyReply> with DynMixin {
         children: [
           ListTile(
             dense: true,
-            title: const Text('从剪贴板导入', style: style),
+            title: Text('从剪贴板导入'.tr, style: style),
             onTap: () {
               Get.back();
               importFromClipBoard<List<dynamic>>(
                 context,
-                title: '评论',
+                title: '评论'.tr,
                 onExport: _onExport,
                 onImport: _onImport,
                 showConfirmDialog: false,
@@ -215,7 +215,7 @@ class _MyReplyState extends State<MyReply> with DynMixin {
           ),
           ListTile(
             dense: true,
-            title: const Text('从本地文件导入', style: style),
+            title: Text('从本地文件导入'.tr, style: style),
             onTap: () {
               Get.back();
               importFromLocalFile<List<dynamic>>(onImport: _onImport);

@@ -47,7 +47,7 @@ class _MemberDynamicsPageState extends State<MemberDynamicsPage>
     final padding = MediaQuery.viewPaddingOf(context);
     return widget.mid == null
         ? SimpleScaffold(
-            appBar: AppBar(title: const Text('我的动态')),
+            appBar: AppBar(title: Text('我的动态'.tr)),
             body: Padding(
               padding: EdgeInsets.only(
                 left: padding.left,

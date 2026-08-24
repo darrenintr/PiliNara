@@ -84,7 +84,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
           showDialog(
             context: context,
             builder: (_) => AlertDialog(
-              title: Text('最短片段时长', style: titleStyle),
+              title: Text('最短片段时长'.tr, style: titleStyle),
               content: TextFormField(
                 keyboardType: const .numberWithOptions(decimal: true),
                 controller: _textController,
@@ -96,7 +96,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
                 TextButton(
                   onPressed: Get.back,
                   child: Text(
-                    '取消',
+                    '取消'.tr,
                     style: TextStyle(color: theme.colorScheme.outline),
                   ),
                 ),
@@ -111,15 +111,15 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
                       SmartDialog.showToast(e.toString());
                     }
                   },
-                  child: const Text('确定'),
+                  child: Text('确定'.tr),
                 ),
               ],
             ),
           );
         },
-        title: Text('最短片段时长', style: titleStyle),
+        title: Text('最短片段时长'.tr, style: titleStyle),
         subtitle: Text(
-          '忽略短于此时长的片段',
+          '忽略短于此时长的片段'.tr,
           style: subTitleStyle,
         ),
         trailing: Text(
@@ -132,7 +132,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
 
   Widget _aboutItem(TextStyle titleStyle, TextStyle subTitleStyle) => ListTile(
     dense: true,
-    title: Text('关于空降助手', style: titleStyle),
+    title: Text('关于空降助手'.tr, style: titleStyle),
     subtitle: Text(_url, style: subTitleStyle),
     onTap: () => PageUtils.launchURL(_url),
   );
@@ -145,7 +145,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
     builder: (context) {
       return ListTile(
         dense: true,
-        title: Text('用户ID', style: titleStyle),
+        title: Text('用户ID'.tr, style: titleStyle),
         subtitle: Text(_userId, style: subTitleStyle),
         onTap: () {
           final key = GlobalKey<FormFieldState<String>>();
@@ -154,7 +154,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
             context: context,
             builder: (_) {
               return AlertDialog(
-                title: Text('用户ID', style: titleStyle),
+                title: Text('用户ID'.tr, style: titleStyle),
                 content: TextFormField(
                   key: key,
                   minLines: 1,
@@ -167,7 +167,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
                   decoration: const InputDecoration(errorMaxLines: 2),
                   validator: (value) {
                     if ((value?.length ?? -1) < 30) {
-                      return '用户ID要求至少为30个字符长度的纯字符串';
+                      return '用户ID要求至少为30个字符长度的纯字符串'.tr;
                     }
                     return null;
                   },
@@ -182,12 +182,12 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
                       setting.put(SettingBoxKey.blockUserID, _userId);
                       (context as Element).markNeedsBuild();
                     },
-                    child: const Text('随机'),
+                    child: Text('随机'.tr),
                   ),
                   TextButton(
                     onPressed: Get.back,
                     child: Text(
-                      '取消',
+                      '取消'.tr,
                       style: TextStyle(
                         color: theme.colorScheme.outline,
                       ),
@@ -202,7 +202,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
                         (context as Element).markNeedsBuild();
                       }
                     },
-                    child: const Text('确定'),
+                    child: Text('确定'.tr),
                   ),
                 ],
               );
@@ -225,7 +225,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
         dense: true,
         onTap: update,
         title: Text(
-          '显示跳过Toast',
+          '显示跳过Toast'.tr,
           style: titleStyle,
         ),
         trailing: Transform.scale(
@@ -255,12 +255,12 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
         dense: true,
         onTap: update,
         title: Text(
-          '跳过次数统计跟踪',
+          '跳过次数统计跟踪'.tr,
           style: titleStyle,
         ),
         subtitle: Text(
           // from origin extension
-          '此功能追踪您跳过了哪些片段，让用户知道他们提交的片段帮助了多少人。同时点赞会作为依据，确保垃圾信息不会污染数据库。在您每次跳过片段时，我们都会向服务器发送一条消息。希望大家开启此项设置，以便得到更准确的统计数据。:)',
+          '此功能追踪您跳过了哪些片段，让用户知道他们提交的片段帮助了多少人。同时点赞会作为依据，确保垃圾信息不会污染数据库。在您每次跳过片段时，我们都会向服务器发送一条消息。希望大家开启此项设置，以便得到更准确的统计数据。:)'.tr,
           style: subTitleStyle,
         ),
         trailing: Transform.scale(
@@ -293,11 +293,11 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
         dense: true,
         onTap: update,
         title: Text(
-          '快进至片段中间时跳过',
+          '快进至片段中间时跳过'.tr,
           style: titleStyle,
         ),
         subtitle: Text(
-          '通过方向键或进度跳转进入片段中间时，仍按该片段的跳过类型处理',
+          '通过方向键或进度跳转进入片段中间时，仍按该片段的跳过类型处理'.tr,
           style: subTitleStyle,
         ),
         trailing: Transform.scale(
@@ -325,7 +325,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
           _getUserInfo();
         },
         title: Text(
-          '您的信息',
+          '您的信息'.tr,
           style: titleStyle,
         ),
         subtitle: switch (_userInfo.value) {
@@ -335,7 +335,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
             style: subTitleStyle,
           ),
           Error(:final errMsg) => Text(
-            errMsg ?? '服务器错误',
+            errMsg ?? '服务器错误'.tr,
             style: subTitleStyle.copyWith(color: theme.colorScheme.error),
           ),
         },
@@ -356,7 +356,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
           showDialog(
             context: context,
             builder: (_) => AlertDialog(
-              title: Text('服务器地址', style: titleStyle),
+              title: Text('服务器地址'.tr, style: titleStyle),
               content: TextFormField(
                 keyboardType: TextInputType.url,
                 controller: _textController,
@@ -371,12 +371,12 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
                     Request.accountManager.blockServer = _blockServer;
                     (context as Element).markNeedsBuild();
                   },
-                  child: const Text('重置'),
+                  child: Text('重置'.tr),
                 ),
                 TextButton(
                   onPressed: Get.back,
                   child: Text(
-                    '取消',
+                    '取消'.tr,
                     style: TextStyle(
                       color: theme.colorScheme.outline,
                     ),
@@ -392,14 +392,14 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
                     _getUserInfo();
                     (context as Element).markNeedsBuild();
                   },
-                  child: const Text('确定'),
+                  child: Text('确定'.tr),
                 ),
               ],
             ),
           );
         },
         title: Text(
-          '服务器地址',
+          '服务器地址'.tr,
           style: titleStyle,
         ),
         subtitle: Text(
@@ -418,10 +418,10 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
         case null:
           status = '——';
         case true:
-          status = '正常';
+          status = '正常'.tr;
           color = theme.colorScheme.primary;
         case false:
-          status = '错误';
+          status = '错误'.tr;
           color = theme.colorScheme.error;
       }
       return ListTile(
@@ -430,7 +430,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
           _serverStatus.value = null;
           _checkServerStatus();
         },
-        title: Text('服务器状态', style: titleStyle),
+        title: Text('服务器状态'.tr, style: titleStyle),
         trailing: Text(
           status,
           style: TextStyle(fontSize: 13, color: color),
@@ -520,7 +520,7 @@ class _SponsorBlockPageState extends State<SponsorBlockPage> {
     );
 
     return SimpleScaffold(
-      appBar: AppBar(title: const Text('空降助手')),
+      appBar: AppBar(title: Text('空降助手'.tr)),
       body: CustomScrollView(
         slivers: [
           dividerL,

@@ -76,7 +76,7 @@ class _MemberHomeState extends State<MemberHome>
                   if (res.archive?.item?.isNotEmpty == true) ...[
                     _header(
                       color,
-                      title: '视频',
+                      title: '视频'.tr,
                       param: 'contribute',
                       param1: 'video',
                       count: res.archive!.count!,
@@ -102,7 +102,7 @@ class _MemberHomeState extends State<MemberHome>
                   if (res.favourite2?.item?.isNotEmpty == true) ...[
                     _header(
                       color,
-                      title: '收藏',
+                      title: '收藏'.tr,
                       param: 'favorite',
                       count: res.favourite2!.count!,
                       visible: isOwner ? setting.favVideo == 1 : null,
@@ -119,7 +119,7 @@ class _MemberHomeState extends State<MemberHome>
                   if (res.coinArchive?.item?.isNotEmpty == true) ...[
                     _header(
                       color,
-                      title: '最近投币的视频',
+                      title: '最近投币的视频'.tr,
                       param: 'coinArchive',
                       count: res.coinArchive!.count!,
                       visible: isOwner ? setting.coinsVideo == 1 : null,
@@ -145,7 +145,7 @@ class _MemberHomeState extends State<MemberHome>
                   if (res.likeArchive?.item?.isNotEmpty == true) ...[
                     _header(
                       color,
-                      title: '最近点赞的视频',
+                      title: '最近点赞的视频'.tr,
                       param: 'likeArchive',
                       count: res.likeArchive!.count!,
                       visible: isOwner ? setting.likesVideo == 1 : null,
@@ -171,7 +171,7 @@ class _MemberHomeState extends State<MemberHome>
                   if (res.article?.item?.isNotEmpty == true) ...[
                     _header(
                       color,
-                      title: '图文',
+                      title: '图文'.tr,
                       param: 'contribute',
                       param1: 'opus',
                       count: res.article!.count!,
@@ -188,7 +188,7 @@ class _MemberHomeState extends State<MemberHome>
                   if (res.audios?.item?.isNotEmpty == true) ...[
                     _header(
                       color,
-                      title: '音频',
+                      title: '音频'.tr,
                       param: 'contribute',
                       param1: 'audio',
                       count: res.audios!.count!,
@@ -206,7 +206,7 @@ class _MemberHomeState extends State<MemberHome>
                   if (res.comic?.item?.isNotEmpty == true) ...[
                     _header(
                       color,
-                      title: '漫画',
+                      title: '漫画'.tr,
                       param: 'contribute',
                       param1: 'comic',
                       count: res.comic!.count!,
@@ -222,7 +222,7 @@ class _MemberHomeState extends State<MemberHome>
                   if (res.season?.item?.isNotEmpty == true) ...[
                     _header(
                       color,
-                      title: '追番',
+                      title: '追番'.tr,
                       param: 'bangumi',
                       count: res.season!.count!,
                       visible: isOwner ? setting.bangumi == 1 : null,

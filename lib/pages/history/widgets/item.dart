@@ -67,7 +67,7 @@ class HistoryItem extends StatelessWidget {
                   if (item.liveStatus == 1) {
                     PageUtils.toLiveRoom(item.history.oid);
                   } else {
-                    SmartDialog.showToast('直播未开播');
+                    SmartDialog.showToast('直播未开播'.tr);
                   }
                 } else if (business == 'pgc') {
                   PageUtils.viewPgc(
@@ -143,15 +143,15 @@ class HistoryItem extends StatelessWidget {
                             if (hasDuration)
                               PBadge(
                                 text: item.progress == -1
-                                    ? '已看完'
+                                    ? '已看完'.tr
                                     : '${DurationUtils.formatDuration(item.progress)}/${DurationUtils.formatDuration(item.duration)}',
                                 right: 6.0,
                                 bottom: 8.0,
                                 type: PBadgeType.gray,
                               ),
                             if (item.isFav == 1)
-                              const PBadge(
-                                text: '已收藏',
+                              PBadge(
+                                text: '已收藏'.tr,
                                 top: 6.0,
                                 right: 6.0,
                                 type: PBadgeType.gray,
@@ -204,7 +204,7 @@ class HistoryItem extends StatelessWidget {
               height: 29,
               child: StaticPopupMenuButton(
                 padding: EdgeInsets.zero,
-                tooltip: '功能菜单',
+                tooltip: '功能菜单'.tr,
                 icon: Icon(
                   Icons.more_vert_outlined,
                   color: theme.colorScheme.outline,
@@ -231,30 +231,30 @@ class HistoryItem extends StatelessWidget {
                       ),
                     ),
                   if (business != 'pgc' &&
-                      item.badge != '番剧' &&
-                      item.tagName?.contains('动画') != true &&
+                      item.badge != '番剧'.tr &&
+                      item.tagName?.contains('动画'.tr) != true &&
                       business != 'live' &&
                       business?.contains('article') != true)
                     PopupMenuItem(
                       onTap: () =>
                           UserHttp.toViewLater(bvid: item.history.bvid),
                       height: 38,
-                      child: const Row(
+                      child: Row(
                         children: [
                           Icon(Icons.watch_later_outlined, size: 16),
                           SizedBox(width: 6),
-                          Text('稍后再看', style: TextStyle(fontSize: 13)),
+                          Text('稍后再看'.tr, style: TextStyle(fontSize: 13)),
                         ],
                       ),
                     ),
                   PopupMenuItem(
                     onTap: () => onDelete(item.kid!, business!),
                     height: 38,
-                    child: const Row(
+                    child: Row(
                       children: [
                         Icon(Icons.close_outlined, size: 16),
                         SizedBox(width: 6),
-                        Text('删除记录', style: TextStyle(fontSize: 13)),
+                        Text('删除记录'.tr, style: TextStyle(fontSize: 13)),
                       ],
                     ),
                   ),

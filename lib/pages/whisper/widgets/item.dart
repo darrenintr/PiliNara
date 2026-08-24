@@ -47,7 +47,7 @@ class WhisperSessionItem extends StatelessWidget {
         ackSeqno: response.ackSeqno.toInt(),
       );
       if (res.isSuccess) {
-        SmartDialog.showToast('已标为已读');
+        SmartDialog.showToast('已标为已读'.tr);
         item.clearUnread();
         if (context.mounted) {
           (context as Element).markNeedsBuild();
@@ -93,7 +93,7 @@ class WhisperSessionItem extends StatelessWidget {
                 Get.back();
                 onSetTop(item.isPinned, item.id);
               },
-              child: Text(item.isPinned ? '移除置顶' : '置顶'),
+              child: Text(item.isPinned ? '移除置顶'.tr : '置顶'.tr),
             ),
             if (item.id.privateId.hasTalkerUid()) ...[
               if (kDebugMode || item.hasUnread())
@@ -102,26 +102,26 @@ class WhisperSessionItem extends StatelessWidget {
                     Get.back();
                     _updateAck(context);
                   },
-                  child: const Text('标为已读'),
+                  child: Text('标为已读'.tr),
                 ),
               DialogOption(
                 onPressed: () {
                   Get.back();
                   onSetMute(item.isMuted, item.id.privateId.talkerUid);
                 },
-                child: Text('${item.isMuted ? '关闭' : '开启'}免打扰'),
+                child: Text('${item.isMuted ? '关闭' : '开启'}免打扰'.tr),
               ),
               DialogOption(
                 onPressed: () {
                   Get.back();
                   showConfirmDialog(
                     context: context,
-                    title: const Text('确定删除该对话？'),
+                    title: Text('确定删除该对话？'.tr),
                     onConfirm: () =>
                         onRemove(item.id.privateId.talkerUid.toInt()),
                   );
                 },
-                child: const Text('删除'),
+                child: Text('删除'.tr),
               ),
             ],
           ],
@@ -136,14 +136,14 @@ class WhisperSessionItem extends StatelessWidget {
                 CustomPopupMenuItem<void>(
                   height: 42,
                   onTap: () => onSetTop(item.isPinned, item.id),
-                  child: Text(item.isPinned ? '移除置顶' : '置顶'),
+                  child: Text(item.isPinned ? '移除置顶'.tr : '置顶'.tr),
                 ),
                 if (item.id.privateId.hasTalkerUid()) ...[
                   if (kDebugMode || item.hasUnread())
                     CustomPopupMenuItem<void>(
                       height: 42,
                       onTap: () => _updateAck(context),
-                      child: const Text('标为已读'),
+                      child: Text('标为已读'.tr),
                     ),
                   // if (kDebugMode)
                   //   CustomPopupMenuItem<void>(
@@ -155,25 +155,25 @@ class WhisperSessionItem extends StatelessWidget {
                   //       );
                   //       (context as Element).markNeedsBuild();
                   //     },
-                  //     child: const Text('标为未读'),
+                  //     child: Text('标为未读'.tr),
                   //   ),
                   CustomPopupMenuItem<void>(
                     height: 42,
                     onTap: () =>
                         onSetMute(item.isMuted, item.id.privateId.talkerUid),
-                    child: Text('${item.isMuted ? '关闭' : '开启'}免打扰'),
+                    child: Text('${item.isMuted ? '关闭' : '开启'}免打扰'.tr),
                   ),
                   const PopupMenuDivider(height: 10),
                   CustomPopupMenuItem<void>(
                     height: 42,
                     onTap: () => showConfirmDialog(
                       context: context,
-                      title: const Text('确定删除该对话？'),
+                      title: Text('确定删除该对话？'.tr),
                       onConfirm: () =>
                           onRemove(item.id.privateId.talkerUid.toInt()),
                     ),
                     child: Text(
-                      '删除',
+                      '删除'.tr,
                       style: TextStyle(color: theme.colorScheme.error),
                     ),
                   ),

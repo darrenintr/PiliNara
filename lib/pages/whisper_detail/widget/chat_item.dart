@@ -117,7 +117,7 @@ class ChatItem extends StatelessWidget {
                 isPic ? const SizedBox(height: 7) : const SizedBox(height: 2),
                 if (item.msgStatus == 1)
                   Text(
-                    '  已撤回',
+                    '  已撤回'.tr,
                     style: theme.textTheme.labelSmall!.copyWith(
                       color: theme.colorScheme.onErrorContainer,
                     ),
@@ -129,7 +129,7 @@ class ChatItem extends StatelessWidget {
                     color: theme.colorScheme.outline.withValues(alpha: 0.2),
                   ),
                   Text(
-                    '此条消息为自动回复',
+                    '此条消息为自动回复'.tr,
                     style: theme.textTheme.labelMedium!.copyWith(
                       color: theme.colorScheme.outline,
                     ),
@@ -200,7 +200,7 @@ class ChatItem extends StatelessWidget {
   }
 
   Widget msgTypeCommonShareCard_14(dynamic content, Color textColor) {
-    if (content['source'] == '直播') {
+    if (content['source'] == '直播'.tr) {
       return GestureDetector(
         behavior: .opaque,
         onTap: () {
@@ -230,7 +230,7 @@ class ChatItem extends StatelessWidget {
             ),
             const SizedBox(height: 1),
             Text(
-              '${content['author']} · 直播',
+              '${content['author']} · 直播'.tr,
               style: TextStyle(
                 letterSpacing: 0.6,
                 height: 1.5,
@@ -348,7 +348,7 @@ class ChatItem extends StatelessWidget {
                       SmartDialog.showToast(err.toString());
                     }
                   } else {
-                    SmartDialog.showToast('未匹配到 BV 号');
+                    SmartDialog.showToast('未匹配到 BV 号'.tr);
                     PageUtils.handleWebview(i['jump_url']);
                   }
                 },
@@ -470,7 +470,7 @@ class ChatItem extends StatelessWidget {
                       vertical: 8,
                     ),
                     child: Text(
-                      content['times'] == 0 ? '内容已失效' : content['title'],
+                      content['times'] == 0 ? '内容已失效'.tr : content['title'],
                       style: TextStyle(
                         letterSpacing: 0.6,
                         height: 1.5,
@@ -508,13 +508,13 @@ class ChatItem extends StatelessWidget {
     switch (content['source']) {
       // album
       case 2:
-        type = '相簿';
+        type = '相簿'.tr;
         onTap = () => PageUtils.pushDynFromId(rid: content['id']);
         break;
 
       // video
       case 5:
-        type = '视频';
+        type = '视频'.tr;
         onTap = () async {
           dynamic aid = content['id'];
           if (aid is String) {
@@ -546,7 +546,7 @@ class ChatItem extends StatelessWidget {
 
       // article
       case 6:
-        type = '专栏';
+        type = '专栏'.tr;
         onTap = () => Get.toNamed(
           '/articlePage',
           parameters: {
@@ -558,7 +558,7 @@ class ChatItem extends StatelessWidget {
 
       // dynamic
       case 11:
-        type = '动态';
+        type = '动态'.tr;
         onTap = () => PageUtils.pushDynFromId(id: content['id']);
         break;
 
@@ -734,7 +734,7 @@ class ChatItem extends StatelessWidget {
             behavior: HitTestBehavior.opaque,
             onTap: () => PiliScheme.routePushFromUrl(uri),
             child: Text(
-              text != null && text.isNotEmpty ? text : '查看详情',
+              text != null && text.isNotEmpty ? text : '查看详情'.tr,
             ),
           ),
         ];

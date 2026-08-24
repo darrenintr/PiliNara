@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 // mpv --hwdec=help
 enum HwDecType {
   no('no', '启用软解'),
