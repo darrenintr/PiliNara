@@ -71,10 +71,10 @@ class _FavPgcPageState extends State<FavPgcPage>
                     const TextStyle(fontSize: 14),
                 labelColor: theme.colorScheme.onSecondaryContainer,
                 unselectedLabelColor: theme.colorScheme.outline,
-                tabs: const [
-                  Tab(text: '想看'),
-                  Tab(text: '在看'),
-                  Tab(text: '看过'),
+                tabs: [
+                  Tab(text: '想看'.tr),
+                  Tab(text: '在看'.tr),
+                  Tab(text: '看过'.tr),
                 ],
                 onTap: (index) {
                   try {
@@ -95,7 +95,7 @@ class _FavPgcPageState extends State<FavPgcPage>
             //     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             //   ),
             //   onPressed: () {},
-            //   child: const Text('管理'),
+            //   child: Text('管理'.tr),
             // ),
             // const SizedBox(width: 12),
           ],

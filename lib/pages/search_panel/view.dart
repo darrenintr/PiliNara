@@ -118,7 +118,7 @@ abstract class CommonSearchPanelState<
               ),
               const SizedBox(height: 12),
               Text(
-                '当前页结果已被关键词过滤',
+                '当前页结果已被关键词过滤'.tr,
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
@@ -127,7 +127,7 @@ abstract class CommonSearchPanelState<
               ),
               const SizedBox(height: 6),
               Text(
-                '可以继续加载更多结果，直到找到符合条件的内容',
+                '可以继续加载更多结果，直到找到符合条件的内容'.tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 13,
@@ -145,11 +145,11 @@ abstract class CommonSearchPanelState<
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
                     : const Icon(Icons.keyboard_double_arrow_down, size: 18),
-                label: Text(_isLoadingMore ? '加载中...' : '继续加载'),
+                label: Text(_isLoadingMore ? '加载中...'.tr : '继续加载'.tr),
               ),
               const SizedBox(height: 8),
               Text(
-                '加载完成后方可进行下次加载，避免触发频率限制',
+                '加载完成后方可进行下次加载，避免触发频率限制'.tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 11,
@@ -180,7 +180,7 @@ abstract class CommonSearchPanelState<
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
                 : const Icon(Icons.keyboard_double_arrow_down, size: 18),
-            label: Text(_isLoadingMore ? '加载中...' : '继续加载'),
+            label: Text(_isLoadingMore ? '加载中...'.tr : '继续加载'.tr),
           ),
         ),
       ),

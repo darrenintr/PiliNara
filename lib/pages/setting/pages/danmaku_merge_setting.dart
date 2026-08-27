@@ -2,6 +2,7 @@ import 'package:PiliPlus/utils/storage.dart';
 import 'package:PiliPlus/utils/storage_key.dart';
 import 'package:PiliPlus/utils/storage_pref.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DanmakuMergeSettingPage extends StatefulWidget {
   const DanmakuMergeSettingPage({super.key});
@@ -74,11 +75,11 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('弹幕合并'),
+        title: Text('弹幕合并'),
         actions: [
           TextButton(
             onPressed: _reset,
-            child: const Text('重置'),
+            child: Text('重置'),
           ),
         ],
       ),
@@ -86,8 +87,8 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
         padding: const EdgeInsets.only(bottom: 24),
         children: [
           SwitchListTile(
-            title: const Text('启用合并弹幕'),
-            subtitle: const Text('在时间窗口内合并相似弹幕'),
+            title: Text('启用合并弹幕'),
+            subtitle: Text('在时间窗口内合并相似弹幕'),
             value: _mergeDanmaku,
             onChanged: (value) => _updateBool(
               () => _mergeDanmaku = value,
@@ -97,7 +98,7 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
           ),
           _SectionTitle('基础设置', theme),
           ListTile(
-            title: const Text('时间阈值'),
+            title: Text('时间阈值'),
             subtitle: Text('合并时间差在 ${_windowSeconds.round()} 秒以内的相似弹幕'),
             trailing: Text(
               '${_windowSeconds.round()}s',
@@ -132,8 +133,8 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
           ),
           _SectionTitle('例外设置', theme),
           SwitchListTile(
-            title: const Text('合并不同类型的弹幕'),
-            subtitle: const Text('关闭后，底部/顶部/滚动弹幕不会互相合并'),
+            title: Text('合并不同类型的弹幕'),
+            subtitle: Text('关闭后，底部/顶部/滚动弹幕不会互相合并'),
             value: _crossMode,
             onChanged: (value) => _updateBool(
               () => _crossMode = value,
@@ -142,7 +143,7 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
             ),
           ),
           SwitchListTile(
-            title: const Text('跳过字幕弹幕'),
+            title: Text('跳过字幕弹幕'),
             value: _skipSubtitle,
             onChanged: (value) => _updateBool(
               () => _skipSubtitle = value,
@@ -151,7 +152,7 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
             ),
           ),
           SwitchListTile(
-            title: const Text('跳过高级弹幕'),
+            title: Text('跳过高级弹幕'),
             value: _skipAdvanced,
             onChanged: (value) => _updateBool(
               () => _skipAdvanced = value,
@@ -160,7 +161,7 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
             ),
           ),
           SwitchListTile(
-            title: const Text('跳过底部弹幕'),
+            title: Text('跳过底部弹幕'),
             value: _skipBottom,
             onChanged: (value) => _updateBool(
               () => _skipBottom = value,
@@ -170,14 +171,14 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
           ),
           _SectionTitle('显示设置', theme),
           ListTile(
-            title: const Text('数量标记位置'),
+            title: Text('数量标记位置'),
             subtitle: Text(switch (_markPosition) {
               0 => '始终隐藏数量标记',
               2 => '显示在弹幕尾部',
               _ => '显示在弹幕开头',
             }),
             trailing: SegmentedButton<int>(
-              segments: const [
+              segments: [
                 ButtonSegment<int>(value: 0, label: Text('隐藏')),
                 ButtonSegment<int>(value: 1, label: Text('开头')),
                 ButtonSegment<int>(value: 2, label: Text('尾部')),
@@ -194,7 +195,7 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
             ),
           ),
           ListTile(
-            title: const Text('数量标记门槛'),
+            title: Text('数量标记门槛'),
             subtitle: Text('仅当数量大于 ${_markThreshold.round()} 时显示标记'),
             trailing: Text(
               '> ${_markThreshold.round()}',
@@ -219,8 +220,8 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
             ),
           ),
           SwitchListTile(
-            title: const Text('字号随数量放大'),
-            subtitle: const Text('重复弹幕越多字号越大，关闭后与普通弹幕字号一致'),
+            title: Text('字号随数量放大'),
+            subtitle: Text('重复弹幕越多字号越大，关闭后与普通弹幕字号一致'),
             value: _enlarge,
             onChanged: (value) => _updateBool(
               () => _enlarge = value,
@@ -230,7 +231,7 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
           ),
           if (_enlarge) ...[
             ListTile(
-              title: const Text('字体放大门槛'),
+              title: Text('字体放大门槛'),
               subtitle: Text('重复 ${_enlargeThreshold.round()} 条以上开始放大'),
               trailing: Text(
                 '${_enlargeThreshold.round()}',
@@ -255,7 +256,7 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
               ),
             ),
             ListTile(
-              title: const Text('放大速度'),
+              title: Text('放大速度'),
               subtitle: Text('对数底数 ${_enlargeLogBase.round()}（越小放大越快）'),
               trailing: Text(
                 '${_enlargeLogBase.round()}',
@@ -282,7 +283,7 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
           ],
           _SectionTitle('高级选项', theme),
           ListTile(
-            title: const Text('编辑距离合并阈值'),
+            title: Text('编辑距离合并阈值'),
             subtitle: Text(
               _maxDistance == 0
                   ? '禁用字符频次差合并，仅保留其他相似度判定'
@@ -308,7 +309,7 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
             ),
           ),
           ListTile(
-            title: const Text('词频向量合并阈值'),
+            title: Text('词频向量合并阈值'),
             subtitle: Text(
               _maxCosine > 100
                   ? '禁用 2-Gram 词频向量相似判定'
@@ -334,7 +335,7 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
             ),
           ),
           ListTile(
-            title: const Text('代表性百分位'),
+            title: Text('代表性百分位'),
             subtitle: Text(
               '合并后弹幕时间取该组前 ${_representativePercent.round()}% 位置的代表弹幕',
             ),
@@ -361,8 +362,8 @@ class _DanmakuMergeSettingPageState extends State<DanmakuMergeSettingPage> {
             ),
           ),
           SwitchListTile(
-            title: const Text('识别谐音弹幕'),
-            subtitle: const Text('将文本转换为拼音后再进行一次相似匹配'),
+            title: Text('识别谐音弹幕'),
+            subtitle: Text('将文本转换为拼音后再进行一次相似匹配'),
             value: _usePinyin,
             onChanged: (value) => _updateBool(
               () => _usePinyin = value,

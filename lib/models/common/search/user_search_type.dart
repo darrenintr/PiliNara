@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum UserOrderType {
   def('默认排序', 0, ''),
   fansDesc('粉丝数由高到低', 0, 'fans'),

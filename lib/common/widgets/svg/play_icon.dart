@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
+import 'package:get/get.dart';
 
 class PlayIcon extends LeafRenderObjectWidget {
   const PlayIcon({super.key, this.size = 60});
@@ -59,7 +60,7 @@ class RenderPlay extends RenderBox {
   @override
   void describeSemanticsConfiguration(SemanticsConfiguration config) {
     super.describeSemanticsConfiguration(config);
-    config.label = '播放';
+    config.label = '播放'.tr;
   }
 
   /// [SvgPicture] can not parse mask filter

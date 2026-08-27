@@ -1,5 +1,6 @@
 import 'package:PiliPlus/common/widgets/svg/level_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 abstract final class BiliUtils {
   static bool isDefaultFav(int? attr) {
@@ -13,7 +14,7 @@ abstract final class BiliUtils {
     if (attr == null) {
       return '';
     }
-    return isPublicFav(attr) ? '公开' : '私密';
+    return isPublicFav(attr) ? '公开'.tr : '私密'.tr;
   }
 
   static bool isPublicFav(int attr) {

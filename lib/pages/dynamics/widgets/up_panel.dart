@@ -106,7 +106,7 @@ class _UpPanelState extends State<UpPanel> {
             },
           ),
         SliverToBoxAdapter(
-          child: upItemBuild(theme, UpItem(face: '', uname: '全部动态', mid: -1)),
+          child: upItemBuild(theme, UpItem(face: '', uname: '全部动态'.tr, mid: -1)),
         ),
         StreamBuilder<BoxEvent>(
           stream: GStorage.setting.watch().where(
@@ -121,7 +121,7 @@ class _UpPanelState extends State<UpPanel> {
                 () => upItemBuild(
                   theme,
                   UpItem(
-                    uname: '我',
+                    uname: '我'.tr,
                     face: controller.accountService.face.value,
                     mid: Accounts.main.mid,
                   ),

@@ -6,6 +6,7 @@ import 'package:PiliPlus/utils/duration_utils.dart';
 import 'package:PiliPlus/utils/em.dart';
 import 'package:PiliPlus/utils/extension/iterable_ext.dart';
 import 'package:PiliPlus/utils/extension/string_ext.dart';
+import 'package:get/get.dart';
 
 abstract class SearchNumData<T> {
   SearchNumData({
@@ -90,15 +91,15 @@ class SearchVideoItemModel extends HorizontalVideoModel {
     stat = SearchStat.fromJson(json);
     switch (json['type']) {
       case 'ketang':
-        badge = '课堂';
+        badge = '课堂'.tr;
         isPugv = true;
       case 'live_room':
-        badge = '直播';
+        badge = '直播'.tr;
         isLive = true;
         roomId = json['roomid'];
       default:
         if (json['is_union_video'] == 1) {
-          badge = '合作';
+          badge = '合作'.tr;
         }
     }
   }

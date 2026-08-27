@@ -82,7 +82,7 @@ class _FavPgcChildPageState extends State<FavPgcChildPage>
                 const SizedBox(width: 16),
                 iconButton(
                   size: 32,
-                  tooltip: '取消',
+                  tooltip: '取消'.tr,
                   context: context,
                   icon: const Icon(Icons.clear),
                   onPressed: _favPgcController.onDisable,
@@ -105,20 +105,20 @@ class _FavPgcChildPageState extends State<FavPgcChildPage>
                     checked: !_favPgcController.allSelected.value,
                     disableSelect: false,
                   ),
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.only(
                       top: 14,
                       bottom: 14,
                       right: 12,
                     ),
-                    child: Text('全选'),
+                    child: Text('全选'.tr),
                   ),
                 ),
                 const Spacer(),
-                ...const [
-                      (followStatus: 1, title: '想看'),
-                      (followStatus: 2, title: '在看'),
-                      (followStatus: 3, title: '看过'),
+                ...[
+                      (followStatus: 1, title: '想看'.tr),
+                      (followStatus: 2, title: '在看'.tr),
+                      (followStatus: 3, title: '看过'.tr),
                     ]
                     .where(
                       (item) => item.followStatus != widget.followStatus,
@@ -181,7 +181,7 @@ class _FavPgcChildPageState extends State<FavPgcChildPage>
                     onSelect: () => _favPgcController.onSelect(item),
                     onUpdateStatus: () => showPgcFollowDialog(
                       context: context,
-                      type: widget.type == 0 ? '追番' : '追剧',
+                      type: widget.type == 0 ? '追番'.tr : '追剧'.tr,
                       followStatus: widget.followStatus,
                       onUpdateStatus: (followStatus) {
                         if (followStatus == -1) {

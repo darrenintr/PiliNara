@@ -8,6 +8,7 @@ import 'package:brotli/brotli.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:get/get.dart';
 
 class PackageHeader {
   final int protocolVer;
@@ -49,7 +50,7 @@ class PackageHeaderRes extends PackageHeader {
 
   static PackageHeaderRes? fromBytesData(Uint8List data) {
     if (data.length < 10) {
-      logger.w('数据不足以解析PackageHeader');
+      logger.w('数据不足以解析PackageHeader'.tr);
       return null;
     }
     final byteData = ByteData.sublistView(data);

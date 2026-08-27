@@ -131,7 +131,7 @@ class _PgcReviewChildPageState extends State<PgcReviewChildPage>
         children: [
           if (item.author!.mid == Accounts.main.mid) ...[
             DialogOption(
-              child: const Text('编辑', style: TextStyle(fontSize: 14)),
+              child: Text('编辑'.tr, style: TextStyle(fontSize: 14)),
               onPressed: () {
                 Get.back();
                 showModalBottomSheet(
@@ -151,19 +151,19 @@ class _PgcReviewChildPageState extends State<PgcReviewChildPage>
               },
             ),
             DialogOption(
-              child: const Text('删除', style: TextStyle(fontSize: 14)),
+              child: Text('删除'.tr, style: TextStyle(fontSize: 14)),
               onPressed: () {
                 Get.back();
                 showConfirmDialog(
                   context: context,
-                  title: const Text('删除短评，同时删除评分？'),
+                  title: Text('删除短评，同时删除评分？'.tr),
                   onConfirm: () => _controller.onDel(index, item.reviewId!),
                 );
               },
             ),
           ],
           DialogOption(
-            child: const Text('举报', style: TextStyle(fontSize: 14)),
+            child: Text('举报'.tr, style: TextStyle(fontSize: 14)),
             onPressed: () => Get
               ..back()
               ..toNamed(

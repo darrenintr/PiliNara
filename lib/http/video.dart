@@ -33,6 +33,7 @@ import 'package:PiliPlus/utils/app_sign.dart';
 import 'package:PiliPlus/utils/extension/string_ext.dart';
 import 'package:PiliPlus/utils/global_data.dart';
 import 'package:PiliPlus/utils/id_utils.dart';
+import 'package:PiliPlus/utils/locale_utils.dart';
 import 'package:PiliPlus/utils/recommend_filter.dart';
 import 'package:PiliPlus/utils/request_utils.dart';
 import 'package:PiliPlus/utils/storage.dart';
@@ -44,6 +45,7 @@ import 'package:PiliPlus/utils/wbi_sign.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show compute;
 import 'package:protobuf/protobuf.dart';
+import 'package:get/get.dart';
 
 /// view层根据 status 判断渲染逻辑
 abstract final class VideoHttp {
@@ -97,7 +99,7 @@ abstract final class VideoHttp {
   }) async {
     final params = {
       'build': 2001100,
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'channel': 'master',
       'column': 4,
       'device': 'pad',
@@ -119,7 +121,7 @@ abstract final class VideoHttp {
       'pull': freshIdx == 0 ? 'true' : 'false',
       'qn': 32,
       'recsys_mode': 0,
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'splash_id': '',
       'statistics': Constants.statistics,
       'voice_balance': 0,
@@ -301,7 +303,7 @@ abstract final class VideoHttp {
 
   static String _parseVideoErr(int? code, String? msg) {
     return switch (code) {
-      -404 => '视频不存在或已被删除',
+      -404 => '视频不存在或已被删除'.tr,
       87008 => '当前视频可能是专属视频，可能需包月充电观看($msg})',
       _ => '错误($code): $msg',
     };
@@ -497,7 +499,7 @@ abstract final class VideoHttp {
       options: options,
     );
     if (res.data['code'] == 0) {
-      return Success(res.data['data']?['toast'] as String? ?? '点赞成功');
+      return Success(res.data['data']?['toast'] as String? ?? '点赞成功'.tr);
     } else {
       return Error(res.data['message']);
     }
@@ -509,7 +511,7 @@ abstract final class VideoHttp {
     required bool type,
   }) async {
     if (Accounts.main.accessKey.isNullOrEmpty) {
-      return const Error('请退出账号后重新登录');
+      return Error('请退出账号后重新登录'.tr);
     }
     final res = await Request().post(
       Api.dislikeVideo,
@@ -534,7 +536,7 @@ abstract final class VideoHttp {
     int? feedbackId,
   }) async {
     if (Accounts.get(AccountType.recommend).accessKey.isNullOrEmpty) {
-      return const Error('请退出账号后重新登录');
+      return Error('请退出账号后重新登录'.tr);
     }
     assert((reasonId != null) ^ (feedbackId != null));
     final res = await Request().get(
@@ -563,7 +565,7 @@ abstract final class VideoHttp {
     int? feedbackId,
   }) async {
     if (Accounts.get(AccountType.recommend).accessKey.isNullOrEmpty) {
-      return const Error('请退出账号后重新登录');
+      return Error('请退出账号后重新登录'.tr);
     }
     final res = await Request().get(
       Api.feedDislikeCancel,
@@ -657,7 +659,7 @@ abstract final class VideoHttp {
       GStorage.reply?.delete(rpid.toString());
       return const Success(null);
     } else {
-      return const Error('请退出账号后重新登录');
+      return Error('请退出账号后重新登录'.tr);
     }
   }
 
@@ -908,7 +910,7 @@ abstract final class VideoHttp {
   }
 
   static final _fillerWords = RegExp(
-    r'(嗯+|啊+|额+|呃+|那个|就是说|然后呢|对吧|是吧|对不对|你知道吗|反正就是|基本上|说实话)',
+    r'(嗯+|啊+|额+|呃+|那个|就是说|然后呢|对吧|是吧|对不对|你知道吗|反正就是|基本上|说实话)'.tr,
   );
 
   /// Fetch raw subtitle body JSON list from URL.

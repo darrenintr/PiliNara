@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum ReplySortType {
   time('最新评论', '最新', text: '按时间'),
   hot('最热评论', '最热', text: '按热度'),

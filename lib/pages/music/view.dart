@@ -276,7 +276,7 @@ class _MusicDetailPageState extends CommonDynPageState<MusicDetailPage> {
                 // Expanded(
                 //   child: textIconButton(
                 //     icon: FontAwesomeIcons.shareFromSquare,
-                //     text: '转发',
+                //     text: '转发'.tr,
                 //     count: item.musicShares,
                 //     onPressed: () {
                 //       final data = controller.infoState.value.dataOrNull;
@@ -299,7 +299,7 @@ class _MusicDetailPageState extends CommonDynPageState<MusicDetailPage> {
                 Expanded(
                   child: textIconButton(
                     icon: CustomIcons.share_node,
-                    text: '分享',
+                    text: '分享'.tr,
                     onPressed: () => ShareUtils.shareText(controller.shareUrl),
                   ),
                 ),
@@ -308,12 +308,12 @@ class _MusicDetailPageState extends CommonDynPageState<MusicDetailPage> {
                     builder: (context) => textIconButton(
                       icon: FontAwesomeIcons.thumbsUp,
                       activatedIcon: FontAwesomeIcons.solidThumbsUp,
-                      text: '点赞',
+                      text: '点赞'.tr,
                       count: item.wishCount,
                       status: item.wishListen ?? false,
                       onPressed: () async {
                         if (!Accounts.main.isLogin) {
-                          SmartDialog.showToast('请先登录');
+                          SmartDialog.showToast('请先登录'.tr);
                           return;
                         }
                         final hasLike = item.wishListen ?? false;
@@ -515,7 +515,7 @@ class _MusicDetailPageState extends CommonDynPageState<MusicDetailPage> {
                                               .onSecondaryContainer,
                                         ),
                                         Text(
-                                          '看MV',
+                                          '看MV'.tr,
                                           style: TextStyle(
                                             color: theme
                                                 .colorScheme
@@ -557,12 +557,12 @@ class _MusicDetailPageState extends CommonDynPageState<MusicDetailPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('热歌榜排名'),
-                  _buildRank(item.hotSongHeat?.lastHeat, '热度'),
-                  _buildRank(item.listenPv, '总播放量'),
+                  Text('热歌榜排名'.tr),
+                  _buildRank(item.hotSongHeat?.lastHeat, '热度'.tr),
+                  _buildRank(item.listenPv, '总播放量'.tr),
                   _buildRank(
                     item.musicRelation,
-                    '使用稿件量',
+                    '使用稿件量'.tr,
                     () => Get.to(
                       const MusicRecommendPage(),
                       arguments: (id: controller.musicId, item: item),

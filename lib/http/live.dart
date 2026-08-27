@@ -32,6 +32,7 @@ import 'package:PiliPlus/models_new/live/live_superchat/data.dart';
 import 'package:PiliPlus/utils/accounts.dart';
 import 'package:PiliPlus/utils/accounts/account.dart';
 import 'package:PiliPlus/utils/app_sign.dart';
+import 'package:PiliPlus/utils/locale_utils.dart';
 import 'package:PiliPlus/utils/wbi_sign.dart';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
@@ -210,7 +211,7 @@ abstract final class LiveHttp {
       'actionKey': 'appkey',
       'build': 8430300,
       'version': '8.43.0',
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'device': 'android',
       'device_name': 'android',
       'device_type': 0,
@@ -223,7 +224,7 @@ abstract final class LiveHttp {
       'page': pn,
       'platform': 'android',
       if (recommend.isLogin) 'relation_page': 1,
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'scale': 2,
       'statistics': Constants.statisticsApp,
     };
@@ -287,7 +288,7 @@ abstract final class LiveHttp {
       'parent_area_id': ?parentAreaId,
       'build': 8430300,
       'version': '8.43.0',
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'device': 'android',
       'device_name': 'android',
       'device_type': 0,
@@ -303,7 +304,7 @@ abstract final class LiveHttp {
       'qn': 0,
       'sort_type': ?sortType,
       'tag_version': 1,
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'scale': 2,
       'statistics': Constants.statisticsApp,
     };
@@ -343,12 +344,12 @@ abstract final class LiveHttp {
       'build': 8430300,
       'channel': 'master',
       'version': '8.43.0',
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'device': 'android',
       'disable_rcmd': 0,
       'mobi_app': 'android',
       'platform': 'android',
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'statistics': Constants.statisticsApp,
     };
     AppSign.appSign(params);
@@ -374,12 +375,12 @@ abstract final class LiveHttp {
       'build': 8430300,
       'channel': 'master',
       'version': '8.43.0',
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'device': 'android',
       'disable_rcmd': 0,
       'mobi_app': 'android',
       'platform': 'android',
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'statistics': Constants.statisticsApp,
     };
     AppSign.appSign(params);
@@ -410,12 +411,12 @@ abstract final class LiveHttp {
       'build': 8430300,
       'channel': 'master',
       'version': '8.43.0',
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'device': 'android',
       'disable_rcmd': 0,
       'mobi_app': 'android',
       'platform': 'android',
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'statistics': Constants.statisticsApp,
     };
     AppSign.appSign(data);
@@ -441,7 +442,7 @@ abstract final class LiveHttp {
       'build': 8430300,
       'channel': 'master',
       'version': '8.43.0',
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'device': 'android',
       'disable_rcmd': 0,
       'need_entrance': 1,
@@ -449,7 +450,7 @@ abstract final class LiveHttp {
       'source_id': 2,
       'mobi_app': 'android',
       'platform': 'android',
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'statistics': Constants.statisticsApp,
     };
     AppSign.appSign(params);
@@ -477,7 +478,7 @@ abstract final class LiveHttp {
       'build': 8430300,
       'channel': 'master',
       'version': '8.43.0',
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'device': 'android',
       'page': page,
       'pagesize': 30,
@@ -485,7 +486,7 @@ abstract final class LiveHttp {
       'disable_rcmd': 0,
       'mobi_app': 'android',
       'platform': 'android',
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'statistics': Constants.statisticsApp,
       'type': type.name,
     };
@@ -914,12 +915,12 @@ abstract final class LiveHttp {
       'actionKey': 'appkey',
       'build': 8430300,
       'channel': 'master',
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'device': 'android',
       'disable_rcmd': 0,
       'mobi_app': 'android',
       'platform': 'android',
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'statistics': Constants.statisticsApp,
       'version': '8.43.0',
       'id': id,

@@ -32,7 +32,7 @@ class DanmakuBlockController extends GetxController
   }
 
   Future<void> queryDanmakuFilter() async {
-    SmartDialog.showLoading(msg: '正在同步弹幕屏蔽规则……');
+    SmartDialog.showLoading(msg: '正在同步弹幕屏蔽规则……'.tr);
     final result = await DanmakuFilterHttp.danmakuFilter();
     SmartDialog.dismiss();
     if (result case Success(:final response)) {
@@ -48,12 +48,12 @@ class DanmakuBlockController extends GetxController
   }
 
   Future<void> danmakuFilterDel(int tabIndex, int itemIndex, int id) async {
-    SmartDialog.showLoading(msg: '正在删除弹幕屏蔽规则……');
+    SmartDialog.showLoading(msg: '正在删除弹幕屏蔽规则……'.tr);
     final res = await DanmakuFilterHttp.danmakuFilterDel(ids: id);
     SmartDialog.dismiss();
     if (res.isSuccess) {
       rules[tabIndex].removeAt(itemIndex);
-      SmartDialog.showToast('删除成功');
+      SmartDialog.showToast('删除成功'.tr);
     } else {
       res.toast();
     }
@@ -66,7 +66,7 @@ class DanmakuBlockController extends GetxController
     if (type == 2) {
       filter = getCrc32(ascii.encode(filter), 0).toRadixString(16);
     }
-    SmartDialog.showLoading(msg: '正在添加弹幕屏蔽规则……');
+    SmartDialog.showLoading(msg: '正在添加弹幕屏蔽规则……'.tr);
     final res = await DanmakuFilterHttp.danmakuFilterAdd(
       filter: filter,
       type: type,
@@ -74,7 +74,7 @@ class DanmakuBlockController extends GetxController
     SmartDialog.dismiss();
     if (res case Success(:final response)) {
       rules[type].add(response);
-      SmartDialog.showToast('添加成功');
+      SmartDialog.showToast('添加成功'.tr);
     } else {
       res.toast();
     }
@@ -106,11 +106,11 @@ class DanmakuBlockController extends GetxController
     final toAdd = incomingRules.where((r) => !existingMap.containsKey((r.type, r.filter))).toList();
 
     if (toDelete.isEmpty && toAdd.isEmpty) {
-      SmartDialog.showToast('规则已是最新，无需同步');
+      SmartDialog.showToast('规则已是最新，无需同步'.tr);
       return;
     }
 
-    SmartDialog.showLoading(msg: '正在同步弹幕屏蔽规则……');
+    SmartDialog.showLoading(msg: '正在同步弹幕屏蔽规则……'.tr);
     int deleted = 0;
     int added = 0;
 

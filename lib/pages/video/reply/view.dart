@@ -135,7 +135,7 @@ class _VideoReplyPanelState extends State<VideoReplyPanel>
                     replyType: _videoReplyController.videoType.replyType,
                   );
                 },
-                tooltip: '发表评论',
+                tooltip: '发表评论'.tr,
                 child: const Icon(Icons.reply),
               ),
             ),
@@ -176,7 +176,7 @@ class _VideoReplyPanelState extends State<VideoReplyPanel>
                   alignment: .center,
                   margin: .only(bottom: bottom),
                   child: Text(
-                    _videoReplyController.isEnd ? '没有更多了' : '加载中...',
+                    _videoReplyController.isEnd ? '没有更多了'.tr : '加载中...'.tr,
                     textAlign: .center,
                     style: TextStyle(fontSize: 12, color: colorScheme.outline),
                   ),
@@ -207,7 +207,7 @@ class _VideoReplyPanelState extends State<VideoReplyPanel>
         }
 
         final child = HttpError(
-          errMsg: '还没有评论',
+          errMsg: '还没有评论'.tr,
           onReload: _videoReplyController.onReload,
         );
         if (_videoReplyController.voteCard case final voteCard?) {

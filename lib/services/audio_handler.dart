@@ -311,7 +311,7 @@ class VideoPlayerServiceHandler extends BaseAudioHandler with SeekHandler {
     if (!enableBackgroundPlay) return;
     currentHeroTag = herotag;
     // if (kDebugMode) {
-    //   debugPrint('当前调用栈为：');
+    //   debugPrint('当前调用栈为：'.tr);
     //   debugPrint(StackTrace.current);
     // }
     if (!PlPlayerController.instanceExists()) return;

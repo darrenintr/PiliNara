@@ -56,7 +56,7 @@ class AiSettingController extends GetxController {
       Pref.aiModelListCache = models;
       Pref.aiModelListCacheTime = DateTime.now().millisecondsSinceEpoch;
       if (models.isEmpty) {
-        SmartDialog.showToast('未获取到模型列表，请检查 API 配置');
+        SmartDialog.showToast('未获取到模型列表，请检查 API 配置'.tr);
       }
     } catch (e) {
       SmartDialog.showToast('获取模型列表失败: $e');

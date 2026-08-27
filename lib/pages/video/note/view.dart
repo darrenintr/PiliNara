@@ -82,7 +82,7 @@ class _NoteListPageState extends State<NoteListPage>
                     }),
                   ),
                   IconButton(
-                    tooltip: '关闭',
+                    tooltip: '关闭'.tr,
                     icon: const Icon(Icons.close, size: 20),
                     onPressed: Get.back,
                   ),
@@ -155,7 +155,7 @@ class _NoteListPageState extends State<NoteListPage>
               ),
               onPressed: () {
                 if (!Accounts.main.isLogin) {
-                  SmartDialog.showToast('账号未登录');
+                  SmartDialog.showToast('账号未登录'.tr);
                   return;
                 }
                 MiniScaffold.of(context).showBottomSheet(
@@ -168,7 +168,7 @@ class _NoteListPageState extends State<NoteListPage>
                   ),
                 );
               },
-              child: const Text('开始记笔记'),
+              child: Text('开始记笔记'.tr),
             ),
           ),
         ),
@@ -289,7 +289,7 @@ class _NoteListPageState extends State<NoteListPage>
                         ),
                       ),
                       Text(
-                        '查看全部',
+                        '查看全部'.tr,
                         style: TextStyle(
                           color: theme.colorScheme.primary,
                           height: 1.75,

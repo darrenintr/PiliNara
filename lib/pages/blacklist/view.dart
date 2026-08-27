@@ -108,7 +108,7 @@ class _BlackListPageState extends State<BlackListPage> {
                         item.uname,
                         item.mid,
                       ),
-                      child: const Text('移除'),
+                      child: Text('移除'.tr),
                     ),
                   );
                 },

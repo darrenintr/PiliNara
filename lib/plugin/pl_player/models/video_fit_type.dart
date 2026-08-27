@@ -1,5 +1,6 @@
 import 'package:PiliPlus/common/style.dart';
 import 'package:flutter/material.dart' show BoxFit;
+import 'package:get/get.dart';
 
 enum VideoFitType {
   fill('拉伸', boxFit: BoxFit.fill),

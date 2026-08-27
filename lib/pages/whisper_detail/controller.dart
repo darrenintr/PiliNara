@@ -102,7 +102,7 @@ class WhisperDetailController extends CommonListController<RspSessionMsg, Msg> {
     // }
     // onClearText();
     // scrollController.jumpToTop();
-    // SmartDialog.showToast('发送成功');
+    // SmartDialog.showToast('发送成功'.tr);
     // return;
     assert((message != null) ^ (picMsg != null));
     if (_isSending) return;
@@ -110,7 +110,7 @@ class WhisperDetailController extends CommonListController<RspSessionMsg, Msg> {
     feedBack();
     SmartDialog.dismiss();
     if (!account.isLogin) {
-      SmartDialog.showToast('请先登录');
+      SmartDialog.showToast('请先登录'.tr);
       return;
     }
     final res = await ImGrpc.sendMsg(
@@ -127,11 +127,11 @@ class WhisperDetailController extends CommonListController<RspSessionMsg, Msg> {
         loadingState
           ..value.data![index!].msgStatus = 1
           ..refresh();
-        SmartDialog.showToast('撤回成功');
+        SmartDialog.showToast('撤回成功'.tr);
       } else {
         onRefresh();
         onClearText();
-        SmartDialog.showToast('发送成功');
+        SmartDialog.showToast('发送成功'.tr);
       }
     } else {
       res.toast();

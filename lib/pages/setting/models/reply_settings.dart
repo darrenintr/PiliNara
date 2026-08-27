@@ -5,10 +5,11 @@ import 'package:PiliPlus/utils/storage_key.dart';
 import 'package:PiliPlus/utils/storage_pref.dart';
 import 'package:PiliPlus/utils/user_whitelist.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 List<SettingsModel> get replySettings => [
   getListBanWordModel(
-    title: '关键词过滤',
+    title: '关键词过滤'.tr,
     key: SettingBoxKey.banWordForReply,
     onChanged: (value) {
       ReplyGrpc.replyRegExp = value;
@@ -16,7 +17,7 @@ List<SettingsModel> get replySettings => [
     },
   ),
   getListUidWithNameModel(
-    title: '屏蔽用户',
+    title: '屏蔽用户'.tr,
     getUidsMap: () => Pref.replyBlockedMids,
     setUidsMap: (mids) {
       Pref.replyBlockedMids = mids;
@@ -25,49 +26,49 @@ List<SettingsModel> get replySettings => [
     onUpdate: () {},
   ),
   getListUidWithNameModel(
-    title: '白名单用户',
+    title: '白名单用户'.tr,
     leading: const Icon(Icons.person_add_alt_1_outlined),
-    emptySubtitle: '点击添加白名单用户',
+    emptySubtitle: '点击添加白名单用户'.tr,
     countSubtitleBuilder: (count) => '已加入白名单 $count 个用户',
     getUidsMap: () => Pref.whitelistMids,
     setUidsMap: UserWhitelist.save,
     onUpdate: () {},
   ),
   SwitchModel(
-    title: '屏蔽带货评论',
-    subtitle: '过滤包含商品推广的评论',
+    title: '屏蔽带货评论'.tr,
+    subtitle: '过滤包含商品推广的评论'.tr,
     leading: const Icon(CustomIcons.shopping_bag_not_interested),
     setKey: SettingBoxKey.antiGoodsReply,
     defaultVal: false,
     onChanged: (value) => ReplyGrpc.antiGoodsReply = value,
   ),
   SwitchModel(
-    title: '保留 UP 主自己的评论',
-    subtitle: '保留 UP 主发布的评论，黑名单和带货屏蔽仍会生效',
+    title: '保留 UP 主自己的评论'.tr,
+    subtitle: '保留 UP 主发布的评论，黑名单和带货屏蔽仍会生效'.tr,
     leading: const Icon(Icons.person_outline),
     setKey: SettingBoxKey.keepUpOwnerReply,
     defaultVal: true,
     onChanged: (value) => ReplyGrpc.keepUpOwnerReply = value,
   ),
   SwitchModel(
-    title: '保留置顶评论',
-    subtitle: '保留 UP 主置顶的评论，黑名单和带货屏蔽仍会生效',
+    title: '保留置顶评论'.tr,
+    subtitle: '保留 UP 主置顶的评论，黑名单和带货屏蔽仍会生效'.tr,
     leading: const Icon(Icons.vertical_align_top_outlined),
     setKey: SettingBoxKey.keepUpTopReply,
     defaultVal: true,
     onChanged: (value) => ReplyGrpc.keepUpTopReply = value,
   ),
   SwitchModel(
-    title: '保留 UP 主觉得很赞的评论',
-    subtitle: '保留 UP 主点赞的评论，黑名单和带货屏蔽仍会生效',
+    title: '保留 UP 主觉得很赞的评论'.tr,
+    subtitle: '保留 UP 主点赞的评论，黑名单和带货屏蔽仍会生效'.tr,
     leading: const Icon(Icons.thumb_up_outlined),
     setKey: SettingBoxKey.keepUpLikeReply,
     defaultVal: false,
     onChanged: (value) => ReplyGrpc.keepUpLikeReply = value,
   ),
   SwitchModel(
-    title: '保留 UP 主参与回复的评论',
-    subtitle: '保留 UP 主回复过的评论，黑名单和带货屏蔽仍会生效',
+    title: '保留 UP 主参与回复的评论'.tr,
+    subtitle: '保留 UP 主回复过的评论，黑名单和带货屏蔽仍会生效'.tr,
     leading: const Icon(Icons.mark_chat_read_outlined),
     setKey: SettingBoxKey.keepUpReplyReply,
     defaultVal: false,

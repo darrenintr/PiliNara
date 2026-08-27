@@ -55,7 +55,7 @@ class _FansPageState extends FollowTypePageState<FansPage> {
   PreferredSizeWidget? get appBar => widget.showName
       ? AppBar(
           title: controller.isOwner
-              ? const Text('我的粉丝')
+              ? Text('我的粉丝'.tr)
               : Obx(() {
                   final name = controller.name.value;
                   if (name != null) return Text('$name的粉丝');

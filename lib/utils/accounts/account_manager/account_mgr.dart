@@ -17,6 +17,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 
 final _setCookieReg = RegExp('(?<=)(,)(?=[^;]+?=)');
 
@@ -239,21 +240,21 @@ class AccountManager extends Interceptor {
   static Future<String> dioError(DioException error) async {
     switch (error.type) {
       case .badCertificate:
-        return '证书有误！';
+        return '证书有误！'.tr;
       case .badResponse:
-        return '服务器异常，请稍后重试！';
+        return '服务器异常，请稍后重试！'.tr;
       case .cancel:
-        return '请求已被取消，请重新请求';
+        return '请求已被取消，请重新请求'.tr;
       case .connectionError:
-        return '连接错误，请检查网络设置';
+        return '连接错误，请检查网络设置'.tr;
       case .connectionTimeout:
-        return '网络连接超时，请检查网络设置';
+        return '网络连接超时，请检查网络设置'.tr;
       case .receiveTimeout:
-        return '响应超时，请稍后重试！';
+        return '响应超时，请稍后重试！'.tr;
       case .sendTimeout:
-        return '发送请求超时，请检查网络设置';
+        return '发送请求超时，请检查网络设置'.tr;
       case .transformTimeout:
-        return '转换响应数据超时！';
+        return '转换响应数据超时！'.tr;
       case .unknown:
         String desc;
         try {
@@ -269,5 +270,5 @@ class AccountManager extends Interceptor {
 }
 
 extension _ConnectivityResultExt on ConnectivityResult {
-  String get desc => const ['蓝牙', 'Wi-Fi', '局域', '流量', '无', '代理', '其他'][index];
+  String get desc => ['蓝牙'.tr, 'Wi-Fi', '局域'.tr, '流量'.tr, '无'.tr, '代理'.tr, '其他'.tr][index];
 }

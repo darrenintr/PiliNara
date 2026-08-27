@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 const double kScreenRatio = 1.2;
 
 // 全屏模式

@@ -110,7 +110,7 @@ class _AiChatPageState extends State<AiChatPage>
   void _sendSelectedPrompt() {
     if (_templates.isEmpty) return;
     if (!chatCtl.hasSubtitles) {
-      SmartDialog.showToast('当前视频无字幕，请「载入上下文」后直接提问');
+      SmartDialog.showToast('当前视频无字幕，请「载入上下文」后直接提问'.tr);
       return;
     }
     if (_selectedPromptIndex >= 0 && _selectedPromptIndex < _templates.length) {
@@ -129,7 +129,7 @@ class _AiChatPageState extends State<AiChatPage>
   void _copyMessage(ChatMessage msg) {
     if (msg.content.isEmpty) return;
     Clipboard.setData(ClipboardData(text: msg.content));
-    SmartDialog.showToast('已复制到剪贴板');
+    SmartDialog.showToast('已复制到剪贴板'.tr);
   }
 
   @override
@@ -169,7 +169,7 @@ class _AiChatPageState extends State<AiChatPage>
                 Icon(Icons.auto_awesome, color: colorScheme.primary, size: 22),
                 const SizedBox(width: 8),
                 Text(
-                  'AI 视频助手',
+                  'AI 视频助手'.tr,
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -180,7 +180,7 @@ class _AiChatPageState extends State<AiChatPage>
                     return TextButton.icon(
                       onPressed: chatCtl.clearMessages,
                       icon: const Icon(Icons.refresh, size: 18),
-                      label: const Text('重置'),
+                      label: Text('重置'.tr),
                     );
                   }
                   return const SizedBox.shrink();
@@ -204,7 +204,7 @@ class _AiChatPageState extends State<AiChatPage>
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
               color: colorScheme.errorContainer,
               child: Text(
-                '提示：当前视频文本较长，AI 首次阅读需要几秒钟，请耐心等待',
+                '提示：当前视频文本较长，AI 首次阅读需要几秒钟，请耐心等待'.tr,
                 style: TextStyle(
                   fontSize: 12,
                   color: colorScheme.onErrorContainer,
@@ -240,7 +240,7 @@ class _AiChatPageState extends State<AiChatPage>
           Expanded(
             child: _templates.isEmpty
                 ? Text(
-                    '暂无模板，请在设置中添加',
+                    '暂无模板，请在设置中添加'.tr,
                     style: TextStyle(
                       fontSize: 13,
                       color: colorScheme.outline,
@@ -291,7 +291,7 @@ class _AiChatPageState extends State<AiChatPage>
                     child: IconButton(
                       onPressed: (analyzing || hasContext) ? null : () => chatCtl.loadVideoContext(),
                       icon: const Icon(Icons.post_add, size: 22),
-                      tooltip: '载入上下文',
+                      tooltip: '载入上下文'.tr,
                     ),
                   ),
                 FilledButton.icon(
@@ -302,7 +302,7 @@ class _AiChatPageState extends State<AiChatPage>
                           child: CircularProgressIndicator(strokeWidth: 2),
                         )
                       : const Icon(Icons.play_arrow, size: 20),
-                  label: const Text('分析'),
+                  label: Text('分析'.tr),
                 ),
               ],
             );
@@ -333,10 +333,10 @@ class _AiChatPageState extends State<AiChatPage>
                 const SizedBox(height: 16),
                 Text(
                   chatCtl.hasVideoContext.value
-                      ? '视频上下文已载入，请输入你的问题'
+                      ? '视频上下文已载入，请输入你的问题'.tr
                       : chatCtl.hasSubtitles
-                          ? '选择提示词后点击「分析」或「载入上下文」'
-                          : '输入问题开始对话',
+                          ? '选择提示词后点击「分析」或「载入上下文」'.tr
+                          : '输入问题开始对话'.tr,
                   style: TextStyle(color: colorScheme.outline),
                 ),
               ],
@@ -376,7 +376,7 @@ class _AiChatPageState extends State<AiChatPage>
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Text(
-              '已载入视频上下文',
+              '已载入视频上下文'.tr,
               style: TextStyle(
                 fontSize: 12,
                 color: colorScheme.outline,
@@ -454,7 +454,7 @@ class _AiChatPageState extends State<AiChatPage>
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        'AI 正在思考...',
+                        'AI 正在思考...'.tr,
                         style: TextStyle(
                           fontSize: 13,
                           color: colorScheme.outline,
@@ -556,7 +556,7 @@ class _AiChatPageState extends State<AiChatPage>
       final videoCtl = Get.find<VideoDetailController>(tag: widget.heroTag);
       final duration = videoCtl.plPlayerController.duration.value;
       if (duration > 0 && seconds > duration) {
-        SmartDialog.showToast('时间戳超出视频时长');
+        SmartDialog.showToast('时间戳超出视频时长'.tr);
         return;
       }
       videoCtl.plPlayerController.seekTo(
@@ -564,7 +564,7 @@ class _AiChatPageState extends State<AiChatPage>
         isSeek: false,
       );
     } catch (_) {
-      SmartDialog.showToast('跳转失败');
+      SmartDialog.showToast('跳转失败'.tr);
     }
   }
 
@@ -592,7 +592,7 @@ class _AiChatPageState extends State<AiChatPage>
               keyboardType: TextInputType.multiline,
               textInputAction: TextInputAction.newline,
               decoration: InputDecoration(
-                hintText: '输入问题继续对话...',
+                hintText: '输入问题继续对话...'.tr,
                 hintStyle: TextStyle(color: colorScheme.outline),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(24),

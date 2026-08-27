@@ -14,6 +14,7 @@ import 'package:media_kit/ffi/src/utf8.dart';
 import 'package:media_kit/generated/libmpv/bindings.dart' as generated;
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit/src/player/native/core/initializer.dart';
+import 'package:get/get.dart';
 
 class MpvConvertWebp {
   final _mpv = NativePlayer.mpv;

@@ -19,6 +19,7 @@ import 'package:PiliPlus/utils/storage_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:intl/intl.dart';
+import 'package:get/get.dart';
 
 // 视频卡片 - 垂直布局
 class VideoCardV extends StatelessWidget {
@@ -127,8 +128,8 @@ class VideoCardV extends StatelessWidget {
                           if (videoItem case RcmdVideoItemAppModel(
                             :final canPlay,
                           ) when canPlay != 1)
-                            const PBadge(
-                              text: '充电专属',
+                            PBadge(
+                              text: '充电专属'.tr,
                               top: 6,
                               right: 6,
                               size: .small,
@@ -197,16 +198,16 @@ class VideoCardV extends StatelessWidget {
                     type: .secondary,
                   ),
                 if (videoItem.goto == 'picture')
-                  const PBadge(
-                    text: '动态',
+                  PBadge(
+                    text: '动态'.tr,
                     isStack: false,
                     size: .small,
                     type: .line_primary,
                     fontSize: 9,
                   ),
                 if (Pref.showRcmdReason && videoItem.isFollowed)
-                  const PBadge(
-                    text: '已关注',
+                  PBadge(
+                    text: '已关注'.tr,
                     isStack: false,
                     size: .small,
                     type: .secondary,

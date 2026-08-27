@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum AudioQuality {
   u_100010(100010, '100010'),
   u_100009(100009, '100009'),

@@ -122,16 +122,16 @@ class _SuperChatCardState extends State<SuperChatCard> {
         CustomPopupMenuItem<void>(
           height: 38,
           onTap: () => Utils.copyText(Utils.jsonEncoder.convert(item.toJson())),
-          child: const Text(
-            '复制 SC 信息',
+          child: Text(
+            '复制 SC 信息'.tr,
             style: TextStyle(fontSize: 13),
           ),
         ),
         CustomPopupMenuItem<void>(
           height: 38,
           onTap: widget.onReport,
-          child: const Text(
-            '举报',
+          child: Text(
+            '举报'.tr,
             style: TextStyle(fontSize: 13),
           ),
         ),

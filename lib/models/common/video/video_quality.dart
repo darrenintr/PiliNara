@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum VideoQuality {
   hdrVivid(129, 'HDR Vivid', 'HDR Vivid'),
   super8k(127, '8K 超高清', '8K'),

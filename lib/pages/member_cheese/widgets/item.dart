@@ -8,6 +8,7 @@ import 'package:PiliPlus/utils/date_utils.dart';
 import 'package:PiliPlus/utils/page_utils.dart';
 import 'package:PiliPlus/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MemberCheeseItem extends StatelessWidget {
   const MemberCheeseItem({
@@ -62,7 +63,7 @@ class MemberCheeseItem extends StatelessWidget {
             right: 0,
             bottom: -8,
             child: iconButton(
-              tooltip: '移除',
+              tooltip: '移除'.tr,
               onPressed: onRemove,
               icon: const Icon(Icons.clear),
               iconColor: theme.colorScheme.outline,

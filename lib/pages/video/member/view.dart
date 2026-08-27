@@ -315,7 +315,7 @@ class _HorizontalMemberPageState extends State<HorizontalMemberPage> {
                   Get.toNamed('/editProfile');
                 } else {
                   if (!account.isLogin) {
-                    SmartDialog.showToast('账号未登录');
+                    SmartDialog.showToast('账号未登录'.tr);
                     return;
                   }
                   RequestUtils.actionRelationMod(
@@ -332,10 +332,10 @@ class _HorizontalMemberPageState extends State<HorizontalMemberPage> {
               },
               child: Text(
                 widget.mid == account.mid
-                    ? '编辑资料'
+                    ? '编辑资料'.tr
                     : memberInfoModel.isFollowed == true
-                    ? '已关注'
-                    : '关注',
+                    ? '已关注'.tr
+                    : '关注'.tr,
                 maxLines: 1,
                 style: const TextStyle(fontSize: 14),
               ),
@@ -349,8 +349,8 @@ class _HorizontalMemberPageState extends State<HorizontalMemberPage> {
                 visualDensity: const VisualDensity(vertical: -2),
               ),
               onPressed: () => Get.toNamed('/member?mid=${widget.mid}'),
-              child: const Text(
-                '查看主页',
+              child: Text(
+                '查看主页'.tr,
                 maxLines: 1,
                 style: TextStyle(fontSize: 14),
               ),

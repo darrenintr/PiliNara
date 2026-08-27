@@ -156,15 +156,15 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
 
   @override
   bool handleError(String? errMsg) {
-    tab2 = const [
-      SpaceTab2(title: '动态', param: 'dynamic'),
+    tab2 = [
+      SpaceTab2(title: '动态'.tr, param: 'dynamic'),
       SpaceTab2(
-        title: '投稿',
+        title: '投稿'.tr,
         param: 'contribute',
-        items: [SpaceTab2Item(title: '视频', param: 'video')],
+        items: [SpaceTab2Item(title: '视频'.tr, param: 'video')],
       ),
-      SpaceTab2(title: '收藏', param: 'favorite'),
-      SpaceTab2(title: '追番', param: 'bangumi'),
+      SpaceTab2(title: '收藏'.tr, param: 'favorite'),
+      SpaceTab2(title: '追番'.tr, param: 'bangumi'),
     ];
     tabs = tab2!.map((item) => Tab(text: item.title)).toList();
     tabController?.dispose();
@@ -190,7 +190,7 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
       builder: (context) {
         final theme = Theme.of(context);
         return AlertDialog(
-          title: const Text('设置备注'),
+          title: Text('设置备注'.tr),
           content: TextField(
             controller: textController,
             minLines: 1,
@@ -198,7 +198,7 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
             autofocus: true,
             style: const TextStyle(fontSize: 14),
             decoration: InputDecoration(
-              hintText: '留空则删除备注',
+              hintText: '留空则删除备注'.tr,
               hintStyle: TextStyle(
                 fontSize: 14,
                 color: theme.colorScheme.outline,
@@ -209,7 +209,7 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
             TextButton(
               onPressed: Get.back,
               child: Text(
-                '取消',
+                '取消'.tr,
                 style: TextStyle(color: theme.colorScheme.outline),
               ),
             ),
@@ -226,7 +226,7 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
                 remark.value = newRemark;
                 Get.back();
               },
-              child: const Text('确定'),
+              child: Text('确定'.tr),
             ),
           ],
         );
@@ -236,19 +236,19 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
 
   void blockUser(BuildContext context) {
     if (!account.isLogin) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('账号未登录'.tr);
       return;
     }
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('提示'),
-        content: Text(relation.value != 128 ? '确定拉黑UP主?' : '从黑名单移除UP主'),
+        title: Text('提示'.tr),
+        content: Text(relation.value != 128 ? '确定拉黑UP主?'.tr : '从黑名单移除UP主'.tr),
         actions: [
           TextButton(
             onPressed: Get.back,
             child: Text(
-              '点错了',
+              '点错了'.tr,
               style: TextStyle(color: Theme.of(context).colorScheme.outline),
             ),
           ),
@@ -257,7 +257,7 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
               Get.back();
               _onBlock();
             },
-            child: const Text('确认'),
+            child: Text('确认'.tr),
           ),
         ],
       ),
@@ -287,7 +287,7 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
       _onBlock();
     } else {
       if (!account.isLogin) {
-        SmartDialog.showToast('账号未登录');
+        SmartDialog.showToast('账号未登录'.tr);
         return;
       }
       RequestUtils.actionRelationMod(
@@ -312,7 +312,7 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
       if (relation.value == 4) {
         relation.value = 2;
       }
-      SmartDialog.showToast('移除成功');
+      SmartDialog.showToast('移除成功'.tr);
     } else {
       res.toast();
     }
@@ -327,7 +327,7 @@ class MemberController extends CommonDataController<SpaceData, SpaceData?>
   Future<void> vipExpAdd() async {
     final res = await UserHttp.vipExpAdd();
     if (res.isSuccess) {
-      SmartDialog.showToast('领取成功');
+      SmartDialog.showToast('领取成功'.tr);
     } else {
       res.toast();
     }

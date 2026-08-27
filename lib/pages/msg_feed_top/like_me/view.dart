@@ -35,7 +35,7 @@ class _LikeMePageState extends State<LikeMePage> {
     final theme = Theme.of(context);
     return SimpleScaffold(
       appBar: AppBar(
-        title: const Text('收到的赞'),
+        title: Text('收到的赞'.tr),
         actions: [
           IconButton(
             onPressed: () => Get.to(
@@ -94,7 +94,7 @@ class _LikeMePageState extends State<LikeMePage> {
               return SliverMainAxisGroup(
                 slivers: [
                   if (latest.isNotEmpty) ...[
-                    _buildHeader(theme, '最新'),
+                    _buildHeader(theme, '最新'.tr),
                     SliverList.separated(
                       itemBuilder: (context, index) {
                         if (total.isEmpty && index == latest.length - 1) {
@@ -109,7 +109,7 @@ class _LikeMePageState extends State<LikeMePage> {
                     ),
                   ],
                   if (total.isNotEmpty) ...[
-                    _buildHeader(theme, '累计'),
+                    _buildHeader(theme, '累计'.tr),
                     SliverList.separated(
                       itemBuilder: (context, index) {
                         if (index == total.length - 1) {
@@ -205,12 +205,12 @@ class _LikeMePageState extends State<LikeMePage> {
                 Get.back();
                 showConfirmDialog(
                   context: context,
-                  title: const Text('删除'),
-                  content: const Text('该条通知删除后，当有新点赞时会重新出现在列表，是否继续？'),
+                  title: Text('删除'.tr),
+                  content: Text('该条通知删除后，当有新点赞时会重新出现在列表，是否继续？'.tr),
                   onConfirm: () => onRemove(item.id),
                 );
               },
-              child: const Text('删除', style: TextStyle(fontSize: 14)),
+              child: Text('删除'.tr, style: TextStyle(fontSize: 14)),
             ),
             DialogOption(
               onPressed: () {
@@ -218,8 +218,8 @@ class _LikeMePageState extends State<LikeMePage> {
                 if (isNotice) {
                   showConfirmDialog(
                     context: context,
-                    title: const Text('不再通知'),
-                    content: const Text('这条内容的点赞将不再通知，但仍可在列表内查看，是否继续？'),
+                    title: Text('不再通知'.tr),
+                    content: Text('这条内容的点赞将不再通知，但仍可在列表内查看，是否继续？'.tr),
                     onConfirm: () =>
                         _likeMeController.onSetNotice(item, isNotice),
                   );
@@ -228,7 +228,7 @@ class _LikeMePageState extends State<LikeMePage> {
                 }
               },
               child: Text(
-                isNotice ? '不再通知' : '接收通知',
+                isNotice ? '不再通知'.tr : '接收通知'.tr,
                 style: const TextStyle(fontSize: 14),
               ),
             ),

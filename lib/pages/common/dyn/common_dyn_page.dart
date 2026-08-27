@@ -240,7 +240,7 @@ mixin CommonDynPageMixin<T extends StatefulWidget>
         if (showBackBtn) {
           return SimpleScaffold(
             appBar: AppBar(
-              title: const Text('评论详情'),
+              title: Text('评论详情'),
               shape: Border(
                 bottom: BorderSide(
                   color: theme.colorScheme.outline.withValues(alpha: 0.1),

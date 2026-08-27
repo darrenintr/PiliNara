@@ -8,6 +8,7 @@ import 'package:PiliPlus/utils/storage_key.dart';
 import 'package:PiliPlus/utils/video_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 
 /// 二级对话框：按地区浏览 CDN 节点，返回选中的 host
 class CdnNodeDialog extends StatefulWidget {
@@ -80,7 +81,7 @@ class _CdnNodeDialogState extends State<CdnNodeDialog> {
       final url = VideoUtils.getCdnUrl(sample.playUrls, customHost: host);
       result = await tester.measure(url);
     } catch (e) {
-      result = '测速失败';
+      result = '测速失败'.tr;
     }
     if (mounted) {
       notifier.value = result;
@@ -94,7 +95,7 @@ class _CdnNodeDialogState extends State<CdnNodeDialog> {
       return;
     }
     setState(() => _refreshing = false);
-    SmartDialog.showToast(error ?? '节点列表已更新');
+    SmartDialog.showToast(error ?? '节点列表已更新'.tr);
   }
 
   String _formatTime(DateTime time) {
@@ -113,7 +114,7 @@ class _CdnNodeDialogState extends State<CdnNodeDialog> {
       builder: (context, value, _) {
         if (value == null) {
           return IconButton(
-            tooltip: '测速',
+            tooltip: '测速'.tr,
             visualDensity: VisualDensity.compact,
             icon: const Icon(Icons.speed),
             onPressed: () => _testNode(host),
@@ -175,7 +176,7 @@ class _CdnNodeDialogState extends State<CdnNodeDialog> {
     final textTheme = TextTheme.of(context);
     return AlertDialog(
       clipBehavior: Clip.hardEdge,
-      title: Text(widget.isLive ? '选择直播节点' : '选择节点'),
+      title: Text(widget.isLive ? '选择直播节点'.tr : '选择节点'.tr),
       constraints: const BoxConstraints.tightFor(width: 320),
       contentPadding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
       content: FutureBuilder(
@@ -189,9 +190,9 @@ class _CdnNodeDialogState extends State<CdnNodeDialog> {
           }
           final nodes = CdnNodeStore.nodesOrNull ?? snapshot.data;
           if (nodes == null) {
-            return const SizedBox(
+            return SizedBox(
               height: 80,
-              child: Center(child: Text('节点列表加载失败')),
+              child: Center(child: Text('节点列表加载失败'.tr)),
             );
           }
           final regions = CdnNodeStore.sortedRegions(nodes);
@@ -241,9 +242,9 @@ class _CdnNodeDialogState extends State<CdnNodeDialog> {
               ),
               const SizedBox(height: 4),
               if (widget.isLive)
-                _buildHint(context, '列表节点对直播的有效性未经验证，无法观看请清除设置')
-              else if (region == '外建')
-                _buildHint(context, '该分组多为直播节点，点播大概率无效'),
+                _buildHint(context, '列表节点对直播的有效性未经验证，无法观看请清除设置'.tr)
+              else if (region == '外建'.tr)
+                _buildHint(context, '该分组多为直播节点，点播大概率无效'.tr),
               Flexible(
                 child: ListView.builder(
                   shrinkWrap: true,
@@ -273,7 +274,7 @@ class _CdnNodeDialogState extends State<CdnNodeDialog> {
                     Expanded(
                       child: Text(
                         updateTime == null
-                            ? '内置快照，可在线更新'
+                            ? '内置快照，可在线更新'.tr
                             : '更新于 ${_formatTime(updateTime)}',
                         style: textTheme.bodySmall!.copyWith(
                           color: colorScheme.onSurfaceVariant,
@@ -288,7 +289,7 @@ class _CdnNodeDialogState extends State<CdnNodeDialog> {
                     else
                       TextButton(
                         onPressed: _refresh,
-                        child: const Text('更新列表'),
+                        child: Text('更新列表'.tr),
                       ),
                   ],
                 ),

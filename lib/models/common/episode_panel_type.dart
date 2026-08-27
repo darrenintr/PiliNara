@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum EpisodeType {
   part('分P'),
   season('合集'),

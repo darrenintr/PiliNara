@@ -6,6 +6,7 @@ import 'package:PiliPlus/models_new/msg/msg_like/item.dart';
 import 'package:PiliPlus/pages/common/common_data_controller.dart';
 import 'package:PiliPlus/utils/extension/iterable_ext.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 
 class LikeMeController
     extends
@@ -76,7 +77,7 @@ class LikeMeController
           pair.second.removeAt(index);
         }
         loadingState.refresh();
-        SmartDialog.showToast('删除成功');
+        SmartDialog.showToast('删除成功'.tr);
       } else {
         res.toast();
       }
@@ -92,7 +93,7 @@ class LikeMeController
     if (res.isSuccess) {
       item.noticeState = noticeState;
       loadingState.refresh();
-      SmartDialog.showToast('设置成功');
+      SmartDialog.showToast('设置成功'.tr);
     } else {
       res.toast();
     }

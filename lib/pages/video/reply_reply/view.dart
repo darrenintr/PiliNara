@@ -74,10 +74,10 @@ class VideoReplyReplyPanel extends CommonSlidePage {
       },
       () => SimpleScaffold(
         appBar: AppBar(
-          title: const Text('评论详情'),
+          title: Text('评论详情'.tr),
           actions: [
             IconButton(
-              tooltip: '前往',
+              tooltip: '前往'.tr,
               onPressed: uri == null
                   ? null
                   : () => PiliScheme.routePush(uri, businessId: type),
@@ -167,9 +167,9 @@ class _VideoReplyReplyPanelState extends State<VideoReplyReplyPanel>
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(isDialogue ? '对话列表' : '评论详情'),
+                        Text(isDialogue ? '对话列表'.tr : '评论详情'.tr),
                         IconButton(
-                          tooltip: '关闭',
+                          tooltip: '关闭'.tr,
                           icon: const Icon(Icons.close, size: 20),
                           onPressed: Get.back,
                         ),
@@ -305,7 +305,7 @@ class _VideoReplyReplyPanelState extends State<VideoReplyReplyPanel>
               alignment: Alignment.center,
               margin: .only(bottom: MediaQuery.viewPaddingOf(context).bottom),
               child: Text(
-                _controller.isEnd ? '没有更多了' : '加载中...',
+                _controller.isEnd ? '没有更多了'.tr : '加载中...'.tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 12,
@@ -359,7 +359,7 @@ class _VideoReplyReplyPanelState extends State<VideoReplyReplyPanel>
       ),
       jumpToDialogue: () {
         if (!_controller.setIndexById(replyItem.parent)) {
-          SmartDialog.showToast('评论可能已被删除');
+          SmartDialog.showToast('评论可能已被删除'.tr);
         }
       },
       onCheckReply: (item) => _controller.onCheckReply(item, isManual: true),

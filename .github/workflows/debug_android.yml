@@ -50,11 +50,9 @@ jobs:
         continue-on-error: true
 
       - name: apply patches
-        working-directory: ${{ env.FLUTTER_ROOT }}
-        run: |
-          git apply $GITHUB_WORKSPACE/lib/scripts/bottom_sheet_patch.diff || true
-          git apply $GITHUB_WORKSPACE/lib/scripts/modal_barrier_patch.diff || true
-          git apply $GITHUB_WORKSPACE/lib/scripts/mouse_cursor_patch.diff || true
+        shell: pwsh
+        run: lib/scripts/patch.ps1 android
+        continue-on-error: true
 
       - name: Set and Extract version
         shell: pwsh

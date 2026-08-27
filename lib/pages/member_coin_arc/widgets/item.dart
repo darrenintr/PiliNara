@@ -13,6 +13,7 @@ import 'package:PiliPlus/utils/duration_utils.dart';
 import 'package:PiliPlus/utils/page_utils.dart';
 import 'package:PiliPlus/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MemberCoinLikeItem extends StatelessWidget {
   final CoinLikeArcItem item;
@@ -75,14 +76,14 @@ class MemberCoinLikeItem extends StatelessWidget {
                         borderRadius: const .vertical(top: .circular(12)),
                       ),
                       if (item.isCooperation == true)
-                        const PBadge(
-                          text: '合作',
+                        PBadge(
+                          text: '合作'.tr,
                           top: 6,
                           right: 6,
                         )
                       else if (item.isSteins == true)
-                        const PBadge(
-                          text: '互动',
+                        PBadge(
+                          text: '互动'.tr,
                           top: 6,
                           right: 6,
                         ),

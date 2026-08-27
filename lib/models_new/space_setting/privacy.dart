@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class SpaceSettingModel {
   SpaceSettingModel({
     required this.name,
@@ -28,48 +30,48 @@ class Privacy {
   factory Privacy.fromJson(Map<String, dynamic> json) => Privacy(
     list1: [
       SpaceSettingModel(
-        name: '公开我的收藏',
+        name: '公开我的收藏'.tr,
         key: 'fav_video',
         value: json['fav_video'],
       ),
       SpaceSettingModel(
-        name: '公开我的追番追剧',
+        name: '公开我的追番追剧'.tr,
         key: 'bangumi',
         value: json['bangumi'],
       ),
       SpaceSettingModel(
-        name: '公开我的追漫',
+        name: '公开我的追漫'.tr,
         key: 'comic',
         value: json['comic'],
       ),
       SpaceSettingModel(
-        name: '公开最近投币的视频',
+        name: '公开最近投币的视频'.tr,
         key: 'coins_video',
         value: json['coins_video'],
       ),
       SpaceSettingModel(
-        name: '公开最近点赞的视频',
+        name: '公开最近点赞的视频'.tr,
         key: 'likes_video',
         value: json['likes_video'],
       ),
       SpaceSettingModel(
-        name: '公开最近玩过的游戏',
+        name: '公开最近玩过的游戏'.tr,
         key: 'played_game',
         value: json['played_game'],
       ),
       SpaceSettingModel(
-        name: '公开拥有的粉丝装扮',
+        name: '公开拥有的粉丝装扮'.tr,
         key: 'dress_up',
         value: json['dress_up'],
       ),
       SpaceSettingModel(
-        name: '公开我的关注列表',
+        name: '公开我的关注列表'.tr,
         key: 'disable_following',
         value: json['disable_following'],
         isReverse: true,
       ),
       SpaceSettingModel(
-        name: '公开我的粉丝列表',
+        name: '公开我的粉丝列表'.tr,
         key: 'disable_show_fans',
         value: json['disable_show_fans'],
         isReverse: true,
@@ -77,19 +79,19 @@ class Privacy {
     ],
     list2: [
       SpaceSettingModel(
-        name: '公开佩戴的粉丝勋章',
+        name: '公开佩戴的粉丝勋章'.tr,
         key: 'close_space_medal',
         value: json['close_space_medal'],
         isReverse: true,
       ),
       SpaceSettingModel(
-        name: '勋章墙公开显示所有粉丝勋章',
+        name: '勋章墙公开显示所有粉丝勋章'.tr,
         key: 'only_show_wearing',
         value: json['only_show_wearing'],
         isReverse: true,
       ),
       SpaceSettingModel(
-        name: '公开学校信息',
+        name: '公开学校信息'.tr,
         key: 'disable_show_school',
         value: json['disable_show_school'],
         isReverse: true,
@@ -97,17 +99,17 @@ class Privacy {
     ],
     list3: [
       SpaceSettingModel(
-        name: '投稿视频列表中展现直播回放',
+        name: '投稿视频列表中展现直播回放'.tr,
         key: 'live_playback',
         value: json['live_playback'],
       ),
       SpaceSettingModel(
-        name: '投稿视频列表中展现包月充电专属视频',
+        name: '投稿视频列表中展现包月充电专属视频'.tr,
         key: 'charge_video',
         value: json['charge_video'],
       ),
       SpaceSettingModel(
-        name: '投稿视频列表中展现课堂视频',
+        name: '投稿视频列表中展现课堂视频'.tr,
         key: 'lesson_video',
         value: json['lesson_video'],
       ),

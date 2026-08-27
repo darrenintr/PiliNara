@@ -7,6 +7,7 @@ import 'package:PiliPlus/utils/storage.dart';
 import 'package:PiliPlus/utils/storage_pref.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:webdav_client/webdav_client.dart' as webdav;
+import 'package:get/get.dart';
 
 class WebDav {
   late String _webdavDirectory;
@@ -70,7 +71,7 @@ class WebDav {
         await _client!.remove(path);
       } catch (_) {}
       await _client!.write(path, utf8.encode(data));
-      SmartDialog.showToast('备份成功');
+      SmartDialog.showToast('备份成功'.tr);
     } catch (e) {
       SmartDialog.showToast('备份失败: $e');
     }
@@ -89,7 +90,7 @@ class WebDav {
       final path = '$_webdavDirectory/$_fileName';
       final data = await _client!.read(path);
       await GStorage.importAllSettings(utf8.decode(data));
-      SmartDialog.showToast('恢复成功');
+      SmartDialog.showToast('恢复成功'.tr);
     } catch (e) {
       SmartDialog.showToast('恢复失败: $e');
     }

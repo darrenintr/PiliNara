@@ -7,6 +7,7 @@ import 'package:PiliPlus/models_new/download/bili_download_entry_info.dart';
 import 'package:PiliPlus/utils/path_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
+import 'package:get/get.dart';
 
 class DownloadFolderCard extends StatelessWidget {
   const DownloadFolderCard({
@@ -80,7 +81,7 @@ class DownloadFolderCard extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      count == 0 ? '空文件夹' : '本地离线缓存',
+                      count == 0 ? '空文件夹'.tr : '本地离线缓存'.tr,
                       style: TextStyle(
                         fontSize: 12,
                         color: Theme.of(context).colorScheme.outline,

@@ -36,8 +36,8 @@ Future<bool> confirmRemoveEntriesFromFolder({
   }
   final choice = await _showPrimaryDialog(
     context: context,
-    title: '确定移出当前文件夹？',
-    description: '只会移出文件夹分类，不会删除本地离线缓存。',
+    title: '确定移出当前文件夹？'.tr,
+    description: '只会移出文件夹分类，不会删除本地离线缓存。'.tr,
     cacheCount: entryList.length,
   );
   if (choice == null) {
@@ -57,14 +57,14 @@ Future<bool> confirmRemoveEntriesFromFolder({
   }
   final confirmed = await _showCacheConfirmDialog(
     context: context,
-    title: '同时删除本地离线缓存？',
+    title: '同时删除本地离线缓存？'.tr,
     entries: entryList,
     otherFolderCount: _otherFolderCount(
       collectionService,
       entryList,
       excludedFolderIds: {folderId},
     ),
-    confirmText: '删除缓存并移出',
+    confirmText: '删除缓存并移出'.tr,
   );
   if (!confirmed) {
     return false;
@@ -102,8 +102,8 @@ Future<bool> confirmDeleteFolders({
   );
   final choice = await _showPrimaryDialog(
     context: context,
-    title: folderList.length == 1 ? '确定删除该文件夹？' : '确定删除选中文件夹？',
-    description: '只会删除文件夹关联，不会删除本地离线缓存。',
+    title: folderList.length == 1 ? '确定删除该文件夹？'.tr : '确定删除选中文件夹？'.tr,
+    description: '只会删除文件夹关联，不会删除本地离线缓存。'.tr,
     cacheCount: entries.length,
   );
   if (choice == null) {
@@ -122,14 +122,14 @@ Future<bool> confirmDeleteFolders({
   }
   final confirmed = await _showCacheConfirmDialog(
     context: context,
-    title: '同时删除本地离线缓存？',
+    title: '同时删除本地离线缓存？'.tr,
     entries: entries,
     otherFolderCount: _otherFolderCount(
       collectionService,
       entries,
       excludedFolderIds: folderIds,
     ),
-    confirmText: '删除缓存并删除文件夹',
+    confirmText: '删除缓存并删除文件夹'.tr,
   );
   if (!confirmed) {
     return false;
@@ -183,9 +183,9 @@ Future<_CacheChoice?> _showPrimaryDialog({
                   : (value) => setState(() {
                       deleteCache = value ?? false;
                     }),
-              title: const Text('同时删除本地离线缓存'),
+              title: Text('同时删除本地离线缓存'.tr),
               subtitle: cacheCount == 0
-                  ? const Text('当前没有已完成的本地离线缓存')
+                  ? Text('当前没有已完成的本地离线缓存'.tr)
                   : null,
             ),
           ],
@@ -194,7 +194,7 @@ Future<_CacheChoice?> _showPrimaryDialog({
           TextButton(
             onPressed: Get.back,
             child: Text(
-              '取消',
+              '取消'.tr,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.outline,
               ),
@@ -206,7 +206,7 @@ Future<_CacheChoice?> _showPrimaryDialog({
                   ? _CacheChoice.withCache
                   : _CacheChoice.relationOnly,
             ),
-            child: const Text('确认'),
+            child: Text('确认'.tr),
           ),
         ],
       ),
@@ -224,7 +224,7 @@ Future<bool> _showCacheConfirmDialog({
   final messages = <String>[
     '删除 ${entries.length} 个本地离线缓存，释放约 ${_formatEntriesSize(entries)}。',
     if (otherFolderCount > 0) '其中 $otherFolderCount 个也存在于其他文件夹。',
-    '删除后会从离线缓存列表和所有文件夹中消失，无法恢复。',
+    '删除后会从离线缓存列表和所有文件夹中消失，无法恢复。'.tr,
   ];
   return showDialog<bool>(
     context: context,
@@ -254,7 +254,7 @@ Future<bool> _showCacheConfirmDialog({
         TextButton(
           onPressed: Get.back,
           child: Text(
-            '取消',
+            '取消'.tr,
             style: TextStyle(
               color: Theme.of(context).colorScheme.outline,
             ),

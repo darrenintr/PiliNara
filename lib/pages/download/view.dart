@@ -252,7 +252,7 @@ class _DownloadPageState extends State<DownloadPage>
       return [
         CustomPopupMenuItem<void>(
           height: 38,
-          child: const Text('添加到文件夹', style: TextStyle(fontSize: 13)),
+          child: Text('添加到文件夹', style: TextStyle(fontSize: 13)),
           onTap: () async {
             final selectedIds = await showDownloadFolderPickerDialog(
               context: context,
@@ -291,7 +291,7 @@ class _DownloadPageState extends State<DownloadPage>
       ),
       CustomPopupMenuItem<void>(
         height: 38,
-        child: const Text('添加到其他文件夹', style: TextStyle(fontSize: 13)),
+        child: Text('添加到其他文件夹', style: TextStyle(fontSize: 13)),
         onTap: () async {
           final selectedIds = await showDownloadFolderPickerDialog(
             context: context,
@@ -324,7 +324,7 @@ class _DownloadPageState extends State<DownloadPage>
           showStaticPositionMenu<int>(
             context: context,
             items: [
-              const CustomPopupMenuItem(
+              CustomPopupMenuItem(
                 value: 0,
                 height: 38,
                 child: Text('重命名', style: TextStyle(fontSize: 13)),
@@ -358,7 +358,7 @@ class _DownloadPageState extends State<DownloadPage>
         onPressed: () {
           showStaticPositionMenu<_DownloadSortAction>(
             context: context,
-            items: const [
+            items: [
               CustomPopupMenuItem(
                 value: _DownloadSortAction.manual,
                 child: Text('手动排序'),
@@ -405,7 +405,7 @@ class _DownloadPageState extends State<DownloadPage>
               onPressed: _isOpeningContinue
                   ? null
                   : () => _openContinueTarget(target),
-              label: const Text('继续播放'),
+              label: Text('继续播放'),
             ),
           ),
         ),
@@ -470,7 +470,7 @@ class _DownloadPageState extends State<DownloadPage>
                       onPressed: _controller.checkedCount == 0
                           ? null
                           : _addSelectedToFolders,
-                      child: const Text('添加到'),
+                      child: Text('添加到'),
                     ),
                     if (Platform.isAndroid)
                       TextButton(
@@ -480,7 +480,7 @@ class _DownloadPageState extends State<DownloadPage>
                         onPressed: _controller.checkedCount == 0
                             ? null
                             : _exportSelected,
-                        child: const Text('导出'),
+                        child: Text('导出'),
                       ),
                   ]
                 : Platform.isAndroid
@@ -492,12 +492,12 @@ class _DownloadPageState extends State<DownloadPage>
                       onPressed: _folderSelectController.checkedCount == 0
                           ? null
                           : _exportSelectedFolders,
-                      child: const Text('导出'),
+                      child: Text('导出'),
                     ),
                   ]
                 : null,
             child: AppBar(
-              title: const Text('离线缓存'),
+              title: Text('离线缓存'),
               actions: [
                 if (isVideoTab) ...[
                   IconButton(
@@ -716,12 +716,12 @@ class _DownloadPageState extends State<DownloadPage>
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text('还没有文件夹'),
+                      Text('还没有文件夹'),
                       const SizedBox(height: 12),
                       FilledButton.icon(
                         onPressed: _createFolder,
                         icon: const Icon(Icons.create_new_folder_outlined),
-                        label: const Text('新建文件夹'),
+                        label: Text('新建文件夹'),
                       ),
                     ],
                   ),

@@ -5,6 +5,7 @@ import 'package:PiliPlus/utils/page_utils.dart';
 import 'package:PiliPlus/utils/request_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 class ActionPanel extends StatelessWidget {
   const ActionPanel({
@@ -59,7 +60,7 @@ class ActionPanel extends StatelessWidget {
                 label: Text(
                   forward.count != null
                       ? NumUtils.numFormat(forward.count)
-                      : '转发',
+                      : '转发'.tr,
                 ),
               );
             },
@@ -80,7 +81,7 @@ class ActionPanel extends StatelessWidget {
             ),
             style: btnStyle,
             label: Text(
-              comment.count != null ? NumUtils.numFormat(comment.count) : '评论',
+              comment.count != null ? NumUtils.numFormat(comment.count) : '评论'.tr,
             ),
           ),
         ),
@@ -93,11 +94,11 @@ class ActionPanel extends StatelessWidget {
               if (like.status ?? false) {
                 icon = FontAwesomeIcons.solidThumbsUp;
                 color = primary;
-                label = '已赞';
+                label = '已赞'.tr;
               } else {
                 icon = FontAwesomeIcons.thumbsUp;
                 color = outline;
-                label = '点赞';
+                label = '点赞'.tr;
               }
               final likeIcon = Icon(
                 icon,
@@ -122,7 +123,7 @@ class ActionPanel extends StatelessWidget {
                   transitionBuilder: (child, animation) =>
                       ScaleTransition(scale: animation, child: child),
                   child: Text(
-                    like.count != null ? NumUtils.numFormat(like.count) : '点赞',
+                    like.count != null ? NumUtils.numFormat(like.count) : '点赞'.tr,
                     key: ValueKey<int?>(like.count),
                     style: TextStyle(color: like.status! ? primary : outline),
                   ),

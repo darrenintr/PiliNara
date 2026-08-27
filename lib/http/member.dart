@@ -33,10 +33,12 @@ import 'package:PiliPlus/models_new/space/space_shop/data.dart';
 import 'package:PiliPlus/models_new/upower_rank/data.dart';
 import 'package:PiliPlus/utils/accounts.dart';
 import 'package:PiliPlus/utils/app_sign.dart';
+import 'package:PiliPlus/utils/locale_utils.dart';
 import 'package:PiliPlus/utils/utils.dart';
 import 'package:PiliPlus/utils/wbi_sign.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 
 abstract final class MemberHttp {
   static Future<void> reportMember(
@@ -55,9 +57,9 @@ abstract final class MemberHttp {
       options: Options(contentType: Headers.formUrlEncodedContentType),
     );
     if (res.data['status'] == true) {
-      SmartDialog.showToast('举报成功');
+      SmartDialog.showToast('举报成功'.tr);
     } else {
-      SmartDialog.showToast('举报失败');
+      SmartDialog.showToast('举报失败'.tr);
     }
   }
 
@@ -69,12 +71,12 @@ abstract final class MemberHttp {
       'build': 8430300,
       'channel': 'master',
       'version': '8.43.0',
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'mobi_app': 'android',
       'platform': 'android',
       'pn': page,
       'ps': 10,
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'statistics': Constants.statisticsApp,
       'vmid': mid,
     };
@@ -132,11 +134,11 @@ abstract final class MemberHttp {
       'aid': ?aid,
       'build': 8430300,
       'version': '8.43.0',
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'channel': 'master',
       'mobi_app': 'android',
       'platform': 'android',
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'ps': 20,
       'pn': ?pn,
       'next': ?next,
@@ -225,11 +227,11 @@ abstract final class MemberHttp {
   //     'index': index,
   //     'build': 8430300,
   //     'version': '8.43.0',
-  //     'c_locale': 'zh_CN',
+  //     'c_locale': currentApiLocaleCode(),
   //     'channel': 'master',
   //     'mobi_app': 'android',
   //     'platform': 'android',
-  //     's_locale': 'zh_CN',
+  //     's_locale': currentApiLocaleCode(),
   //     'statistics': Constants.statisticsApp,
   //     'vmid': mid,
   //   };
@@ -257,11 +259,11 @@ abstract final class MemberHttp {
     final params = {
       'build': 8430300,
       'version': '8.43.0',
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'channel': 'master',
       'mobi_app': 'android',
       'platform': 'android',
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'from_view_aid': ?fromViewAid,
       'statistics': Constants.statisticsApp,
       'vmid': mid,

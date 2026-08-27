@@ -4,6 +4,7 @@ import 'package:PiliPlus/models_new/fav/fav_article/data.dart';
 import 'package:PiliPlus/models_new/fav/fav_article/item.dart';
 import 'package:PiliPlus/pages/common/common_list_controller.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 
 class FavArticleController
     extends CommonListController<FavArticleData, FavArticleItemModel> {
@@ -31,7 +32,7 @@ class FavArticleController
       loadingState
         ..value.data!.removeAt(index)
         ..refresh();
-      SmartDialog.showToast('已取消收藏');
+      SmartDialog.showToast('已取消收藏'.tr);
     } else {
       res.toast();
     }

@@ -54,14 +54,14 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
   Widget build(BuildContext context) {
     return SimpleScaffold(
       appBar: AppBar(
-        title: const Text('弹幕屏蔽'),
+        title: Text('弹幕屏蔽'.tr),
         actions: [
           IconButton(
-            tooltip: '导入/导出',
+            tooltip: '导入/导出'.tr,
             icon: const Icon(Icons.import_export),
             onPressed: () => showImportExportDialog<List<dynamic>>(
               context,
-              title: '弹幕屏蔽规则',
+              title: '弹幕屏蔽规则'.tr,
               onExport: () => Utils.jsonEncoder.convert(_controller.exportRules()),
               onImport: _controller.importDanmakuFilter,
               localFileName: () => 'danmaku_block',
@@ -106,7 +106,7 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
           bottom: kFloatingActionButtonMargin + padding.bottom,
         ),
         child: FloatingActionButton(
-          tooltip: '添加',
+          tooltip: '添加'.tr,
           onPressed: () => _showAddDialog(
             DmBlockType.values[_controller.tabController.index],
           ),
@@ -127,11 +127,11 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
         final SimpleRule item = list[itemIndex];
         final child = iconButton(
           iconSize: 20,
-          tooltip: '删除',
+          tooltip: '删除'.tr,
           icon: const Icon(Icons.delete_outlined),
           onPressed: () => showConfirmDialog(
             context: context,
-            title: const Text('确定删除该规则？'),
+            title: Text('确定删除该规则？'.tr),
             onConfirm: () => _controller.danmakuFilterDel(
               tabIndex,
               itemIndex,
@@ -151,7 +151,7 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
                   children: [
                     iconButton(
                       iconSize: 20,
-                      tooltip: '编辑',
+                      tooltip: '编辑'.tr,
                       icon: const Icon(Icons.edit_outlined),
                       onPressed: () => _showAddDialog(
                         DmBlockType.values[_controller.tabController.index],
@@ -177,9 +177,9 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
     assert((itemIndex == null) == (itemId == null));
     String filter = initFilter;
     final hintText = switch (type) {
-      DmBlockType.keyword => '输入过滤的关键词，其它类别请切换标签页后添加',
-      DmBlockType.regex => '输入//之间的正则表达式，无需包含头尾的"/"',
-      DmBlockType.uid => '输入用户UID',
+      DmBlockType.keyword => '输入过滤的关键词，其它类别请切换标签页后添加'.tr,
+      DmBlockType.regex => '输入//之间的正则表达式，无需包含头尾的"/"'.tr,
+      DmBlockType.uid => '输入用户UID'.tr,
     };
     final isUid = type == DmBlockType.uid;
     showDialog(
@@ -206,12 +206,12 @@ class _DanmakuBlockPageState extends State<DanmakuBlockPage> {
           TextButton(
             onPressed: Get.back,
             child: Text(
-              '取消',
+              '取消'.tr,
               style: TextStyle(color: Theme.of(context).colorScheme.outline),
             ),
           ),
           TextButton(
-            child: const Text('确定'),
+            child: Text('确定'.tr),
             onPressed: () async {
               if (filter != initFilter) {
                 Get.back();

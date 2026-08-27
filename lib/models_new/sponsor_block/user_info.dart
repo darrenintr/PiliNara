@@ -1,5 +1,6 @@
 import 'package:PiliPlus/utils/duration_utils.dart';
 import 'package:PiliPlus/utils/num_utils.dart';
+import 'package:get/get.dart';
 
 class UserInfo {
   final int viewCount;
@@ -24,7 +25,7 @@ class UserInfo {
       Duration(minutes: minutesSaved.round()),
     );
     if (minutes.isEmpty) {
-      minutes = '0分钟';
+      minutes = '0分钟'.tr;
     }
     return ('您提交了 ${NumUtils.formatPositiveDecimal(segmentCount)} 片段\n'
         '您为大家节省了 ${NumUtils.formatPositiveDecimal(viewCount)} 片段\n'

@@ -37,6 +37,7 @@ import 'package:PiliPlus/utils/storage_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show HapticFeedback;
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class ImageModel {
@@ -159,30 +160,30 @@ class ImageGridView extends StatelessWidget {
           CustomPopupMenuItem<void>(
             height: 42,
             onTap: () => ImageUtils.onShareImg(item.url),
-            child: const Text('分享', style: TextStyle(fontSize: 14)),
+            child: Text('分享'.tr, style: TextStyle(fontSize: 14)),
           ),
         CustomPopupMenuItem<void>(
           height: 42,
           onTap: () => ImageUtils.copyImg(item.url),
-          child: const Text('复制图片', style: TextStyle(fontSize: 14)),
+          child: Text('复制图片'.tr, style: TextStyle(fontSize: 14)),
         ),
         CustomPopupMenuItem<void>(
           height: 42,
           onTap: () => ImageUtils.downloadImg([item.url]),
-          child: const Text('保存图片', style: TextStyle(fontSize: 14)),
+          child: Text('保存图片'.tr, style: TextStyle(fontSize: 14)),
         ),
         if (PlatformUtils.isDesktop)
           CustomPopupMenuItem<void>(
             height: 42,
             onTap: () => PageUtils.launchURL(item.url),
-            child: const Text('网页打开', style: TextStyle(fontSize: 14)),
+            child: Text('网页打开'.tr, style: TextStyle(fontSize: 14)),
           )
         else if (picArr.length > 1)
           CustomPopupMenuItem<void>(
             height: 42,
             onTap: () =>
                 ImageUtils.downloadImg(picArr.map((item) => item.url).toList()),
-            child: const Text('保存全部', style: TextStyle(fontSize: 14)),
+            child: Text('保存全部'.tr, style: TextStyle(fontSize: 14)),
           ),
         if (item.isLivePhoto)
           CustomPopupMenuItem<void>(
@@ -257,7 +258,7 @@ class ImageGridView extends StatelessWidget {
                 if (item.isLivePhoto)
                   const PBadge(text: 'Live', right: 8, bottom: 8, type: .gray)
                 else if (item.isLongPic)
-                  const PBadge(text: '长图', right: 8, bottom: 8),
+                  PBadge(text: '长图'.tr, right: 8, bottom: 8),
               ],
             );
             if (!item.isLongPic) {

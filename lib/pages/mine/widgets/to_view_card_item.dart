@@ -7,6 +7,7 @@ import 'package:PiliPlus/utils/duration_utils.dart';
 import 'package:PiliPlus/utils/page_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 
 class ToViewCardItem extends StatelessWidget {
   const ToViewCardItem({super.key, required this.item});
@@ -91,7 +92,7 @@ class ToViewCardItem extends StatelessWidget {
                     if (hasDuration)
                       PBadge(
                         text: item.progress == -1
-                            ? '已看完'
+                            ? '已看完'.tr
                             : item.progress == null || item.progress == 0
                             ? DurationUtils.formatDuration(item.duration)
                             : '${DurationUtils.formatDuration(item.progress)}/${DurationUtils.formatDuration(item.duration)}',

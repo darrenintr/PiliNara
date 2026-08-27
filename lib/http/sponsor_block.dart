@@ -13,6 +13,7 @@ import 'package:PiliPlus/utils/storage_pref.dart';
 import 'package:PiliPlus/utils/utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:get/get.dart';
 
 /// https://github.com/hanydd/BilibiliSponsorBlock/wiki/API
 abstract final class SponsorBlock {
@@ -31,13 +32,13 @@ abstract final class SponsorBlock {
 
   static Error getErrMsg(Response res) {
     String statusMessage = switch (res.statusCode) {
-      200 => '意料之外的响应',
-      400 => '参数错误',
-      403 => '被自动审核机制拒绝',
-      404 => '未找到数据',
-      409 => '重复提交',
-      429 => '提交太快（触发速率控制）',
-      500 => '服务器无法获取信息',
+      200 => '意料之外的响应'.tr,
+      400 => '参数错误'.tr,
+      403 => '被自动审核机制拒绝'.tr,
+      404 => '未找到数据'.tr,
+      409 => '重复提交'.tr,
+      429 => '提交太快（触发速率控制）'.tr,
+      500 => '服务器无法获取信息'.tr,
       -1 => res.data['message'].toString(), // DioException
       _ => res.statusMessage ?? res.statusCode.toString(),
     };

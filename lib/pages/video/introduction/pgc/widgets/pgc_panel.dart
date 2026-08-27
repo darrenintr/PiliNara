@@ -102,7 +102,7 @@ class _PgcPanelState extends State<PgcPanel> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('合集 '),
+              Text('合集 '),
               Expanded(
                 child: Text(
                   ' 正在播放：${currEpisode.longTitle ?? currEpisode.title}',

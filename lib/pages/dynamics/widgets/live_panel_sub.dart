@@ -6,6 +6,7 @@ import 'package:PiliPlus/models/common/badge_type.dart';
 import 'package:PiliPlus/models/dynamics/result.dart';
 import 'package:PiliPlus/utils/extension/num_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 Widget livePanelSub(
   BuildContext context, {
@@ -66,8 +67,8 @@ Widget livePanelSub(
                 ),
               )
             else
-              const PBadge(
-                text: '直播结束',
+              PBadge(
+                text: '直播结束'.tr,
                 top: 6,
                 right: 6,
               ),

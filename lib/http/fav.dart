@@ -15,7 +15,9 @@ import 'package:PiliPlus/models_new/space/space_fav/data.dart';
 import 'package:PiliPlus/models_new/sub/sub_detail/data.dart';
 import 'package:PiliPlus/utils/accounts.dart';
 import 'package:PiliPlus/utils/app_sign.dart';
+import 'package:PiliPlus/utils/locale_utils.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 
 abstract final class FavHttp {
   static Future<LoadingState<void>> favFavFolder(Object mediaId) async {
@@ -411,7 +413,7 @@ abstract final class FavHttp {
     if (res.data['code'] == 0) {
       return Success(FavFolderData.fromJson(res.data['data']));
     } else {
-      return Error(res.data['message'] ?? '账号未登录');
+      return Error(res.data['message'] ?? '账号未登录'.tr);
     }
   }
 
@@ -576,11 +578,11 @@ abstract final class FavHttp {
     final params = {
       'build': 8430300,
       'version': '8.43.0',
-      'c_locale': 'zh_CN',
+      'c_locale': currentApiLocaleCode(),
       'channel': 'master',
       'mobi_app': 'android',
       'platform': 'android',
-      's_locale': 'zh_CN',
+      's_locale': currentApiLocaleCode(),
       'statistics': Constants.statisticsApp,
       'up_mid': mid,
     };

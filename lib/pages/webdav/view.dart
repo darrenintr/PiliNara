@@ -7,6 +7,7 @@ import 'package:PiliPlus/utils/storage_key.dart';
 import 'package:PiliPlus/utils/storage_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 
 class WebDavSettingPage extends StatefulWidget {
   const WebDavSettingPage({
@@ -41,7 +42,7 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
     final showAppBar = widget.showAppBar;
     final padding = MediaQuery.viewPaddingOf(context);
     return SimpleScaffold(
-      appBar: showAppBar ? AppBar(title: const Text('WebDAV 设置')) : null,
+      appBar: showAppBar ? AppBar(title: Text('WebDAV 设置'.tr)) : null,
       body: ViewInsetsSafeArea(
         child: ListView(
           padding: padding.copyWith(
@@ -53,16 +54,16 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
           children: [
             TextField(
               controller: _uriCtr,
-              decoration: const InputDecoration(
-                labelText: '地址',
+              decoration: InputDecoration(
+                labelText: '地址'.tr,
                 border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 20),
             TextField(
               controller: _usernameCtr,
-              decoration: const InputDecoration(
-                labelText: '用户',
+              decoration: InputDecoration(
+                labelText: '用户'.tr,
                 border: OutlineInputBorder(),
               ),
             ),
@@ -71,7 +72,7 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
               controller: _passwordCtr,
               autofillHints: const [AutofillHints.password],
               decoration: InputDecoration(
-                labelText: '密码',
+                labelText: '密码'.tr,
                 border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
                   onPressed: () => setState(() => _obscureText = !_obscureText),
@@ -85,8 +86,8 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
             const SizedBox(height: 20),
             TextField(
               controller: _directoryCtr,
-              decoration: const InputDecoration(
-                labelText: '路径',
+              decoration: InputDecoration(
+                labelText: '路径'.tr,
                 border: OutlineInputBorder(),
               ),
             ),
@@ -101,7 +102,7 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
                       ),
                     ),
                     onPressed: WebDav().backup,
-                    child: const Text('备份设置'),
+                    child: Text('备份设置'.tr),
                   ),
                 ),
                 const SizedBox(width: 20),
@@ -113,7 +114,7 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
                       ),
                     ),
                     onPressed: WebDav().restore,
-                    child: const Text('恢复设置'),
+                    child: Text('恢复设置'.tr),
                   ),
                 ),
               ],
@@ -142,7 +143,7 @@ class _WebDavSettingPageState extends State<WebDavSettingPage> {
               try {
                 final res = await WebDav().init();
                 if (res.first) {
-                  SmartDialog.showToast('配置成功');
+                  SmartDialog.showToast('配置成功'.tr);
                 } else {
                   SmartDialog.showToast('配置失败: ${res.second}');
                 }

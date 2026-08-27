@@ -48,6 +48,7 @@ Fork特性：
 - [x] 图片长按/右键菜单支持复制图片
 
 - [x] 优化了部分界面UI？
+- [x] 新增「应用语言」切换（跟随系统 / 简体中文 / 繁體中文 / English），基于 GetX Translations，覆盖设置页与常用对话框/Toast/底栏；未翻译的界面字符串仍为中文，详见 `lib/i18n/app_translations.dart`
 
 **播放、小窗与画质**
 - [x] 实现了类似于[Pilipro](https://github.com/naaammme/pilipro)的应用内小窗功能，感谢原作者naaammme的无私奉献,在实现时参考了其逻辑

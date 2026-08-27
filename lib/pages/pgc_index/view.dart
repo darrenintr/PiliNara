@@ -47,7 +47,7 @@ class _PgcIndexPageState extends State<PgcIndexPage>
     final theme = Theme.of(context);
     return widget.indexType == null
         ? SimpleScaffold(
-            appBar: AppBar(title: const Text('索引')),
+            appBar: AppBar(title: Text('索引'.tr)),
             body: Obx(() => _buildBody(theme, _ctr.conditionState.value)),
           )
         : Obx(() => _buildBody(theme, _ctr.conditionState.value));
@@ -204,7 +204,7 @@ class _PgcIndexPageState extends State<PgcIndexPage>
               mainAxisSize: .min,
               children: [
                 Text(
-                  _ctr.isExpand.value ? '收起' : '展开',
+                  _ctr.isExpand.value ? '收起'.tr : '展开'.tr,
                   style: TextStyle(color: theme.colorScheme.outline),
                 ),
                 Icon(

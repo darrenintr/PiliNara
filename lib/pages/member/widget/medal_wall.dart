@@ -8,6 +8,7 @@ import 'package:PiliPlus/utils/extension/num_ext.dart';
 import 'package:PiliPlus/utils/extension/theme_ext.dart';
 import 'package:PiliPlus/utils/page_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MedalWall extends StatelessWidget {
   const MedalWall({super.key, required this.response});
@@ -19,7 +20,7 @@ class MedalWall extends StatelessWidget {
     final colorScheme = ColorScheme.of(context);
     return AlertDialog(
       clipBehavior: .hardEdge,
-      title: const Text('粉丝勋章墙'),
+      title: Text('粉丝勋章墙'.tr),
       contentPadding: const .symmetric(vertical: 16),
       constraints: const BoxConstraints.tightFor(width: 380),
       content: CustomScrollView(
@@ -49,7 +50,7 @@ class MedalWall extends StatelessWidget {
                   style: TextStyle(fontSize: 12, color: colorScheme.outline),
                   TextSpan(
                     children: [
-                      const TextSpan(text: '共拥有 '),
+                      TextSpan(text: '共拥有 '.tr),
                       TextSpan(
                         text: response.count.toString(),
                         style: TextStyle(
@@ -57,7 +58,7 @@ class MedalWall extends StatelessWidget {
                           color: colorScheme.primary,
                         ),
                       ),
-                      const TextSpan(text: ' 枚粉丝勋章'),
+                      TextSpan(text: ' 枚粉丝勋章'.tr),
                     ],
                   ),
                 ),
@@ -126,8 +127,8 @@ class MedalWall extends StatelessWidget {
                           borderRadius: const .all(.circular(3)),
                           color: colorScheme.btnColor,
                         ),
-                        child: const Text(
-                          '佩戴中',
+                        child: Text(
+                          '佩戴中'.tr,
                           style: TextStyle(
                             height: 1,
                             fontSize: 10,

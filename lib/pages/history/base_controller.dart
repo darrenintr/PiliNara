@@ -19,30 +19,30 @@ class HistoryBaseController extends GetxController {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('提示'),
-        content: const Text('啊叻？你要清空历史记录功能吗？'),
+        title: Text('提示'.tr),
+        content: Text('啊叻？你要清空历史记录功能吗？'.tr),
         actions: [
           TextButton(
             onPressed: Get.back,
             child: Text(
-              '取消',
+              '取消'.tr,
               style: TextStyle(color: Theme.of(context).colorScheme.outline),
             ),
           ),
           TextButton(
             onPressed: () async {
               Get.back();
-              SmartDialog.showLoading(msg: '请求中');
+              SmartDialog.showLoading(msg: '请求中'.tr);
               final res = await UserHttp.clearHistory(account: account);
               SmartDialog.dismiss();
               if (res.isSuccess) {
-                SmartDialog.showToast('清空观看历史');
+                SmartDialog.showToast('清空观看历史'.tr);
                 onSuccess();
               } else {
                 res.toast();
               }
             },
-            child: const Text('确认清空'),
+            child: Text('确认清空'.tr),
           ),
         ],
       ),
@@ -55,26 +55,26 @@ class HistoryBaseController extends GetxController {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('提示'),
-        content: Text(pauseStatus ? '啊叻？你要暂停历史记录功能吗？' : '啊叻？要恢复历史记录功能吗？'),
+        title: Text('提示'.tr),
+        content: Text(pauseStatus ? '啊叻？你要暂停历史记录功能吗？'.tr : '啊叻？要恢复历史记录功能吗？'.tr),
         actions: [
           TextButton(
             onPressed: Get.back,
             child: Text(
-              '取消',
+              '取消'.tr,
               style: TextStyle(color: Theme.of(context).colorScheme.outline),
             ),
           ),
           TextButton(
             onPressed: () async {
-              SmartDialog.showLoading(msg: '请求中');
+              SmartDialog.showLoading(msg: '请求中'.tr);
               final res = await UserHttp.pauseHistory(
                 pauseStatus,
                 account: account,
               );
               SmartDialog.dismiss();
               if (res.isSuccess) {
-                SmartDialog.showToast(pauseStatus ? '暂停观看历史' : '恢复观看历史');
+                SmartDialog.showToast(pauseStatus ? '暂停观看历史'.tr : '恢复观看历史'.tr);
                 this.pauseStatus.value = pauseStatus;
                 GStorage.localCache.put(
                   LocalCacheKey.historyPause,
@@ -85,7 +85,7 @@ class HistoryBaseController extends GetxController {
               }
               Get.back();
             },
-            child: Text(pauseStatus ? '确认暂停' : '确认恢复'),
+            child: Text(pauseStatus ? '确认暂停'.tr : '确认恢复'.tr),
           ),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' show Alignment;
+import 'package:get/get.dart';
 
 enum UserInfoType {
   fan('粉丝', .centerLeft),

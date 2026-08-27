@@ -9,6 +9,7 @@ import 'package:PiliPlus/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
 class BiliDownloadEntryInfo with MultiSelectData {
   int mediaType;
@@ -79,7 +80,7 @@ class BiliDownloadEntryInfo with MultiSelectData {
             items: [
               CustomPopupMenuItem<void>(
                 height: 38,
-                child: const Text('查看详情页', style: TextStyle(fontSize: 13)),
+                child: Text('查看详情页', style: TextStyle(fontSize: 13)),
                 onTap: () {
                   if (ep case final ep?) {
                     if (ep.from == VideoType.pugv.name) {
@@ -109,7 +110,7 @@ class BiliDownloadEntryInfo with MultiSelectData {
               if (PlatformUtils.isDesktop)
                 CustomPopupMenuItem<void>(
                   height: 38,
-                  child: const Text(
+                  child: Text(
                     '打开本地文件夹',
                     style: TextStyle(fontSize: 13),
                   ),

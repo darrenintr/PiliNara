@@ -207,7 +207,7 @@ class ArticleController extends CommonDynController {
         favorite?.count++;
       }
       stats.refresh();
-      SmartDialog.showToast('${isFav ? '取消' : ''}收藏成功');
+      SmartDialog.showToast('${isFav ? '取消' : ''}收藏成功'.tr);
     } else {
       res.toast();
     }
@@ -228,7 +228,7 @@ class ArticleController extends CommonDynController {
         like?.count++;
       }
       stats.refresh();
-      SmartDialog.showToast(!isLike ? '点赞成功' : '取消赞');
+      SmartDialog.showToast(!isLike ? '点赞成功'.tr : '取消赞'.tr);
     } else {
       res.toast();
     }
@@ -237,11 +237,11 @@ class ArticleController extends CommonDynController {
   // 投币（专栏 avtype: 2）
   void actionCoin() {
     if (!Accounts.main.isLogin) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('账号未登录'.tr);
       return;
     }
     if (coinNum.value >= 2) {
-      SmartDialog.showToast('达到投币上限啦~');
+      SmartDialog.showToast('达到投币上限啦~'.tr);
       return;
     }
     PayCoinsPage.toPayCoinsPage(
@@ -263,7 +263,7 @@ class ArticleController extends CommonDynController {
       referer: url,
     );
     if (res.isSuccess) {
-      SmartDialog.showToast('投币成功');
+      SmartDialog.showToast('投币成功'.tr);
       coinNum.value += coin;
       GlobalData().afterCoin(coin);
       final like = stats.value?.like;

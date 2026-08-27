@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum RankType {
   all('全站', rid: 0),
   anime('番剧', seasonType: 1),

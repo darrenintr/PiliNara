@@ -224,7 +224,7 @@ class LiveRoomChatPanel extends StatelessWidget {
                   child: ElevatedButton.icon(
                     style: const ButtonStyle(visualDensity: .comfortable),
                     icon: const Icon(Icons.arrow_downward_rounded, size: 20),
-                    label: const Text('回到底部'),
+                    label: Text('回到底部'.tr),
                     onPressed: liveRoomController.handleJumpToBottom,
                   ),
                 )
@@ -341,16 +341,16 @@ class LiveRoomChatPanel extends StatelessWidget {
         CustomPopupMenuItem(
           height: 38,
           onTap: () => Utils.copyText(Utils.jsonEncoder.convert(item.toJson())),
-          child: const Text(
-            '复制弹幕信息',
+          child: Text(
+            '复制弹幕信息'.tr,
             style: TextStyle(fontSize: 13),
           ),
         ),
         CustomPopupMenuItem(
           height: 38,
           onTap: () => Get.toNamed('/member?mid=${item.extra.mid}'),
-          child: const Text(
-            '去TA的个人空间',
+          child: Text(
+            '去TA的个人空间'.tr,
             style: TextStyle(fontSize: 13),
           ),
         ),
@@ -372,13 +372,13 @@ class LiveRoomChatPanel extends StatelessWidget {
               type: 1,
             );
             if (res.isSuccess) {
-              SmartDialog.showToast('屏蔽成功');
+              SmartDialog.showToast('屏蔽成功'.tr);
             } else {
               res.toast();
             }
           },
-          child: const Text(
-            '屏蔽发送者',
+          child: Text(
+            '屏蔽发送者'.tr,
             style: TextStyle(fontSize: 13),
           ),
         ),
@@ -390,8 +390,8 @@ class LiveRoomChatPanel extends StatelessWidget {
             msg: item.text,
             extra: item.extra,
           ),
-          child: const Text(
-            '举报选中弹幕',
+          child: Text(
+            '举报选中弹幕'.tr,
             style: TextStyle(fontSize: 13),
           ),
         ),

@@ -10,6 +10,7 @@ import 'package:PiliPlus/utils/extension/theme_ext.dart';
 import 'package:PiliPlus/utils/page_utils.dart';
 import 'package:PiliPlus/utils/platform_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DynamicPanel extends StatelessWidget {
   final DynamicItemModel item;
@@ -222,7 +223,7 @@ class DynamicPanel extends StatelessWidget {
       ),
       TextSpan(
         children: [
-          TextSpan(text: moduleFold.statement ?? '展开'),
+          TextSpan(text: moduleFold.statement ?? '展开'.tr),
           WidgetSpan(
             alignment: PlaceholderAlignment.middle,
             child: Icon(

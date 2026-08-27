@@ -84,9 +84,9 @@ class _SettingsSearchPageState
           controller: _textEditingController,
           textAlignVertical: TextAlignVertical.center,
           onChanged: ctr!.add,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             isDense: true,
-            hintText: '搜索',
+            hintText: '搜索'.tr,
             visualDensity: .standard,
             border: InputBorder.none,
           ),

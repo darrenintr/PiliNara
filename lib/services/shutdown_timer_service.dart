@@ -11,6 +11,7 @@ import 'package:PiliPlus/utils/theme_utils.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 
 enum _ShutdownType with EnumWithLabel {
   pause('暂停视频'),
@@ -159,7 +160,7 @@ class ShutdownTimerService {
             child: ListView(
               padding: const .symmetric(vertical: 14),
               children: [
-                const Center(child: Text('定时关闭', style: titleStyle)),
+                Center(child: Text('定时关闭', style: titleStyle)),
                 const SizedBox(height: 10),
                 ...{...scheduleTimeMinutes, _durationInMinutes}
                     .sorted(Comparable.compare)
@@ -209,7 +210,7 @@ class ShutdownTimerService {
                       }
                     });
                   },
-                  title: const Text('自定义', style: titleStyle),
+                  title: Text('自定义', style: titleStyle),
                 ),
                 if (!isLive) ...[
                   Builder(
@@ -222,7 +223,7 @@ class ShutdownTimerService {
                       return ListTile(
                         dense: true,
                         onTap: onChanged,
-                        title: const Text('额外等待视频播放完毕', style: titleStyle),
+                        title: Text('额外等待视频播放完毕', style: titleStyle),
                         trailing: Transform.scale(
                           alignment: Alignment.centerRight,
                           scale: 0.8,
@@ -243,7 +244,7 @@ class ShutdownTimerService {
                       return Row(
                         spacing: 12,
                         children: [
-                          const Text('倒计时结束:', style: titleStyle),
+                          Text('倒计时结束:', style: titleStyle),
                           ..._ShutdownType.values.map(
                             (e) => ActionRowLineItem(
                               onTap: () {

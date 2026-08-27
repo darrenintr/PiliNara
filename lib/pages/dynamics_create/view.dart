@@ -197,7 +197,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
                                 TextSpan(
                                   text: hasTopic
                                       ? _topic.value!.second
-                                      : '选择话题',
+                                      : '选择话题'.tr,
                                   style: TextStyle(
                                     color: hasTopic
                                         ? null
@@ -229,7 +229,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
                   controller: _titleEditCtr,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                   decoration: InputDecoration(
-                    hintText: '标题，选填20字',
+                    hintText: '标题，选填20字'.tr,
                     isDense: true,
                     visualDensity: .standard,
                     contentPadding: EdgeInsets.zero,
@@ -334,7 +334,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
             width: 34,
             height: 34,
             child: IconButton(
-              tooltip: '返回',
+              tooltip: '返回'.tr,
               style: ButtonStyle(
                 padding: const WidgetStatePropertyAll(EdgeInsets.zero),
                 backgroundColor: WidgetStatePropertyAll(
@@ -352,7 +352,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
         ),
         Center(
           child: Text(
-            _isEdit ? '编辑动态' : '发布动态',
+            _isEdit ? '编辑动态'.tr : '发布动态'.tr,
             style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           ),
         ),
@@ -369,7 +369,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
                 ),
                 visualDensity: VisualDensity.compact,
               ),
-              child: Text(_publishTime.value == null ? '发布' : '定时发布'),
+              child: Text(_publishTime.value == null ? '发布'.tr : '定时发布'.tr),
             ),
           ),
         ),
@@ -398,7 +398,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
                 index == 0 ? Icons.visibility : Icons.visibility_off,
               ),
               const SizedBox(width: 4),
-              Text(index == 0 ? '所有人可见' : '仅自己可见'),
+              Text(index == 0 ? '所有人可见'.tr : '仅自己可见'.tr),
             ],
           ),
         ),
@@ -415,7 +415,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
             ),
             const SizedBox(width: 4),
             Text(
-              _isPrivate.value ? '仅自己可见' : '所有人可见',
+              _isPrivate.value ? '仅自己可见'.tr : '所有人可见'.tr,
               style: TextStyle(
                 height: 1,
                 color: color,
@@ -526,12 +526,12 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
                     if (selectedTime != null) {
                       if (selectedDate.day == nowDate.day) {
                         if (selectedTime.hour < nowTime.hour) {
-                          SmartDialog.showToast('时间设置错误，至少选择6分钟之后');
+                          SmartDialog.showToast('时间设置错误，至少选择6分钟之后'.tr);
                           return;
                         } else if (selectedTime.hour == nowTime.hour) {
                           if (selectedTime.minute < nowTime.minute + 6) {
                             if (selectedDate.day == nowDate.day) {
-                              SmartDialog.showToast('时间设置错误，至少选择6分钟之后');
+                              SmartDialog.showToast('时间设置错误，至少选择6分钟之后'.tr);
                             }
                             return;
                           }
@@ -547,7 +547,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
                     }
                   }
                 },
-          child: const Text('定时发布'),
+          child: Text('定时发布'.tr),
         )
       : OutlinedButton.icon(
           style: OutlinedButton.styleFrom(
@@ -641,7 +641,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
           item(
             onTap: _onReserve,
             icon: Icon(CustomIcons.live_reserve, size: 28, color: color),
-            title: '直播预约',
+            title: '直播预约'.tr,
           ),
         ],
       ),
@@ -683,7 +683,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
             ..value = newValue;
         } else {
           onInsertText(
-            '我发起了一个投票',
+            '我发起了一个投票'.tr,
             RichTextType.text,
           );
           onInsertText(
@@ -696,7 +696,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
       }
     },
     icon: const Icon(Icons.bar_chart_rounded, size: 24),
-    tooltip: '投票',
+    tooltip: '投票'.tr,
     selected: false,
   );
 
@@ -717,7 +717,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
         onChanged: onChanged,
         onSubmitted: onSubmitted,
         decoration: InputDecoration(
-          hintText: '说点什么吧',
+          hintText: '说点什么吧'.tr,
           visualDensity: .standard,
           hintStyle: TextStyle(color: theme.colorScheme.outline),
           border: const OutlineInputBorder(
@@ -736,7 +736,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
 
   @override
   Future<void> onCustomPublish({List? pictures}) async {
-    SmartDialog.showLoading(msg: '正在发布');
+    SmartDialog.showLoading(msg: '正在发布'.tr);
     List<Map<String, dynamic>>? extraContent = getRichContent();
     final hasRichText = extraContent != null;
 
@@ -757,7 +757,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
       if (res.isSuccess) {
         hasPub = true;
         Get.back();
-        SmartDialog.showToast('发布成功');
+        SmartDialog.showToast('发布成功'.tr);
         widget.onSuccess?.call();
       } else {
         res.toast();
@@ -793,7 +793,7 @@ class _CreateDynPanelState extends CommonRichTextPubPageState<CreateDynPanel> {
     if (res case Success(:final response)) {
       hasPub = true;
       Get.back();
-      SmartDialog.showToast('发布成功');
+      SmartDialog.showToast('发布成功'.tr);
       final id = response?['dyn_id'];
       RequestUtils.insertCreatedDyn(id);
       if (!_isPrivate.value && _publishTime.value == null) {

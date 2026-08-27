@@ -150,7 +150,7 @@ class _MemberVideoState extends State<MemberVideo>
                           _jumpToIndex(locatedIndex);
                         }
                       },
-                      label: const Text('定位至上次观看'),
+                      label: Text('定位至上次观看'.tr),
                     ),
                   ),
                 )
@@ -246,7 +246,7 @@ class _MemberVideoState extends State<MemberVideo>
             color: theme.colorScheme.secondary,
           ),
           label: Text(
-            episodicButton?.text ?? '播放全部',
+            episodicButton?.text ?? '播放全部'.tr,
             style: TextStyle(
               fontSize: 13,
               color: theme.colorScheme.secondary,

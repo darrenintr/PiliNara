@@ -39,7 +39,7 @@ class _FollowTagSortPageState extends State<FollowTagSortPage>
   Widget build(BuildContext context) {
     return SimpleScaffold(
       appBar: AppBar(
-        title: const Text('关注分组排序'),
+        title: Text('关注分组排序'.tr),
         actions: _customTags.isNotEmpty
             ? [
                 TextButton(
@@ -48,7 +48,7 @@ class _FollowTagSortPageState extends State<FollowTagSortPage>
                       tagids: _customTags.map((e) => e.tagid).join(','),
                     );
                     if (res.isSuccess) {
-                      SmartDialog.showToast('排序完成');
+                      SmartDialog.showToast('排序完成'.tr);
                       final tabs = _defTags + _customTags;
                       widget.controller
                         ..tabs.value = tabs
@@ -61,7 +61,7 @@ class _FollowTagSortPageState extends State<FollowTagSortPage>
                       res.toast();
                     }
                   },
-                  child: const Text('完成'),
+                  child: Text('完成'.tr),
                 ),
                 const SizedBox(width: 16),
               ]

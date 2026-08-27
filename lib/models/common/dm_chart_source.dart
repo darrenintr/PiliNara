@@ -1,4 +1,5 @@
 import 'package:PiliPlus/models/common/enum_with_label.dart';
+import 'package:get/get.dart';
 
 /// Source used for the high-energy/danmaku-density progress chart.
 enum DmChartSource with EnumWithLabel {

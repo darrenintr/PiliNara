@@ -195,7 +195,7 @@ class _MediaPageState extends CommonPageState<MinePage>
             iconSize: iconSize,
             padding: padding,
             style: style,
-            tooltip: '搜索',
+            tooltip: '搜索'.tr,
             onPressed: () => Get.toNamed('/search'),
             icon: const Icon(Icons.search),
           ),
@@ -206,7 +206,7 @@ class _MediaPageState extends CommonPageState<MinePage>
             iconSize: iconSize,
             padding: padding,
             style: style,
-            tooltip: '评论记录',
+            tooltip: '评论记录'.tr,
             onPressed: () => Get.toNamed('/myReply'),
             icon: const Icon(Icons.message_outlined),
           ),
@@ -217,7 +217,7 @@ class _MediaPageState extends CommonPageState<MinePage>
               iconSize: iconSize,
               padding: padding,
               style: style,
-              tooltip: "${anonymity ? '退出' : '进入'}无痕模式",
+              tooltip: "${anonymity ? '退出'.tr : '进入'.tr}无痕模式",
               onPressed: MineController.onChangeAnonymity,
               icon: anonymity
                   ? const Icon(MdiIcons.incognito)
@@ -229,7 +229,7 @@ class _MediaPageState extends CommonPageState<MinePage>
           iconSize: iconSize,
           padding: padding,
           style: style,
-          tooltip: '切换账号',
+          tooltip: '切换账号'.tr,
           onPressed: () => LoginPageController.switchAccountDialog(context),
           icon: const Icon(Icons.switch_account_outlined),
         ),
@@ -249,7 +249,7 @@ class _MediaPageState extends CommonPageState<MinePage>
           iconSize: iconSize,
           padding: padding,
           style: style,
-          tooltip: '设置',
+          tooltip: '设置'.tr,
           onPressed: () => Get.toNamed('/setting', preventDuplicates: false),
           icon: const Icon(Icons.settings_outlined),
         ),
@@ -341,7 +341,7 @@ class _MediaPageState extends CommonPageState<MinePage>
                         children: [
                           Flexible(
                             child: Text(
-                              userInfo.uname ?? '点击登录',
+                              userInfo.uname ?? '点击登录'.tr,
                               style: theme.textTheme.titleMedium!.copyWith(
                                 height: 1,
                                 color: isVip && userInfo.vipType == 2
@@ -364,7 +364,7 @@ class _MediaPageState extends CommonPageState<MinePage>
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: '硬币 ',
+                              text: '硬币 '.tr,
                               style: coinLabelStyle,
                             ),
                             TextSpan(
@@ -415,21 +415,21 @@ class _MediaPageState extends CommonPageState<MinePage>
               _btn(
                 count: userStat.dynamicCount,
                 countStyle: style,
-                name: '动态',
+                name: '动态'.tr,
                 labelStyle: labelStyle,
                 onTap: () => controller.push('memberDynamics'),
               ),
               _btn(
                 count: userStat.following,
                 countStyle: style,
-                name: '关注',
+                name: '关注'.tr,
                 labelStyle: labelStyle,
                 onTap: () => controller.push('follow'),
               ),
               _btn(
                 count: userStat.follower,
                 countStyle: style,
-                name: '粉丝',
+                name: '粉丝'.tr,
                 labelStyle: labelStyle,
                 onTap: () => controller.push('fan'),
               ),
@@ -497,7 +497,7 @@ class _MediaPageState extends CommonPageState<MinePage>
               TextSpan(
                 children: [
                   TextSpan(
-                    text: '稍后再看  ',
+                    text: '稍后再看  '.tr,
                     style: TextStyle(
                       fontSize: theme.textTheme.titleMedium!.fontSize,
                       fontWeight: FontWeight.bold,
@@ -515,7 +515,7 @@ class _MediaPageState extends CommonPageState<MinePage>
             ),
           ),
           trailing: IconButton(
-            tooltip: '刷新',
+            tooltip: '刷新'.tr,
             onPressed: controller.queryToView,
             icon: const Icon(Icons.refresh, size: 20),
           ),
@@ -550,7 +550,7 @@ class _MediaPageState extends CommonPageState<MinePage>
                     padding: const EdgeInsets.only(bottom: 46),
                     child: Center(
                       child: IconButton(
-                        tooltip: '查看更多',
+                        tooltip: '查看更多'.tr,
                         style: ButtonStyle(
                           padding: const WidgetStatePropertyAll(EdgeInsets.zero),
                           backgroundColor: WidgetStatePropertyAll(
@@ -604,7 +604,7 @@ class _MediaPageState extends CommonPageState<MinePage>
               TextSpan(
                 children: [
                   TextSpan(
-                    text: '观看记录  ',
+                    text: '观看记录  '.tr,
                     style: TextStyle(
                       fontSize: theme.textTheme.titleMedium!.fontSize,
                       fontWeight: FontWeight.bold,
@@ -622,7 +622,7 @@ class _MediaPageState extends CommonPageState<MinePage>
             ),
           ),
           trailing: IconButton(
-            tooltip: '刷新',
+            tooltip: '刷新'.tr,
             onPressed: controller.queryHistory,
             icon: const Icon(Icons.refresh, size: 20),
           ),
@@ -661,7 +661,7 @@ class _MediaPageState extends CommonPageState<MinePage>
                     padding: const EdgeInsets.only(bottom: 46),
                     child: Center(
                       child: IconButton(
-                        tooltip: '查看更多',
+                        tooltip: '查看更多'.tr,
                         style: ButtonStyle(
                           padding: const WidgetStatePropertyAll(
                             EdgeInsets.zero,
@@ -717,7 +717,7 @@ class _MediaPageState extends CommonPageState<MinePage>
               TextSpan(
                 children: [
                   TextSpan(
-                    text: '我的收藏  ',
+                    text: '我的收藏  '.tr,
                     style: TextStyle(
                       fontSize: theme.textTheme.titleMedium!.fontSize,
                       fontWeight: .bold,
@@ -743,7 +743,7 @@ class _MediaPageState extends CommonPageState<MinePage>
             ),
           ),
           trailing: IconButton(
-            tooltip: '刷新',
+            tooltip: '刷新'.tr,
             onPressed: controller.onRefresh,
             icon: const Icon(Icons.refresh, size: 20),
           ),
@@ -779,7 +779,7 @@ class _MediaPageState extends CommonPageState<MinePage>
                     padding: const .only(bottom: 46),
                     child: Center(
                       child: IconButton(
-                        tooltip: '查看更多',
+                        tooltip: '查看更多'.tr,
                         style: ButtonStyle(
                           padding: const WidgetStatePropertyAll(.zero),
                           backgroundColor: WidgetStatePropertyAll(

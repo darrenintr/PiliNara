@@ -204,12 +204,12 @@ abstract class CommonRichTextPubPageState<T extends CommonRichTextPubPage>
       sourcePath: path,
       uiSettings: [
         AndroidUiSettings(
-          toolbarTitle: '裁剪',
+          toolbarTitle: '裁剪'.tr,
           toolbarColor: colorScheme.secondaryContainer,
           toolbarWidgetColor: colorScheme.onSecondaryContainer,
           statusBarLight: colorScheme.isLight,
         ),
-        IOSUiSettings(title: '裁剪'),
+        IOSUiSettings(title: '裁剪'.tr),
       ],
     );
     if (croppedFile != null) {
@@ -464,7 +464,7 @@ abstract class CommonRichTextPubPageState<T extends CommonRichTextPubPage>
     () {
       final isEmoji = panelType.value == PanelType.emoji;
       return ToolbarIconButton(
-        tooltip: isEmoji ? '输入' : '表情',
+        tooltip: isEmoji ? '输入'.tr : '表情'.tr,
         onPressed: () {
           if (isEmoji) {
             updatePanelType(PanelType.keyboard);
@@ -491,7 +491,7 @@ abstract class CommonRichTextPubPageState<T extends CommonRichTextPubPage>
     () {
       final isMore = panelType.value == PanelType.more;
       return ToolbarIconButton(
-        tooltip: isMore ? '输入' : '更多',
+        tooltip: isMore ? '输入'.tr : '更多'.tr,
         onPressed: () {
           if (isMore) {
             updatePanelType(PanelType.keyboard);
@@ -512,7 +512,7 @@ abstract class CommonRichTextPubPageState<T extends CommonRichTextPubPage>
     feedBack();
     List<Map<String, dynamic>>? pictures;
     if (imageList.isNotEmpty) {
-      SmartDialog.showLoading(msg: '正在上传图片...');
+      SmartDialog.showLoading(msg: '正在上传图片...'.tr);
       final cancelToken = CancelToken();
       try {
         pictures = await Future.wait<Map<String, dynamic>>(

@@ -1226,7 +1226,7 @@ class PlPlayerController with BlockConfigMixin {
                   final customHost = VideoUtils.customCDNUrl;
                   SmartDialog.showToast(
                     customHost == null
-                        ? '视频链接打开失败，重试中'
+                        ? '视频链接打开失败，重试中'.tr
                         : '视频链接打开失败，重试中\n当前自定义CDN节点：$customHost，持续失败可尝试更换或清除',
                     displayTime: customHost == null
                         ? const Duration(milliseconds: 500)
@@ -1500,7 +1500,7 @@ class PlPlayerController with BlockConfigMixin {
       _videoPlayerController?.setVolume(appVolume * 100);
 
       // 显示提示
-      SmartDialog.showToast('已切换到应用内音量模式');
+      SmartDialog.showToast('已切换到应用内音量模式'.tr);
     } else {
       // 切换到同步系统音量模式
       // 恢复上游播放器音量设置，并按增益折算系统音量
@@ -1520,7 +1520,7 @@ class PlPlayerController with BlockConfigMixin {
       systemVolume.value = newSystemVolume;
       volume.value = newSystemVolume;
 
-      SmartDialog.showToast('已切换到同步系统音量模式');
+      SmartDialog.showToast('已切换到同步系统音量模式'.tr);
     }
   }
 
@@ -2262,13 +2262,13 @@ class PlPlayerController with BlockConfigMixin {
   }
 
   Future<void> takeScreenshot() async {
-    SmartDialog.showToast('截图中');
+    SmartDialog.showToast('截图中'.tr);
     final time = DurationUtils.formatDuration(
       positionInMilliseconds / 1000,
     ).replaceAll(':', '-');
     final image = await videoPlayerController?.screenshot();
     if (image != null) {
-      SmartDialog.showToast('点击弹窗保存截图');
+      SmartDialog.showToast('点击弹窗保存截图'.tr);
       showDialog(
         context: Get.context!,
         builder: (context) => GestureDetector(
@@ -2308,7 +2308,7 @@ class PlPlayerController with BlockConfigMixin {
         ),
       ).whenComplete(image.dispose);
     } else {
-      SmartDialog.showToast('截图失败');
+      SmartDialog.showToast('截图失败'.tr);
     }
   }
 

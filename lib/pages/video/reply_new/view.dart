@@ -183,14 +183,14 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
             if (widget.root == 0) ...[
               const SizedBox(width: 8),
               ToolbarIconButton(
-                tooltip: '图片',
+                tooltip: '图片'.tr,
                 selected: false,
                 icon: widget.canUploadPic
                     ? const Icon(Icons.image, size: 22)
                     : const Icon(Icons.image_not_supported, size: 22),
                 onPressed: widget.canUploadPic
                     ? onPickImage
-                    : () => SmartDialog.showToast('当前评论区不支持发送图片'),
+                    : () => SmartDialog.showToast('当前评论区不支持发送图片'.tr),
               ),
             ],
             const SizedBox(width: 8),
@@ -200,7 +200,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
             const SizedBox(width: 8),
             Obx(
               () => ToolbarIconButton(
-                tooltip: '转到动态',
+                tooltip: '转到动态'.tr,
                 onPressed: _syncToDynamic.toggle,
                 icon: const Icon(
                   CustomIcons.repeat_rounded_rotate_90,
@@ -221,7 +221,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
                   ),
                   visualDensity: VisualDensity.compact,
                 ),
-                child: const Text('发送'),
+                child: Text('发送'.tr),
               ),
             ),
           ],
@@ -304,7 +304,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
               }
             },
             icon: Icon(Icons.post_add, size: 28, color: color),
-            title: '插入内容',
+            title: '插入内容'.tr,
           ),
           if (heroTag != null) ...[
             // if (isRoot)
@@ -319,7 +319,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
             //       }
             //     },
             //     icon: Icon(Icons.edit_note, size: 28, color: color),
-            //     title: '笔记',
+            //     title: '笔记'.tr,
             //   ),
             item(
               onTap: () {
@@ -336,7 +336,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
                 }
               },
               icon: Icon(Icons.my_location, size: 28, color: color),
-              title: '视频进度',
+              title: '视频进度'.tr,
             ),
             if (isRoot && widget.canUploadPic)
               item(
@@ -374,7 +374,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
                   size: 28,
                   color: color,
                 ),
-                title: '视频截图',
+                title: '视频截图'.tr,
               ),
           ],
         ],
@@ -405,7 +405,7 @@ class _ReplyPageState extends CommonRichTextPubPageState<ReplyPage> {
     );
     if (res case Success(:final response)) {
       hasPub = true;
-      SmartDialog.showToast('发送成功');
+      SmartDialog.showToast('发送成功'.tr);
       Get.back(result: response);
     } else {
       res.toast();

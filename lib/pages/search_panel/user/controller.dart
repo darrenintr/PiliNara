@@ -60,7 +60,7 @@ class SearchUserController
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 10),
-              const Text('用户粉丝数及等级排序顺序', style: TextStyle(fontSize: 16)),
+              Text('用户粉丝数及等级排序顺序'.tr, style: TextStyle(fontSize: 16)),
               const SizedBox(height: 10),
               Wrap(
                 spacing: 8,
@@ -86,7 +86,7 @@ class SearchUserController
                 ).toList(),
               ),
               const SizedBox(height: 20),
-              const Text('用户分类', style: TextStyle(fontSize: 16)),
+              Text('用户分类'.tr, style: TextStyle(fontSize: 16)),
               const SizedBox(height: 10),
               Wrap(
                 spacing: 8,

@@ -120,7 +120,7 @@ class _PgcReviewPageState extends State<PgcReviewPage>
               contentPadding: const EdgeInsets.symmetric(vertical: 12),
               children: [
                 DialogOption(
-                  child: const Text('写短评', style: TextStyle(fontSize: 14)),
+                  child: Text('写短评'.tr, style: TextStyle(fontSize: 14)),
                   onPressed: () {
                     Get.back();
                     showModalBottomSheet(
@@ -137,7 +137,7 @@ class _PgcReviewPageState extends State<PgcReviewPage>
                   },
                 ),
                 DialogOption(
-                  child: const Text('写长评', style: TextStyle(fontSize: 14)),
+                  child: Text('写长评'.tr, style: TextStyle(fontSize: 14)),
                   onPressed: () => Get
                     ..back()
                     ..toNamed(

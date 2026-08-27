@@ -20,7 +20,7 @@ Future<void> autoWrapReportDialog(
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('举报'),
+      title: Text('举报'.tr),
       titlePadding: const .only(left: 22, top: 16, right: 22),
       contentPadding: const .symmetric(vertical: 5),
       actionsPadding: const .only(left: 16, right: 16, bottom: 10),
@@ -36,9 +36,9 @@ Future<void> autoWrapReportDialog(
                   builder: (context) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
+                      Padding(
                         padding: .only(left: 22, right: 22, bottom: 5),
-                        child: Text('请选择举报的理由：'),
+                        child: Text('请选择举报的理由：'.tr),
                       ),
                       RadioGroup(
                         onChanged: (value) {
@@ -65,8 +65,8 @@ Future<void> autoWrapReportDialog(
                             minLines: 2,
                             maxLines: 4,
                             initialValue: reasonDesc,
-                            decoration: const InputDecoration(
-                              labelText: '为帮助审核人员更快处理，请补充问题类型和出现位置等详细信息',
+                            decoration: InputDecoration(
+                              labelText: '为帮助审核人员更快处理，请补充问题类型和出现位置等详细信息'.tr,
                               border: OutlineInputBorder(),
                               contentPadding: .all(10),
                               labelStyle: TextStyle(fontSize: 14),
@@ -74,7 +74,7 @@ Future<void> autoWrapReportDialog(
                             ),
                             onChanged: (value) => reasonDesc = value,
                             validator: (value) =>
-                                value.isNullOrEmpty ? '理由不能为空' : null,
+                                value.isNullOrEmpty ? '理由不能为空'.tr : null,
                           ),
                         ),
                     ],
@@ -87,7 +87,7 @@ Future<void> autoWrapReportDialog(
             Padding(
               padding: const EdgeInsets.only(left: 14, top: 6),
               child: CheckBoxText(
-                text: '拉黑该用户',
+                text: '拉黑该用户'.tr,
                 onChanged: (value) => banUid = value,
               ),
             ),
@@ -97,7 +97,7 @@ Future<void> autoWrapReportDialog(
         TextButton(
           onPressed: Get.back,
           child: Text(
-            '取消',
+            '取消'.tr,
             style: TextStyle(color: ColorScheme.of(context).outline),
           ),
         ),
@@ -113,7 +113,7 @@ Future<void> autoWrapReportDialog(
               SmartDialog.dismiss();
               if (res.isSuccess) {
                 Get.back();
-                SmartDialog.showToast('举报成功');
+                SmartDialog.showToast('举报成功'.tr);
               } else {
                 res.toast();
               }
@@ -123,7 +123,7 @@ Future<void> autoWrapReportDialog(
               Utils.reportError(e, s);
             }
           },
-          child: const Text('确定'),
+          child: Text('确定'.tr),
         ),
       ],
     ),
@@ -192,76 +192,76 @@ class _CheckBoxTextState extends State<CheckBoxText> {
 
 abstract final class ReportOptions {
   // from https://s1.hdslb.com/bfs/seed/jinkela/comment-h5/static/js/605.chunks.js
-  static Map<String, Map<int, String>> get commentReport => const {
-    '违反法律法规': {9: '违法违规', 2: '色情', 10: '低俗', 12: '赌博诈骗', 23: '违法信息外链'},
-    '谣言类不实信息': {19: '涉政谣言', 22: '虚假不实信息', 20: '涉社会事件谣言'},
-    '侵犯个人权益': {7: '人身攻击', 15: '侵犯隐私'},
-    '有害社区环境': {
-      1: '垃圾广告',
-      4: '引战',
-      5: '剧透',
-      3: '刷屏',
-      8: '视频不相关',
-      18: '违规抽奖',
-      17: '青少年不良信息',
+  static Map<String, Map<int, String>> get commentReport => {
+    '违反法律法规'.tr: {9: '违法违规'.tr, 2: '色情'.tr, 10: '低俗'.tr, 12: '赌博诈骗'.tr, 23: '违法信息外链'.tr},
+    '谣言类不实信息'.tr: {19: '涉政谣言'.tr, 22: '虚假不实信息'.tr, 20: '涉社会事件谣言'.tr},
+    '侵犯个人权益'.tr: {7: '人身攻击'.tr, 15: '侵犯隐私'.tr},
+    '有害社区环境'.tr: {
+      1: '垃圾广告'.tr,
+      4: '引战'.tr,
+      5: '剧透'.tr,
+      3: '刷屏'.tr,
+      8: '视频不相关'.tr,
+      18: '违规抽奖'.tr,
+      17: '青少年不良信息'.tr,
     },
-    '其他': {0: '其他'},
+    '其他'.tr: {0: '其他'.tr},
   };
 
-  static Map<String, Map<int, String>> get dynamicReport => const {
+  static Map<String, Map<int, String>> get dynamicReport => {
     '': {
-      4: '垃圾广告',
-      8: '引战',
-      1: '色情',
-      5: '人身攻击',
-      3: '违法信息',
-      9: '涉政谣言',
-      10: '涉社会事件谣言',
-      12: '虚假不实信息',
-      13: '违法信息外链',
-      0: '其他',
-    },
-  };
-
-  static Map<String, Map<int, String>> get danmakuReport => const {
-    '': {
-      1: '违法违禁',
-      2: '色情低俗',
-      3: '赌博诈骗',
-      4: '人身攻击',
-      5: '侵犯隐私',
-      6: '垃圾广告',
-      7: '引战',
-      8: '剧透',
-      9: '恶意刷屏',
-      10: '视频无关',
-      12: '青少年不良信息',
-      13: '违法信息外链',
-      0: '其它', // 11
+      4: '垃圾广告'.tr,
+      8: '引战'.tr,
+      1: '色情'.tr,
+      5: '人身攻击'.tr,
+      3: '违法信息'.tr,
+      9: '涉政谣言'.tr,
+      10: '涉社会事件谣言'.tr,
+      12: '虚假不实信息'.tr,
+      13: '违法信息外链'.tr,
+      0: '其他'.tr,
     },
   };
 
-  static Map<String, Map<int, String>> get liveDanmakuReport => const {
+  static Map<String, Map<int, String>> get danmakuReport => {
     '': {
-      1: '违法违规',
-      2: '低俗色情',
-      3: '垃圾广告',
-      4: '辱骂引战',
-      5: '政治敏感',
-      6: '青少年不良信息',
-      7: '其他', // avoid show form
+      1: '违法违禁'.tr,
+      2: '色情低俗'.tr,
+      3: '赌博诈骗'.tr,
+      4: '人身攻击'.tr,
+      5: '侵犯隐私'.tr,
+      6: '垃圾广告'.tr,
+      7: '引战'.tr,
+      8: '剧透'.tr,
+      9: '恶意刷屏'.tr,
+      10: '视频无关'.tr,
+      12: '青少年不良信息'.tr,
+      13: '违法信息外链'.tr,
+      0: '其它'.tr, // 11
     },
   };
 
-  static Map<String, Map<int, String>> get imMsgReport => const {
+  static Map<String, Map<int, String>> get liveDanmakuReport => {
     '': {
-      1: '色情低俗',
-      2: '政治敏感',
-      3: '违法有害',
-      4: '广告骚扰',
-      5: '人身攻击',
-      6: '诈骗',
-      0: '其他问题',
+      1: '违法违规'.tr,
+      2: '低俗色情'.tr,
+      3: '垃圾广告'.tr,
+      4: '辱骂引战'.tr,
+      5: '政治敏感'.tr,
+      6: '青少年不良信息'.tr,
+      7: '其他'.tr, // avoid show form
+    },
+  };
+
+  static Map<String, Map<int, String>> get imMsgReport => {
+    '': {
+      1: '色情低俗'.tr,
+      2: '政治敏感'.tr,
+      3: '违法有害'.tr,
+      4: '广告骚扰'.tr,
+      5: '人身攻击'.tr,
+      6: '诈骗'.tr,
+      0: '其他问题'.tr,
     },
   };
 }

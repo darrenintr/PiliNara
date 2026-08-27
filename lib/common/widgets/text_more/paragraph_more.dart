@@ -15,6 +15,7 @@ import 'package:flutter/rendering.dart'
         PaintingContext,
         BoxHitTestResult,
         RenderComparison;
+import 'package:get/get.dart';
 
 class RenderParagraphMore extends RenderParagraph {
   RenderParagraphMore(
@@ -52,7 +53,7 @@ class RenderParagraphMore extends RenderParagraph {
 
   TextSpan _moreTextSpan([TextStyle? style]) => TextSpan(
     style: (style ?? text.style!).copyWith(color: _primary),
-    text: '查看更多',
+    text: '查看更多'.tr,
     recognizer: _tapGestureRecognizer,
   );
   TextPainter? _morePainter;

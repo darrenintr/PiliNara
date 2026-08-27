@@ -7,6 +7,7 @@ import 'package:PiliPlus/pages/common/common_list_controller.dart';
 import 'package:PiliPlus/utils/accounts.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 
 abstract class CommonWhisperController<R>
     extends CommonListController<R, Session> {
@@ -18,7 +19,7 @@ abstract class CommonWhisperController<R>
       loadingState
         ..value.data!.removeAt(index)
         ..refresh();
-      SmartDialog.showToast('删除成功');
+      SmartDialog.showToast('删除成功'.tr);
     } else {
       res.toast();
     }
@@ -41,7 +42,7 @@ abstract class CommonWhisperController<R>
         list.insert(0, list.removeAt(index));
       }
       loadingState.refresh();
-      SmartDialog.showToast('${isTop ? '移除' : ''}置顶成功');
+      SmartDialog.showToast('${isTop ? '移除' : ''}置顶成功'.tr);
     } else {
       res.toast();
     }
@@ -56,7 +57,7 @@ abstract class CommonWhisperController<R>
     if (res.isSuccess) {
       item.isMuted = !isMuted;
       loadingState.refresh();
-      SmartDialog.showToast('设置成功');
+      SmartDialog.showToast('设置成功'.tr);
     } else {
       res.toast();
     }
@@ -75,7 +76,7 @@ abstract class CommonWhisperController<R>
           loadingState.refresh();
         }
       }
-      SmartDialog.showToast('已标记为已读');
+      SmartDialog.showToast('已标记为已读'.tr);
     } else {
       res.toast();
     }

@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum SubtitlePrefType {
   off('默认不显示字幕'),
   on('优先选择非自动生成(ai)字幕'),

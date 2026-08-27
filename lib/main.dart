@@ -8,6 +8,7 @@ import 'package:PiliPlus/common/widgets/route_aware_mixin.dart';
 import 'package:PiliPlus/common/widgets/scale_app.dart';
 import 'package:PiliPlus/common/widgets/scroll_behavior.dart';
 import 'package:PiliPlus/http/init.dart';
+import 'package:PiliPlus/i18n/app_translations.dart';
 import 'package:PiliPlus/models/common/theme/theme_color_type.dart';
 import 'package:PiliPlus/plugin/pl_player/utils/fullscreen.dart';
 import 'package:PiliPlus/router/app_pages.dart';
@@ -31,6 +32,7 @@ import 'package:PiliPlus/utils/request_utils.dart';
 import 'package:PiliPlus/utils/storage.dart';
 import 'package:PiliPlus/utils/storage_key.dart';
 import 'package:PiliPlus/utils/storage_pref.dart';
+import 'package:PiliPlus/models/common/app_locale_type.dart';
 import 'package:PiliPlus/utils/theme_utils.dart';
 import 'package:PiliPlus/utils/utils.dart';
 import 'package:catcher_2/catcher_2.dart';
@@ -279,6 +281,7 @@ class MyApp extends StatelessWidget {
     final (light, dark) = getAllTheme();
     return GetMaterialApp(
       title: Constants.appName,
+      translations: AppTranslations(),
       theme: light,
       darkTheme: dark,
       themeMode: ThemeUtils.themeMode = Pref.themeMode,
@@ -287,9 +290,13 @@ class MyApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      locale: const Locale("zh", "CN"),
-      fallbackLocale: const Locale("zh", "CN"),
-      supportedLocales: const [Locale("zh", "CN"), Locale("en", "US")],
+      locale: _resolveLocale(Pref.appLocale),
+      fallbackLocale: const Locale('zh', 'CN'),
+      supportedLocales: const [
+        Locale('zh', 'CN'),
+        Locale('zh', 'TW'),
+        Locale('en', 'US'),
+      ],
       initialRoute: '/',
       getPages: Routes.getPages,
       defaultTransition: Pref.pageTransition,
@@ -420,6 +427,26 @@ class MyApp extends StatelessWidget {
     GStorage.setting.put(SettingBoxKey.dynamicColor, false);
     return false;
   }
+}
+
+Locale _resolveLocale(AppLocaleType type) {
+  final explicit = type.locale;
+  if (explicit != null) return explicit;
+  final device = Get.deviceLocale;
+  if (device != null &&
+      (device.languageCode == 'zh' || device.languageCode == 'en')) {
+    final country = device.countryCode?.toUpperCase();
+    if (device.languageCode == 'zh') {
+      if (country == 'TW' || country == 'HK' || country == 'MO') {
+        return const Locale('zh', 'TW');
+      }
+      return const Locale('zh', 'CN');
+    }
+    return country == null
+        ? const Locale('en', 'US')
+        : Locale('en', country);
+  }
+  return const Locale('zh', 'CN');
 }
 
 class _CustomHttpOverrides extends HttpOverrides {

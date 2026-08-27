@@ -81,7 +81,7 @@ class LiveCardVApp extends StatelessWidget {
                   text: r.name!,
                   onTap: (_) async {
                     Get.back();
-                    SmartDialog.showLoading(msg: '正在提交');
+                    SmartDialog.showLoading(msg: '正在提交'.tr);
                     final res = await LiveHttp.liveFeedback(
                       item.roomid!,
                       r.id!,
@@ -89,7 +89,7 @@ class LiveCardVApp extends StatelessWidget {
                     );
                     SmartDialog.dismiss();
                     if (res.isSuccess) {
-                      SmartDialog.showToast('提交成功');
+                      SmartDialog.showToast('提交成功'.tr);
                     } else {
                       res.toast();
                     }
@@ -135,7 +135,7 @@ class LiveCardVApp extends StatelessWidget {
                             style: FilledButton.styleFrom(
                               visualDensity: VisualDensity.compact,
                             ),
-                            child: const Text('取消'),
+                            child: Text('取消'.tr),
                           ),
                         ),
                       ],

@@ -480,8 +480,8 @@ class _PayCoinsPageState extends State<PayCoinsPage>
                               color: Colors.white,
                             ),
                           ),
-                          const Text(
-                            ' 同时点赞',
+                          Text(
+                            ' 同时点赞'.tr,
                             style: TextStyle(color: Colors.white),
                           ),
                         ],

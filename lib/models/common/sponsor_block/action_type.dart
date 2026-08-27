@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum ActionType {
   skip('跳过'),
   mute('静音'),

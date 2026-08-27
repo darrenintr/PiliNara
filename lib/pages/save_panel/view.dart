@@ -70,8 +70,8 @@ class _SavePanelState extends State<SavePanel> {
 
   // item
   Object get _item => widget.item;
-  late String viewType = '查看';
-  late String itemType = '内容';
+  late String viewType = '查看'.tr;
+  late String itemType = '内容'.tr;
 
   //reply
   String? cover;
@@ -87,7 +87,7 @@ class _SavePanelState extends State<SavePanel> {
   void initState() {
     super.initState();
     if (_item case final ReplyInfo reply) {
-      itemType = '评论';
+      itemType = '评论'.tr;
       final currentRoute = Get.currentRoute;
       late final hasRoot = reply.hasRoot();
 
@@ -227,42 +227,42 @@ class _SavePanelState extends State<SavePanel> {
     try {
       switch (item.type) {
         case 'DYNAMIC_TYPE_AV':
-          viewType = '观看';
-          itemType = '视频';
+          viewType = '观看'.tr;
+          itemType = '视频'.tr;
           uri = 'bilibili://video/${item.basic!.commentIdStr}';
           break;
 
         case 'DYNAMIC_TYPE_ARTICLE':
-          itemType = '专栏';
+          itemType = '专栏'.tr;
           uri = 'bilibili://following/detail/${item.idStr}';
           break;
 
         case 'DYNAMIC_TYPE_LIVE_RCMD':
-          viewType = '观看';
-          itemType = '直播';
+          viewType = '观看'.tr;
+          itemType = '直播'.tr;
           final roomId = item.modules.moduleDynamic!.major!.liveRcmd!.roomId;
           uri = 'bilibili://live/$roomId';
           break;
 
         case 'DYNAMIC_TYPE_UGC_SEASON':
-          viewType = '观看';
-          itemType = '合集';
+          viewType = '观看'.tr;
+          itemType = '合集'.tr;
           final aid = item.modules.moduleDynamic!.major!.ugcSeason!.aid;
           uri = 'bilibili://video/$aid';
           break;
 
         case 'DYNAMIC_TYPE_PGC':
         case 'DYNAMIC_TYPE_PGC_UNION':
-          viewType = '观看';
+          viewType = '观看'.tr;
           itemType =
-              item.modules.moduleDynamic?.major?.pgc?.badge?.text ?? '番剧';
+              item.modules.moduleDynamic?.major?.pgc?.badge?.text ?? '番剧'.tr;
           final epid = item.modules.moduleDynamic!.major!.pgc!.epid;
           uri = 'bilibili://pgc/season/ep/$epid';
           break;
 
         // https://www.bilibili.com/medialist/detail/ml12345678
         case 'DYNAMIC_TYPE_MEDIALIST':
-          itemType = '收藏夹';
+          itemType = '收藏夹'.tr;
           final mediaId = item.modules.moduleDynamic!.major!.medialist!.id;
           uri = 'bilibili://medialist/detail/$mediaId';
           break;
@@ -276,7 +276,7 @@ class _SavePanelState extends State<SavePanel> {
         // 图文动态查看
         // case 'DYNAMIC_TYPE_DRAW':
         default:
-          itemType = '动态';
+          itemType = '动态'.tr;
           uri = 'bilibili://following/detail/${item.idStr}';
           break;
       }
@@ -551,7 +551,7 @@ class _SavePanelState extends State<SavePanel> {
                 children: [
                   iconButton(
                     size: 42,
-                    tooltip: '关闭',
+                    tooltip: '关闭'.tr,
                     icon: const Icon(Icons.clear),
                     onPressed: Get.back,
                     bgColor: theme.colorScheme.onInverseSurface,
@@ -559,7 +559,7 @@ class _SavePanelState extends State<SavePanel> {
                   ),
                   iconButton(
                     size: 42,
-                    tooltip: showBottom ? '隐藏' : '显示',
+                    tooltip: showBottom ? '隐藏'.tr : '显示'.tr,
                     context: context,
                     icon: showBottom
                         ? const Icon(Icons.visibility_off)
@@ -571,14 +571,14 @@ class _SavePanelState extends State<SavePanel> {
                   if (PlatformUtils.isMobile)
                     iconButton(
                       size: 42,
-                      tooltip: '分享',
+                      tooltip: '分享'.tr,
                       context: context,
                       icon: const Icon(Icons.share),
                       onPressed: () => _onSaveOrSharePic(true),
                     ),
                   iconButton(
                     size: 42,
-                    tooltip: '保存',
+                    tooltip: '保存'.tr,
                     context: context,
                     icon: const Icon(Icons.save_alt),
                     onPressed: _onSaveOrSharePic,

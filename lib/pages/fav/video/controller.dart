@@ -4,6 +4,7 @@ import 'package:PiliPlus/models_new/fav/fav_folder/data.dart';
 import 'package:PiliPlus/models_new/fav/fav_folder/list.dart';
 import 'package:PiliPlus/pages/common/common_list_controller.dart';
 import 'package:PiliPlus/utils/accounts.dart';
+import 'package:get/get.dart';
 
 class FavController extends CommonListController<FavFolderData, FavFolderInfo> {
   late final account = Accounts.main;
@@ -17,7 +18,7 @@ class FavController extends CommonListController<FavFolderData, FavFolderInfo> {
   @override
   Future<void> queryData([bool isRefresh = true]) {
     if (!account.isLogin) {
-      loadingState.value = const Error('账号未登录');
+      loadingState.value = Error('账号未登录'.tr);
       return Future.syncValue(null);
     }
     return super.queryData(isRefresh);

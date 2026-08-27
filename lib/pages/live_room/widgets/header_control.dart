@@ -126,7 +126,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
           if (isFullScreen || plPlayerController.isDesktopPip)
             ComBtn(
               height: btnHeight,
-              tooltip: '返回',
+              tooltip: '返回'.tr,
               icon: const Icon(FontAwesomeIcons.arrowLeft, size: 15),
               onTap: () {
                 if (plPlayerController.isDesktopPip) {
@@ -144,7 +144,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
               final isAlwaysOnTop = plPlayerController.isAlwaysOnTop.value;
               return ComBtn(
                 height: btnHeight,
-                tooltip: '${isAlwaysOnTop ? '取消' : ''}置顶',
+                tooltip: '${isAlwaysOnTop ? '取消' : ''}置顶'.tr,
                 icon: isAlwaysOnTop
                     ? const Icon(
                         size: 18,
@@ -162,7 +162,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
           if (isFullScreen || PlatformUtils.isDesktop)
             ComBtn(
               height: btnHeight,
-              tooltip: '发弹幕',
+              tooltip: '发弹幕'.tr,
               icon: const Icon(
                 size: 18,
                 Icons.comment_outlined,
@@ -173,7 +173,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
           if (Platform.isAndroid || (PlatformUtils.isDesktop && !isFullScreen))
             ComBtn(
               height: btnHeight,
-              tooltip: '画中画',
+              tooltip: '画中画'.tr,
               onTap: () {
                 if (PlatformUtils.isDesktop) {
                   plPlayerController.toggleDesktopPip();
@@ -192,7 +192,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
           if (showCastButton)
             ComBtn(
               height: 30,
-              tooltip: '投屏',
+              tooltip: '投屏'.tr,
               onTap: liveController.onCast,
               icon: const Icon(
                 size: 18,
@@ -203,7 +203,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
           Obx(
             () => ComBtn(
               height: btnHeight,
-              tooltip: '仅播放音频',
+              tooltip: '仅播放音频'.tr,
               onTap: () {
                 plPlayerController.onlyPlayAudio.toggle();
                 widget.onPlayAudio();
@@ -227,7 +227,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
                   plPlayerController.continuePlayInBackground.value;
               return ComBtn(
                 height: btnHeight,
-                tooltip: '${continuePlayInBackground ? '关闭' : ''}后台播放',
+                tooltip: '${continuePlayInBackground ? '关闭' : ''}后台播放'.tr,
                 onTap: plPlayerController.setContinuePlayInBackground,
                 icon: continuePlayInBackground
                     ? const Icon(
@@ -244,7 +244,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
             }),
           ComBtn(
             height: btnHeight,
-            tooltip: '定时关闭',
+            tooltip: '定时关闭'.tr,
             onTap: () => shutdownTimerService.showScheduleExitDialog(
               context,
               isFullScreen: isFullScreen,
@@ -269,11 +269,11 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
                   PopupMenuItem(
                     height: 42,
                     onTap: _showLiveStreamDialog,
-                    child: const Row(
+                    child: Row(
                       spacing: 8,
                       children: [
                         Icon(Icons.alt_route, size: 20),
-                        Text('切换路线', style: TextStyle(fontSize: 14)),
+                        Text('切换路线'.tr, style: TextStyle(fontSize: 14)),
                       ],
                     ),
                   ),
@@ -281,21 +281,21 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
                     PopupMenuItem(
                       height: 42,
                       onTap: liveController.onCast,
-                      child: const Row(
+                      child: Row(
                         spacing: 8,
                         children: [
                           Icon(Icons.cast, size: 20),
-                          Text('投屏', style: TextStyle(fontSize: 14)),
+                          Text('投屏'.tr, style: TextStyle(fontSize: 14)),
                         ],
                       ),
                     ),
                   PopupMenuItem(
                     height: 42,
-                    child: const Row(
+                    child: Row(
                       spacing: 8,
                       children: [
                         Icon(Icons.info_outline, size: 20),
-                        Text('播放信息', style: TextStyle(fontSize: 14)),
+                        Text('播放信息'.tr, style: TextStyle(fontSize: 14)),
                       ],
                     ),
                     onTap: () => HeaderControlState.showPlayerInfo(
@@ -333,7 +333,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
   void _showLiveStreamDialog() {
     final controller = widget.liveController;
     if (controller.stream == null) {
-      SmartDialog.showToast('直播流信息未就绪');
+      SmartDialog.showToast('直播流信息未就绪'.tr);
       return;
     }
     showModalBottomSheet(

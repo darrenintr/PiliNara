@@ -143,10 +143,10 @@ class _SeasonPanelState extends State<SeasonPanel> {
                   ),
                 ),
                 const SizedBox(width: 6),
-                const Icon(
+                Icon(
                   Icons.arrow_forward_ios_outlined,
                   size: 13,
-                  semanticLabel: '查看',
+                  semanticLabel: '查看'.tr,
                 ),
               ],
             ),

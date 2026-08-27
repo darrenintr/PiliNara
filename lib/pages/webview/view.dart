@@ -129,7 +129,7 @@ class _WebviewPageState extends State<WebviewPage> {
                         try {
                           await InAppWebViewController.clearAllCache();
                           await _webViewController?.clearHistory();
-                          SmartDialog.showToast('已清理');
+                          SmartDialog.showToast('已清理'.tr);
                         } catch (e) {
                           SmartDialog.showToast(e.toString());
                         }
@@ -143,7 +143,7 @@ class _WebviewPageState extends State<WebviewPage> {
                         break;
                       case WebviewMenuItem.resetCookie:
                         await LoginUtils.setWebCookie();
-                        SmartDialog.showToast('设置成功，刷新或重新打开网页');
+                        SmartDialog.showToast('设置成功，刷新或重新打开网页'.tr);
                         break;
                     }
                   },
@@ -275,7 +275,7 @@ class _WebviewPageState extends State<WebviewPage> {
                           TextButton(
                             onPressed: Get.back,
                             child: Text(
-                              '取消',
+                              '取消'.tr,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.outline,
                               ),
@@ -336,9 +336,9 @@ class _WebviewPageState extends State<WebviewPage> {
                 final snackBar = SnackBar(
                   persist: false,
                   showCloseIcon: true,
-                  content: const Text('当前网页将要打开外部链接，是否打开'),
+                  content: Text('当前网页将要打开外部链接，是否打开'.tr),
                   action: SnackBarAction(
-                    label: '打开',
+                    label: '打开'.tr,
                     onPressed: () => PageUtils.launchURL(url),
                   ),
                 );

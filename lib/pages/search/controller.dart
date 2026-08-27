@@ -222,7 +222,7 @@ class SSearchController extends GetxController
   void onClearHistory() {
     showConfirmDialog(
       context: Get.context!,
-      title: const Text('确定清空搜索历史？'),
+      title: Text('确定清空搜索历史？'.tr),
       onConfirm: () {
         historyList.clear();
         GStorage.historyWord.delete('cacheList');

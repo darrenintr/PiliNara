@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum AudioNormalization {
   disable('禁用'),
   // ref https://github.com/KRTirtho/spotube/commit/da10ab2e291d4ba4d3082b9a6ae535639fb8f1b7

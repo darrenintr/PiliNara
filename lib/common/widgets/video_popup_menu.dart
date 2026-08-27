@@ -58,7 +58,7 @@ class VideoPopupMenu extends StatelessWidget {
   void _addBlockedUser() {
     final mid = videoItem.owner.mid;
     if (mid == null) {
-      SmartDialog.showToast('无法获取用户ID');
+      SmartDialog.showToast('无法获取用户ID'.tr);
       return;
     }
     final blockedMids = Pref.recommendBlockedMids;
@@ -74,7 +74,7 @@ class VideoPopupMenu extends StatelessWidget {
   void _addWhitelistedUser() {
     final mid = videoItem.owner.mid;
     if (mid == null) {
-      SmartDialog.showToast('无法获取用户ID');
+      SmartDialog.showToast('无法获取用户ID'.tr);
       return;
     }
     final name = videoItem.owner.name ?? 'UID:$mid';
@@ -90,7 +90,7 @@ class VideoPopupMenu extends StatelessWidget {
   }) {
     final keyword = value.trim();
     if (keyword.isEmpty) {
-      SmartDialog.showToast('关键词为空');
+      SmartDialog.showToast('关键词为空'.tr);
       return;
     }
     final escapedKeyword = RegExp.escape(keyword);
@@ -111,7 +111,7 @@ class VideoPopupMenu extends StatelessWidget {
       onRemove?.call();
       return;
     }
-    SmartDialog.showToast('已存在该屏蔽关键词');
+    SmartDialog.showToast('已存在该屏蔽关键词'.tr);
     onRemove?.call();
   }
 
@@ -191,15 +191,15 @@ class VideoPopupMenu extends StatelessWidget {
   }
 
   void _showLocalBlockDialog(BuildContext context) {
-    final ownerName = videoItem.owner.name ?? '未知UP';
+    final ownerName = videoItem.owner.name ?? '未知UP'.tr;
     final title = videoItem.title.trim();
     final zoneName = _getZoneName()?.trim();
     _showReasonDialog(
       context: context,
-      title: '本地屏蔽',
+      title: '本地屏蔽'.tr,
       sections: [
         _DialogSection(
-          title: '屏蔽原因',
+          title: '屏蔽原因'.tr,
           actions: [
             _DialogChipAction(
               label: 'UP主:$ownerName',
@@ -220,15 +220,15 @@ class VideoPopupMenu extends StatelessWidget {
                       RecommendFilter.rcmdRegExp = value;
                       RecommendFilter.enableFilter = value.pattern.isNotEmpty;
                     },
-                    successMsg: '已加入标题关键词屏蔽',
+                    successMsg: '已加入标题关键词屏蔽'.tr,
                   );
                 },
               ),
             _DialogChipAction(
-              label: zoneName?.isNotEmpty == true ? '频道:$zoneName' : '频道:无法获取',
+              label: zoneName?.isNotEmpty == true ? '频道:$zoneName' : '频道:无法获取'.tr,
               onPressed: () {
                 if (zoneName?.isNotEmpty != true) {
-                  SmartDialog.showToast('当前视频无法获取频道信息');
+                  SmartDialog.showToast('当前视频无法获取频道信息'.tr);
                   return;
                 }
                 Get.back();
@@ -239,7 +239,7 @@ class VideoPopupMenu extends StatelessWidget {
                     VideoHttp.zoneRegExp = value;
                     VideoHttp.enableFilter = value.pattern.isNotEmpty;
                   },
-                  successMsg: '已加入频道关键词屏蔽',
+                  successMsg: '已加入频道关键词屏蔽'.tr,
                 );
               },
             ),
@@ -249,7 +249,7 @@ class VideoPopupMenu extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: Get.back,
-          child: const Text('取消'),
+          child: Text('取消'.tr),
         ),
       ],
     );
@@ -265,13 +265,13 @@ class VideoPopupMenu extends StatelessWidget {
         ),
         if (Accounts.main.isLogin)
           _VideoCustomAction(
-            '稍后再看',
+            '稍后再看'.tr,
             const Icon(MdiIcons.clockTimeEightOutline, size: 16),
             () => UserHttp.toViewLater(bvid: videoItem.bvid),
           ),
         if (videoItem.cid != null && Pref.enableAi)
           _VideoCustomAction(
-            'AI总结',
+            'AI总结'.tr,
             const Icon(CustomIcons.ai_circle, size: 16),
             () async {
               final res = await UgcIntroController.getAiConclusion(
@@ -305,18 +305,18 @@ class VideoPopupMenu extends StatelessWidget {
           () => Get.toNamed('/member?mid=${videoItem.owner.mid}'),
         ),
         _VideoCustomAction(
-          '本地屏蔽',
+          '本地屏蔽'.tr,
           const Icon(MdiIcons.accountOff, size: 16),
           () => _showLocalBlockDialog(context),
         ),
         _VideoCustomAction(
-          '不感兴趣',
+          '不感兴趣'.tr,
           const Icon(MdiIcons.thumbDownOutline, size: 16),
           () {
             final rcmd = Accounts.get(.recommend);
             if (rcmd.accessKey == null || rcmd.accessKey == "") {
               SmartDialog.showToast(
-                rcmd.isLogin ? '请退出账号后重新登录' : '账号未登录',
+                rcmd.isLogin ? '请退出账号后重新登录'.tr : '账号未登录'.tr,
               );
               return;
             }
@@ -334,7 +334,7 @@ class VideoPopupMenu extends StatelessWidget {
               }
               VoidCallback onReasonTap({Reason? r, Reason? f}) => () async {
                 Get.back();
-                SmartDialog.showLoading(msg: '正在提交');
+                SmartDialog.showLoading(msg: '正在提交'.tr);
                 final res = await VideoHttp.feedDislike(
                   reasonId: r?.id,
                   feedbackId: f?.id,
@@ -352,14 +352,14 @@ class VideoPopupMenu extends StatelessWidget {
 
               _showReasonDialog(
                 context: context,
-                title: '我不想看',
+                title: '我不想看'.tr,
                 sections: [
                   if (tp.dislikeReasons != null)
                     _DialogSection(
                       actions: tp.dislikeReasons!
                           .map(
                             (reason) => _DialogChipAction(
-                              label: reason.name ?? '未知',
+                              label: reason.name ?? '未知'.tr,
                               onPressed: onReasonTap(r: reason),
                             ),
                           )
@@ -367,11 +367,11 @@ class VideoPopupMenu extends StatelessWidget {
                     ),
                   if (tp.feedbacks != null)
                     _DialogSection(
-                      title: '反馈',
+                      title: '反馈'.tr,
                       actions: tp.feedbacks!
                           .map(
                             (feedback) => _DialogChipAction(
-                              label: feedback.name ?? '未知',
+                              label: feedback.name ?? '未知'.tr,
                               onPressed: onReasonTap(f: feedback),
                             ),
                           )
@@ -382,7 +382,7 @@ class VideoPopupMenu extends StatelessWidget {
                   TextButton(
                     onPressed: () async {
                       SmartDialog.showLoading(
-                        msg: '正在提交',
+                        msg: '正在提交'.tr,
                       );
                       final res = await VideoHttp.feedDislikeCancel(
                         id: item.param!,
@@ -414,14 +414,14 @@ class VideoPopupMenu extends StatelessWidget {
                         FilledButton.tonal(
                           onPressed: () async {
                             Get.back();
-                            SmartDialog.showLoading(msg: '正在提交');
+                            SmartDialog.showLoading(msg: '正在提交'.tr);
                             final res = await VideoHttp.dislikeVideo(
                               bvid: videoItem.bvid!,
                               type: true,
                             );
                             SmartDialog.dismiss();
                             if (res.isSuccess) {
-                              SmartDialog.showToast('点踩成功');
+                              SmartDialog.showToast('点踩成功'.tr);
                               onRemove?.call();
                             } else {
                               res.toast();
@@ -435,14 +435,14 @@ class VideoPopupMenu extends StatelessWidget {
                         FilledButton.tonal(
                           onPressed: () async {
                             Get.back();
-                            SmartDialog.showLoading(msg: '正在提交');
+                            SmartDialog.showLoading(msg: '正在提交'.tr);
                             final res = await VideoHttp.dislikeVideo(
                               bvid: videoItem.bvid!,
                               type: false,
                             );
                             SmartDialog.dismiss();
                             SmartDialog.showToast(
-                              res.isSuccess ? '取消踩' : res.toString(),
+                              res.isSuccess ? '取消踩'.tr : res.toString(),
                             );
                           },
                           style: FilledButton.styleFrom(
@@ -470,16 +470,16 @@ class VideoPopupMenu extends StatelessWidget {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: const Text('提示'),
+                title: Text('提示'.tr),
                 content: Text(
                   '确定拉黑:${videoItem.owner.name}(${videoItem.owner.mid})?'
-                  '\n\n注：被拉黑的Up可以在隐私设置-黑名单管理中解除',
+                  '\n\n注：被拉黑的Up可以在隐私设置-黑名单管理中解除'.tr,
                 ),
                 actions: [
                   TextButton(
                     onPressed: Get.back,
                     child: Text(
-                      '点错了',
+                      '点错了'.tr,
                       style: TextStyle(
                         color: ColorScheme.of(context).outline,
                       ),
@@ -499,7 +499,7 @@ class VideoPopupMenu extends StatelessWidget {
                         res.toast();
                       }
                     },
-                    child: const Text('确认'),
+                    child: Text('确认'.tr),
                   ),
                 ],
               );
@@ -508,7 +508,7 @@ class VideoPopupMenu extends StatelessWidget {
         ),
       ],
       _VideoCustomAction(
-        "${MineController.anonymity.value ? '退出' : '进入'}无痕模式",
+        "${MineController.anonymity.value ? '退出'.tr : '进入'.tr}无痕模式",
         MineController.anonymity.value
             ? const Icon(MdiIcons.incognitoOff, size: 16)
             : const Icon(MdiIcons.incognito, size: 16),

@@ -33,7 +33,7 @@ class _ReplyMePageState extends State<ReplyMePage> {
     final theme = Theme.of(context);
     return SimpleScaffold(
       appBar: AppBar(
-        title: const Text('回复我的'),
+        title: Text('回复我的'.tr),
         actions: [
           IconButton(
             onPressed: () => Get.to(
@@ -98,7 +98,7 @@ class _ReplyMePageState extends State<ReplyMePage> {
 
               void onLongPress() => showConfirmDialog(
                 context: context,
-                title: const Text('确定删除该通知?'),
+                title: Text('确定删除该通知?'.tr),
                 onConfirm: () => _replyMeController.onRemove(item.id, index),
               );
 

@@ -443,7 +443,7 @@ class _DownloadPanelState extends State<DownloadPanel> {
                                 type: PBadgeType.gray,
                               ),
                             if (isCharging == true)
-                              const PBadge(
+                              PBadge(
                                 text: '充电专属',
                                 top: 6,
                                 right: 6,
@@ -564,7 +564,7 @@ class _DownloadPanelState extends State<DownloadPanel> {
             onTap: () {
               showConfirmDialog(
                 context: context,
-                title: const Text('确定缓存全部？'),
+                title: Text('确定缓存全部？'),
                 onConfirm: () {
                   for (int i = 0; i < widget.episodes.length; i++) {
                     _onDownload(

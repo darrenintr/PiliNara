@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 enum SuperChatType {
   valid('有效时间内显示'),
   persist('常驻显示'),
