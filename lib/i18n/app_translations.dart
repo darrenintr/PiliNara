@@ -2065,6 +2065,7 @@ class AppTranslations extends Translations {
     '至': '至',
     '行': '行',
     '赞': '赞',
+    'English': '英文',
   };
 
   static const Map<String, String> _zhTW = {
@@ -4114,6 +4115,7 @@ class AppTranslations extends Translations {
     '至': '至',
     '行': '行',
     '赞': '赞',
+    'English': '英文',
   };
 
   static const Map<String, String> _enUS = {

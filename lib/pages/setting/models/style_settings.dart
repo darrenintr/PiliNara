@@ -1187,7 +1187,7 @@ String _currentLocaleLabel(AppLocaleType type) {
     final resolved = device == null
         ? 'zh_CN'
         : AppLocaleType.resolveApiCode(device);
-    return '跟随系统（$resolved）';
+    return '${AppLocaleType.system.label}（$resolved）';
   }
   return _localeOptionLabel(type);
 }

@@ -6,14 +6,22 @@ import 'package:get/get.dart';
 /// `system` 表示跟随系统；其余为显式指定的语言。
 /// 使用与 bilibili API 一致的 `xx_YY` 形式以便直接拼到 `c_locale`/`s_locale`。
 enum AppLocaleType {
-  system('跟随系统', 'sys'),
-  zhCN('简体中文', 'zh_CN'),
-  zhTW('繁體中文', 'zh_TW'),
-  enUS('English', 'en_US');
+  system,
+  zhCN,
+  zhTW,
+  enUS;
 
-  final String label;
-  final String apiCode;
-  const AppLocaleType(this.label, this.apiCode);
+  const AppLocaleType();
+
+  /// 本地化的选项名称（跟随系统 / 简体中文 / 繁體中文 / English）。
+  ///
+  /// 通过 [GetX] 的 `.tr` 解析，所以切换应用语言后会自动跟随。
+  String get label => switch (this) {
+        AppLocaleType.system => '跟随系统',
+        AppLocaleType.zhCN => '简体中文',
+        AppLocaleType.zhTW => '繁體中文',
+        AppLocaleType.enUS => 'English',
+      }.tr;
 
   /// 转为 Flutter [Locale]
   Locale? get locale => switch (this) {
@@ -27,7 +35,7 @@ enum AppLocaleType {
   ///
   /// `system` 时回退到简体中文，避免传入无法识别的 `sys`。
   String get effectiveApiCode => switch (this) {
-        AppLocaleType.system => AppLocaleType.zhCN.apiCode,
+        AppLocaleType.system => AppCode.zhCN,
         AppLocaleType.zhCN => AppCode.zhCN,
         AppLocaleType.zhTW => AppCode.zhTW,
         AppLocaleType.enUS => AppCode.enUS,
