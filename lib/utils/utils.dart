@@ -51,6 +51,12 @@ abstract final class Utils {
     return v.toString() + random.nextInt(9999).toString();
   }
 
+  /// Deterministic shared-element tag linking a video thumbnail to the player.
+  ///
+  /// Unlike [makeHeroTag] (which is random and used as a controller scope), this
+  /// is stable across the list card and the detail page so both ends agree.
+  static String videoHeroTag(dynamic id) => 'video-hero-$id';
+
   static List<int> generateRandomBytes(int minLength, int maxLength) {
     return List<int>.generate(
       minLength + random.nextInt(maxLength - minLength + 1),

@@ -409,6 +409,16 @@ abstract final class Pref {
   static double get recommendCardWidth =>
       _setting.get(SettingBoxKey.recommendCardWidth, defaultValue: 240.0);
 
+  /// Fixed number of columns for the home recommend feed. `0` means auto
+  /// (derived from [recommendCardWidth]).
+  static int get homeGridColumns =>
+      _setting.get(SettingBoxKey.homeGridColumns, defaultValue: 0);
+
+  /// Fixed number of columns for other video lists. `0` means auto
+  /// (derived from [smallCardWidth]).
+  static int get defaultGridColumns =>
+      _setting.get(SettingBoxKey.defaultGridColumns, defaultValue: 0);
+
   static UpPanelPosition get upPanelPosition =>
       UpPanelPosition.values[_setting.get(
         SettingBoxKey.upPanelPosition,

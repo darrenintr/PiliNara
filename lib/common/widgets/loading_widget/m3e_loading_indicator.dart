@@ -32,11 +32,22 @@ class M3ELoadingIndicator extends StatefulWidget {
     this.morphs,
     this.color,
     this.size = const Size.square(40),
+    this.contained = false,
+    this.containerColor,
+    this.containerPadding,
+    this.semanticsLabel,
   });
   final List<Morph>? morphs;
 
   final Color? color;
   final Size size;
+
+  /// M3 expressive "contained" loading indicator: the morphing shape sits
+  /// inside a filled container so it reads on busy backgrounds.
+  final bool contained;
+  final Color? containerColor;
+  final EdgeInsetsGeometry? containerPadding;
+  final String? semanticsLabel;
   // final Key? childKey;
 
   @override
@@ -56,6 +67,8 @@ class _M3ELoadingIndicatorState extends State<M3ELoadingIndicator>
   int _morphIndex = 1;
 
   double _morphRotationTarget = _quarterRotation;
+
+  bool _reduceMotion = false;
 
   static final _morphAnimationSpec = SpringSimulation(
     SpringDescription.withDampingRatio(ratio: 0.6, stiffness: 200.0, mass: 1.0),
@@ -93,6 +106,19 @@ class _M3ELoadingIndicatorState extends State<M3ELoadingIndicator>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final reduceMotion = MediaQuery.disableAnimationsOf(context);
+    if (reduceMotion == _reduceMotion) return;
+    _reduceMotion = reduceMotion;
+    if (reduceMotion) {
+      _controller.stop();
+    } else if (!_controller.isAnimating) {
+      _startAnimation();
+    }
+  }
+
+  @override
   void dispose() {
     _controller
       ..removeStatusListener(_statusListener)
@@ -114,20 +140,54 @@ class _M3ELoadingIndicatorState extends State<M3ELoadingIndicator>
 
   @override
   Widget build(BuildContext context) {
-    final color = widget.color ?? ColorScheme.of(context).secondaryFixedDim;
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        final progress = _controller.value;
-        return RawM3ELoadingIndicator(
-          // key: widget.childKey,
-          morph: _morphs[_morphIndex % _morphs.length],
-          progress: progress,
-          angle: _calcAngle(progress),
-          color: color,
-          size: widget.size,
-        );
-      },
+    final colorScheme = ColorScheme.of(context);
+    final color = widget.color ?? colorScheme.secondaryFixedDim;
+    final Widget indicator;
+    if (_reduceMotion) {
+      indicator = RawM3ELoadingIndicator(
+        morph: _morphs[1 % _morphs.length],
+        progress: 1.0,
+        angle: 0,
+        color: color,
+        size: widget.size,
+      );
+    } else {
+      indicator = AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          final progress = _controller.value;
+          return RawM3ELoadingIndicator(
+            // key: widget.childKey,
+            morph: _morphs[_morphIndex % _morphs.length],
+            progress: progress,
+            angle: _calcAngle(progress),
+            color: color,
+            size: widget.size,
+          );
+        },
+      );
+    }
+
+    final Widget child;
+    if (widget.contained) {
+      child = Container(
+        padding: widget.containerPadding ?? const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: widget.containerColor ?? colorScheme.primaryContainer,
+          shape: BoxShape.circle,
+        ),
+        child: indicator,
+      );
+    } else {
+      child = indicator;
+    }
+
+    final semanticsLabel = widget.semanticsLabel;
+    if (semanticsLabel == null) return child;
+    return Semantics(
+      container: true,
+      label: semanticsLabel,
+      child: child,
     );
   }
 }
@@ -221,7 +281,7 @@ class RenderM3ELoadingIndicator extends RenderBox {
   Size _preferredSize;
   set preferredSize(Size value) {
     if (_preferredSize == value) return;
-    _preferredSize = size;
+    _preferredSize = value;
     markNeedsLayout();
   }
 

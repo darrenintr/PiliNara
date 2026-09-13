@@ -119,37 +119,31 @@ class RenderProgressBar extends RenderBox {
       ..save()
       ..translate(offset.dx, offset.dy);
 
-    final paint = Paint()..style = .fill;
-
-    final Radius radius = .circular(_radius);
-    final rect = Rect.fromLTWH(
-      0,
-      -(_radius - size.height),
-      size.width,
-      _radius,
-    );
-    final rrect = RRect.fromRectAndCorners(
-      rect,
-      bottomLeft: radius,
-      bottomRight: radius,
+    final width = size.width;
+    final height = size.height;
+    final radius = _radius.clamp(0.0, height) / 2;
+    final track = RRect.fromRectAndCorners(
+      Rect.fromLTWH(0, 0, width, height),
+      bottomLeft: Radius.circular(radius),
+      bottomRight: Radius.circular(radius),
     );
 
-    if (progress <= 0) {
-      canvas
-        ..clipRect(Offset.zero & size)
-        ..drawRRect(rrect, paint..color = _backgroundColor);
-    } else if (progress >= 1) {
-      canvas
-        ..clipRect(Offset.zero & size)
-        ..drawRRect(rrect, paint..color = _color);
-    } else {
-      final w = size.width * progress;
-      final left = Rect.fromLTRB(0, 0, w, size.height);
-      final right = Rect.fromLTRB(w, 0, size.width, size.height);
-      canvas
-        ..clipRRect(rrect)
-        ..drawRect(left, paint..color = _color)
-        ..drawRect(right, paint..color = _backgroundColor);
+    canvas.drawRRect(track, Paint()..color = _backgroundColor);
+
+    final progress = _progress.clamp(0.0, 1.0);
+    if (progress > 0) {
+      final paint = Paint()..color = _color;
+      if (progress >= 1) {
+        canvas.drawRRect(track, paint);
+      } else {
+        canvas.drawRRect(
+          RRect.fromRectAndCorners(
+            Rect.fromLTWH(0, 0, width * progress, height),
+            bottomRight: Radius.circular(radius),
+          ),
+          paint,
+        );
+      }
     }
     canvas.restore();
   }

@@ -1,5 +1,6 @@
 import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/custom_height_widget.dart';
+import 'package:PiliPlus/common/widgets/grid_columns_sheet.dart';
 import 'package:PiliPlus/common/widgets/image/network_img_layer.dart';
 import 'package:PiliPlus/common/widgets/scroll_physics.dart' show tabBarView;
 import 'package:PiliPlus/pages/common/common_page.dart';
@@ -104,6 +105,12 @@ class _HomePageState extends CommonPageState<HomePage>
       children: [
         searchBar(),
         const SizedBox(width: 4),
+        IconButton(
+          onPressed: () => showGridColumnsSheet(context),
+          icon: const Icon(Icons.grid_view_rounded),
+          tooltip: '每行视频数'.tr,
+          visualDensity: VisualDensity.compact,
+        ),
         msgBadge(_mainController),
         const SizedBox(width: 8),
         userAvatar(colorScheme: _colorScheme, mainController: _mainController),

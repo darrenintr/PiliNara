@@ -7,6 +7,7 @@ import 'package:PiliPlus/common/widgets/custom_icon.dart';
 import 'package:PiliPlus/common/widgets/flutter/pop_scope.dart';
 import 'package:PiliPlus/common/widgets/flutter/popup_menu.dart';
 import 'package:PiliPlus/common/widgets/image/network_img_layer.dart';
+import 'package:PiliPlus/common/widgets/image_viewer/hero.dart';
 import 'package:PiliPlus/common/widgets/keep_alive_wrapper.dart';
 import 'package:PiliPlus/common/widgets/pip_mini_video_content.dart';
 import 'package:PiliPlus/common/widgets/route_aware_mixin.dart';
@@ -80,6 +81,7 @@ import 'package:PiliPlus/utils/storage.dart';
 import 'package:PiliPlus/utils/storage_key.dart';
 import 'package:PiliPlus/utils/storage_pref.dart';
 import 'package:PiliPlus/utils/theme_utils.dart';
+import 'package:PiliPlus/utils/utils.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/foundation.dart' show kDebugMode, clampDouble;
 import 'package:flutter/material.dart';
@@ -2199,12 +2201,28 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
         child: Stack(
       clipBehavior: Clip.none,
       children: [
-        const Positioned.fill(
-          child: ColoredBox(
-            color: Colors.black,
-            isAntiAlias: false,
-          ),
-        ),
+        Obx(() {
+          final cover = videoDetailController.cover.value;
+          return Positioned.fill(
+            child: ColoredBox(
+              color: Colors.black,
+              isAntiAlias: false,
+              child: cover.isEmpty
+                  ? const SizedBox.shrink()
+                  : fromHero(
+                      tag: Utils.videoHeroTag(videoDetailController.bvid),
+                      child: NetworkImgLayer(
+                        src: cover,
+                        width: width,
+                        height: height,
+                        fit: BoxFit.contain,
+                        borderRadius: BorderRadius.zero,
+                        getPlaceHolder: () => const SizedBox.shrink(),
+                      ),
+                    ),
+            ),
+          );
+        }),
 
         plPlayer(width: width, height: height),
 
