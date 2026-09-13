@@ -51,7 +51,7 @@ jobs:
               id: flutter-action
               with:
                   channel: stable
-                  flutter-version-file: pubspec.yaml
+                  flutter-version: 3.47.4
                   cache: true
 
             - name: revert new overscrollindicator
