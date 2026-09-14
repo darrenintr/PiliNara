@@ -1,4 +1,5 @@
 import 'package:PiliPlus/common/widgets/flutter/refresh_indicator.dart';
+import 'package:PiliPlus/common/widgets/loading_widget/m3e_loading_indicator.dart';
 import 'package:PiliPlus/common/widgets/loading_widget/http_error.dart';
 import 'package:PiliPlus/http/loading_state.dart';
 import 'package:PiliPlus/models/common/search/search_type.dart';
@@ -142,7 +143,7 @@ abstract class CommonSearchPanelState<
                     ? const SizedBox(
                         width: 18,
                         height: 18,
-                        child: CircularProgressIndicator(strokeWidth: 2),
+                        child: M3ELoadingIndicator(size: Size.square(18)),
                       )
                     : const Icon(Icons.keyboard_double_arrow_down, size: 18),
                 label: Text(_isLoadingMore ? '加载中...' : '继续加载'),
@@ -177,7 +178,7 @@ abstract class CommonSearchPanelState<
                 ? const SizedBox(
                     width: 18,
                     height: 18,
-                    child: CircularProgressIndicator(strokeWidth: 2),
+                    child: M3ELoadingIndicator(size: Size.square(18)),
                   )
                 : const Icon(Icons.keyboard_double_arrow_down, size: 18),
             label: Text(_isLoadingMore ? '加载中...' : '继续加载'),

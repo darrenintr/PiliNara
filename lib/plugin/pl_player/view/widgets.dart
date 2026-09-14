@@ -422,8 +422,8 @@ class _SeekPreviewPlaceholder extends StatelessWidget {
         ),
         child: SizedBox.square(
           dimension: math.min(24, height * 0.28),
-          child: CircularProgressIndicator(
-            strokeWidth: 2,
+          child: M3ELoadingIndicator(
+            size: Size.square(24),
             color: colorScheme.primary,
           ),
         ),

@@ -119,14 +119,14 @@ abstract final class ThemeUtils {
         shadowColor: Colors.transparent,
         surfaceTintColor: isDark ? colorScheme.onSurfaceVariant : null,
       ),
-      progressIndicatorTheme: isDark
-          ? ProgressIndicatorThemeData(
-              // ignore: deprecated_member_use
-              year2023: false,
-              refreshBackgroundColor: colorScheme.onInverseSurface,
-            )
-          // ignore: deprecated_member_use
-          : const ProgressIndicatorThemeData(year2023: false),
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: colorScheme.primary,
+        circularTrackColor: colorScheme.surfaceContainerHighest,
+        linearTrackColor: colorScheme.surfaceContainerHighest,
+        refreshBackgroundColor: isDark ? colorScheme.onInverseSurface : null,
+        trackGap: 4,
+        stopIndicatorRadius: 2,
+      ),
       dialogTheme: DialogThemeData(
         titleTextStyle: TextStyle(
           fontSize: 18,

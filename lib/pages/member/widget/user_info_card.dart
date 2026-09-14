@@ -1025,8 +1025,6 @@ class _HeaderIndicatorState extends State<HeaderIndicator> {
   @override
   Widget build(BuildContext context) {
     return LinearProgressIndicator(
-      // ignore: deprecated_member_use
-      year2023: true,
       minHeight: 3.5,
       backgroundColor: const Color(0xA09E9E9E),
       value: _progress,

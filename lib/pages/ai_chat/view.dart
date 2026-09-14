@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:PiliPlus/common/widgets/loading_widget/m3e_loading_indicator.dart';
 import 'package:PiliPlus/pages/ai_chat/controller.dart';
 import 'package:PiliPlus/pages/ai_chat/models.dart';
 import 'package:PiliPlus/pages/common/slide/common_slide_page.dart';
@@ -308,7 +309,7 @@ class _AiChatPageState extends State<AiChatPage>
                   icon: analyzing
                       ? const SizedBox.square(
                           dimension: 18,
-                          child: CircularProgressIndicator(strokeWidth: 2),
+                          child: M3ELoadingIndicator(size: Size.square(18)),
                         )
                       : const Icon(Icons.play_arrow, size: 20),
                   label: const Text('分析'),
@@ -456,8 +457,8 @@ class _AiChatPageState extends State<AiChatPage>
                       SizedBox(
                         width: 16,
                         height: 16,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
+                        child: M3ELoadingIndicator(
+                          size: const Size.square(16),
                           color: colorScheme.primary,
                         ),
                       ),

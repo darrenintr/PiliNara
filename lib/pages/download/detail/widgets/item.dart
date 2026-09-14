@@ -425,8 +425,6 @@ class DetailItem extends StatelessWidget {
           ],
         ),
         LinearProgressIndicator(
-          // ignore: deprecated_member_use
-          year2023: true,
           minHeight: 2.5,
           borderRadius: Style.mdRadius,
           color: color,
@@ -634,7 +632,6 @@ class _ExportDialog extends StatelessWidget {
                   return Column(
                     children: [
                       LinearProgressIndicator(
-                        year2023: true,
                         value: progress,
                         minHeight: 4,
                         borderRadius: BorderRadius.circular(2),

@@ -380,8 +380,6 @@ class _VotePanelState extends State<VotePanel> {
                         right: 0,
                         bottom: -1,
                         child: LinearProgressIndicator(
-                          // ignore: deprecated_member_use
-                          year2023: true,
                           value: _percentage[index],
                         ),
                       ),

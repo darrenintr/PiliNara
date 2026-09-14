@@ -1,3 +1,4 @@
+import 'package:PiliPlus/common/widgets/loading_widget/m3e_loading_indicator.dart';
 import 'package:PiliPlus/plugin/pl_player/controller.dart';
 import 'package:PiliPlus/services/pip_transition_coordinator.dart';
 import 'package:material_ui/material_ui.dart';
@@ -64,8 +65,8 @@ class PipMiniVideoContent extends StatelessWidget {
                   child: SizedBox(
                     width: 26,
                     height: 26,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2.4,
+                    child: M3ELoadingIndicator(
+                      size: Size.square(26),
                       color: Colors.white70,
                     ),
                   ),

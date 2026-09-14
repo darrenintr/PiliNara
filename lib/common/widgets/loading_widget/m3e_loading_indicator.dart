@@ -31,12 +31,14 @@ class M3ELoadingIndicator extends StatefulWidget {
     // this.childKey,
     this.morphs,
     this.color,
-    this.size = const Size.square(40),
+    this.size = const Size.square(48),
+    this.semanticsLabel,
   });
   final List<Morph>? morphs;
 
   final Color? color;
   final Size size;
+  final String? semanticsLabel;
   // final Key? childKey;
 
   @override
@@ -114,20 +116,22 @@ class _M3ELoadingIndicatorState extends State<M3ELoadingIndicator>
 
   @override
   Widget build(BuildContext context) {
-    final color = widget.color ?? ColorScheme.of(context).secondaryFixedDim;
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        final progress = _controller.value;
-        return RawM3ELoadingIndicator(
-          // key: widget.childKey,
-          morph: _morphs[_morphIndex % _morphs.length],
-          progress: progress,
-          angle: _calcAngle(progress),
-          color: color,
-          size: widget.size,
-        );
-      },
+    final color = widget.color ?? ColorScheme.of(context).primary;
+    return Semantics(
+      label: widget.semanticsLabel,
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          final progress = _controller.value;
+          return RawM3ELoadingIndicator(
+            morph: _morphs[_morphIndex % _morphs.length],
+            progress: progress,
+            angle: _calcAngle(progress),
+            color: color,
+            size: widget.size,
+          );
+        },
+      ),
     );
   }
 }
@@ -221,7 +225,7 @@ class RenderM3ELoadingIndicator extends RenderBox {
   Size _preferredSize;
   set preferredSize(Size value) {
     if (_preferredSize == value) return;
-    _preferredSize = size;
+    _preferredSize = value;
     markNeedsLayout();
   }
 

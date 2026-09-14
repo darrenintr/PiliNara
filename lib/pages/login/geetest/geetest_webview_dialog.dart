@@ -1,6 +1,7 @@
 import 'dart:convert' show base64, jsonDecode, jsonEncode, utf8;
 import 'dart:io' show Platform;
 
+import 'package:PiliPlus/common/widgets/loading_widget/m3e_loading_indicator.dart';
 import 'package:PiliPlus/http/browser_ua.dart';
 import 'package:PiliPlus/http/init.dart';
 import 'package:PiliPlus/http/loading_state.dart';
@@ -186,7 +187,7 @@ class _GeetestWebviewDialogState extends State<GeetestWebviewDialog> {
           height: 400,
           child: Center(
             child: _linuxWebviewLoading
-                ? const CircularProgressIndicator()
+                ? const M3ELoadingIndicator(semanticsLabel: '加载中')
                 : const Text('请在弹出的新窗口中完成验证'),
           ),
         ),

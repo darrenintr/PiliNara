@@ -1,3 +1,4 @@
+import 'package:PiliPlus/common/widgets/loading_widget/m3e_loading_indicator.dart';
 import 'package:PiliPlus/utils/storage_pref.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -52,9 +53,9 @@ class LoadingWidget extends StatelessWidget {
         mainAxisSize: .min,
         children: [
           //loading animation
-          CircularProgressIndicator(
-            strokeWidth: 3,
-            valueColor: AlwaysStoppedAnimation(onSurfaceVariant),
+          M3ELoadingIndicator(
+            color: onSurfaceVariant,
+            semanticsLabel: msg,
           ),
           //msg
           Text(msg, style: TextStyle(color: onSurfaceVariant)),
