@@ -9,6 +9,6 @@ void main() {
     final firstTag = VideoCoverHero.tagFor(firstCard);
 
     expect(VideoCoverHero.tagFor(firstCard), same(firstTag));
-    expect(VideoCoverHero.tagFor(secondCard), isNot(same(firstTag)));
+    expect(VideoCoverHero.tagFor(secondCard), isNot(equals(firstTag)));
   });
 }
