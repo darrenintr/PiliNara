@@ -529,6 +529,7 @@ abstract final class PageUtils {
     int? pgcType,
     String? cover,
     String? title,
+    Object? coverHeroTag,
     int? progress, // milliseconds
     Map? extraArguments,
     bool off = false,
@@ -544,6 +545,7 @@ abstract final class PageUtils {
       'pgcType': ?pgcType,
       'cover': ?cover,
       'title': ?title,
+      'coverHeroTag': ?coverHeroTag,
       'progress': ?progress,
       'videoType': videoType,
       'isVertical': dimension?.isVertical ?? isVertical,

@@ -17,6 +17,7 @@ import 'package:PiliPlus/common/widgets/scroll_physics.dart'
 import 'package:PiliPlus/common/widgets/simple_app_bar.dart';
 import 'package:PiliPlus/common/widgets/sliver/video_header.dart';
 import 'package:PiliPlus/common/widgets/svg/play_icon.dart';
+import 'package:PiliPlus/common/widgets/video_card/video_cover_hero.dart';
 import 'package:PiliPlus/models/common/episode_panel_type.dart';
 import 'package:PiliPlus/models_new/pgc/pgc_info_model/result.dart';
 import 'package:PiliPlus/models_new/video/video_detail/episode.dart' as ugc;
@@ -86,6 +87,8 @@ class VideoDetailPageV extends StatefulWidget {
 class _VideoDetailPageVState extends State<VideoDetailPageV>
     with RouteAware, RouteAwareMixin, WidgetsBindingObserver {
   final heroTag = Get.arguments['heroTag'];
+  final coverHeroTag = Get.arguments['coverHeroTag'];
+  final String? initialCover = Get.arguments['cover'];
 
   late final VideoDetailController videoDetailController;
   late final VideoReplyController _videoReplyController;
@@ -1445,7 +1448,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
 
   Widget videoPlayer({required double width, required double height}) {
     final isFullScreen = this.isFullScreen;
-    return Stack(
+    final player = Stack(
       clipBehavior: Clip.none,
       children: [
         const Positioned.fill(
@@ -1598,6 +1601,12 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
           },
         ),
       ],
+    );
+    return VideoCoverHero(
+      tag: coverHeroTag,
+      cover: initialCover,
+      sourceBorderRadius: const .vertical(top: .circular(12)),
+      child: player,
     );
   }
 

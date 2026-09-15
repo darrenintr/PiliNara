@@ -3,6 +3,7 @@ import 'package:PiliPlus/common/widgets/badge.dart';
 import 'package:PiliPlus/common/widgets/image/image_save.dart';
 import 'package:PiliPlus/common/widgets/image/network_img_layer.dart';
 import 'package:PiliPlus/common/widgets/stat/stat.dart';
+import 'package:PiliPlus/common/widgets/video_card/video_cover_hero.dart';
 import 'package:PiliPlus/common/widgets/video_popup_menu.dart';
 import 'package:PiliPlus/http/search.dart';
 import 'package:PiliPlus/models/home/rcmd/result.dart';
@@ -30,7 +31,7 @@ class VideoCardV extends StatelessWidget {
     this.onRemove,
   });
 
-  Future<void> onPushDetail() async {
+  Future<void> onPushDetail(Object coverHeroTag) async {
     switch (videoItem.goto) {
       case 'bangumi':
         PageUtils.viewPgc(epId: videoItem.param!);
@@ -59,6 +60,7 @@ class VideoCardV extends StatelessWidget {
             cid: cid,
             cover: videoItem.cover,
             title: videoItem.title,
+            coverHeroTag: coverHeroTag,
             isVertical: isVertical,
             dimension: dimension,
           );
@@ -81,6 +83,7 @@ class VideoCardV extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final coverHeroTag = VideoCoverHero.tagFor(videoItem);
     void onLongPress() => imageSaveDialog(
       title: videoItem.title,
       cover: videoItem.cover,
@@ -91,7 +94,7 @@ class VideoCardV extends StatelessWidget {
       children: [
         Card(
           child: InkWell(
-            onTap: onPushDetail,
+            onTap: () => onPushDetail(coverHeroTag),
             onLongPress: onLongPress,
             onSecondaryTap: PlatformUtils.isMobile ? null : onLongPress,
             borderRadius: const .all(.circular(12)),
@@ -107,11 +110,20 @@ class VideoCardV extends StatelessWidget {
                       return Stack(
                         clipBehavior: Clip.none,
                         children: [
-                          NetworkImgLayer(
-                            src: videoItem.cover,
-                            width: maxWidth,
-                            height: maxHeight,
-                            borderRadius: const .vertical(top: .circular(12)),
+                          VideoCoverHero(
+                            tag: coverHeroTag,
+                            cover: videoItem.cover,
+                            sourceBorderRadius: const .vertical(
+                              top: .circular(12),
+                            ),
+                            child: NetworkImgLayer(
+                              src: videoItem.cover,
+                              width: maxWidth,
+                              height: maxHeight,
+                              borderRadius: const .vertical(
+                                top: .circular(12),
+                              ),
+                            ),
                           ),
                           if (videoItem.duration > 0)
                             PBadge(
