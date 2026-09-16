@@ -5,7 +5,10 @@
 // ignore_for_file: prefer_initializing_formals
 
 import 'dart:async' show Completer;
+import 'dart:math' as math;
 
+import 'package:PiliPlus/common/widgets/loading_widget/m3e_loading_indicator.dart';
+import 'package:PiliPlus/common/widgets/loading_widget/morphs.dart';
 import 'package:PiliPlus/common/widgets/refresh_layout.dart';
 import 'package:PiliPlus/common/widgets/scroll_behavior.dart';
 import 'package:PiliPlus/common/widgets/scroll_physics.dart'
@@ -524,13 +527,8 @@ class RefreshIndicatorState extends State<RefreshIndicator>
           ? null
           : AnimatedBuilder(
               animation: _positionController,
-              builder: (context, child) => RefreshProgressIndicator(
-                value: showIndeterminateIndicator ? null : _value.value,
-                valueColor: _valueColor,
-                backgroundColor: widget.backgroundColor,
-                strokeWidth: widget.strokeWidth,
-                elevation: widget.elevation,
-              ),
+              builder: (context, child) =>
+                  _m3eRefreshProgressIndicator(showIndeterminateIndicator),
             ),
     );
 
@@ -568,44 +566,52 @@ class RefreshIndicatorState extends State<RefreshIndicator>
     return false;
   }
 
-  // late final _refreshKey = GlobalKey();
-  // Widget _m3eRefreshProgressIndicator(bool showIndeterminateIndicator) {
-  //   const indicatorMargin = EdgeInsets.all(4);
-  //   const indicatorPadding = EdgeInsets.all(6);
-  //   const indicatorSize = 41.0;
+  Widget _m3eRefreshProgressIndicator(bool showIndeterminateIndicator) {
+    const indicatorMargin = EdgeInsets.all(4);
+    const indicatorPadding = EdgeInsets.all(6);
+    const indicatorSize = 41.0;
+    const morphSize = Size.square(29);
 
-  //   final progress = _value.value;
-  //   return Padding(
-  //     padding: indicatorMargin,
-  //     child: SizedBox(
-  //       width: indicatorSize,
-  //       height: indicatorSize,
-  //       child: Material(
-  //         type: MaterialType.circle,
-  //         color: _backgroundColor,
-  //         elevation: widget.elevation,
-  //         child: Padding(
-  //           padding: indicatorPadding,
-  //           child: showIndeterminateIndicator
-  //               ? M3ELoadingIndicator(
-  //                   childKey: _refreshKey,
-  //                   color: _effectiveValueColor,
-  //                   morphs: Morphs.refreshMorphs,
-  //                   size: null,
-  //                 )
-  //               : RawM3ELoadingIndicator(
-  //                   key: _refreshKey,
-  //                   morph: Morphs.manualMorph,
-  //                   progress: progress,
-  //                   angle: -progress * math.pi,
-  //                   color: _valueColor.value!,
-  //                   size: null,
-  //                 ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+    final progress = _value.value.clamp(0.0, 1.0).toDouble();
+    final semanticsLabel = MaterialLocalizations.of(
+      context,
+    ).refreshIndicatorSemanticLabel;
+    final Widget indicator = showIndeterminateIndicator
+        ? M3ELoadingIndicator(
+            color: _effectiveValueColor,
+            morphs: Morphs.refreshMorphs,
+            size: morphSize,
+            semanticsLabel: semanticsLabel,
+          )
+        : Semantics(
+            label: semanticsLabel,
+            child: RawM3ELoadingIndicator(
+              morph: Morphs.manualMorph,
+              progress: progress,
+              angle: -progress * math.pi,
+              color: _valueColor.value ?? _effectiveValueColor,
+              size: morphSize,
+            ),
+          );
+
+    return Padding(
+      padding: indicatorMargin,
+      child: SizedBox.square(
+        dimension: indicatorSize,
+        child: Material(
+          type: MaterialType.circle,
+          color:
+              widget.backgroundColor ??
+              ColorScheme.of(context).surfaceContainerHighest,
+          elevation: widget.elevation,
+          child: Padding(
+            padding: indicatorPadding,
+            child: indicator,
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 // ignore: camel_case_types
