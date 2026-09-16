@@ -9,6 +9,7 @@ import 'package:PiliPlus/common/widgets/custom_icon.dart';
 import 'package:PiliPlus/common/widgets/extra_hittest_stack.dart';
 import 'package:PiliPlus/common/widgets/flutter/popup_menu.dart';
 import 'package:PiliPlus/common/widgets/flutter/pop_scope.dart';
+import 'package:PiliPlus/common/widgets/fullscreen_player_transition.dart';
 import 'package:PiliPlus/common/widgets/gesture/horizontal_drag_gesture_recognizer.dart';
 import 'package:PiliPlus/common/widgets/image/network_img_layer.dart';
 import 'package:PiliPlus/common/widgets/keep_alive_wrapper.dart';
@@ -85,6 +86,7 @@ class _LiveRoomPageState extends State<LiveRoomPage>
   late final GlobalKey chatKey = GlobalKey();
   late final GlobalKey scKey = GlobalKey();
   late final GlobalKey playerKey = GlobalKey();
+  final _fullscreenPlayerTransitionKey = GlobalKey();
 
   // 归位动画进行中：页面播放器以透明占位先行布局（供量取目标矩形），
   // 恢复握手完成后亮出，期间小窗是唯一可见端
@@ -590,9 +592,15 @@ class _LiveRoomPageState extends State<LiveRoomPage>
     );
     // 归位动画中：透明占位参与布局（供量取目标矩形）但不可见不可点，
     // 小窗是唯一可见端，恢复握手完成后亮出
-    return _pipRestoreInFlight
+    final visibleResult = _pipRestoreInFlight
         ? IgnorePointer(child: Opacity(opacity: 0, child: result))
         : result;
+    return FullscreenPlayerTransition(
+      key: _fullscreenPlayerTransitionKey,
+      isFullscreen: isFullScreen,
+      enabled: Pref.enableVideoSharedElement,
+      child: visibleResult,
+    );
   }
 
   void _onPopInvokedWithResult(bool didPop, Object? result) {
