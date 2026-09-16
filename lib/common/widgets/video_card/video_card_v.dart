@@ -2,6 +2,7 @@ import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/badge.dart';
 import 'package:PiliPlus/common/widgets/image/image_save.dart';
 import 'package:PiliPlus/common/widgets/image/network_img_layer.dart';
+import 'package:PiliPlus/common/widgets/press_scale.dart';
 import 'package:PiliPlus/common/widgets/stat/stat.dart';
 import 'package:PiliPlus/common/widgets/video_card/video_hero.dart';
 import 'package:PiliPlus/common/widgets/video_popup_menu.dart';
@@ -106,15 +107,17 @@ class VideoCardV extends StatelessWidget {
       builder: (context, transition) => Stack(
         clipBehavior: Clip.none,
         children: [
-          Card(
-            child: InkWell(
-              onTap: () => onPushDetail(videoHeroTag: transition.tag),
-              onLongPress: onLongPress,
-              onSecondaryTap: PlatformUtils.isMobile ? null : onLongPress,
-              borderRadius: const .all(.circular(12)),
-              child: Column(
-                crossAxisAlignment: .start,
-                children: [
+          PressScale(
+            pressedScale: 0.95,
+            child: Card(
+              child: InkWell(
+                onTap: () => onPushDetail(videoHeroTag: transition.tag),
+                onLongPress: onLongPress,
+                onSecondaryTap: PlatformUtils.isMobile ? null : onLongPress,
+                borderRadius: const .all(.circular(12)),
+                child: Column(
+                  crossAxisAlignment: .start,
+                  children: [
                   AspectRatio(
                     aspectRatio: Style.aspectRatio,
                     child: LayoutBuilder(
@@ -156,8 +159,9 @@ class VideoCardV extends StatelessWidget {
                       },
                     ),
                   ),
-                  content(context, transition),
-                ],
+                    content(context, transition),
+                  ],
+                ),
               ),
             ),
           ),

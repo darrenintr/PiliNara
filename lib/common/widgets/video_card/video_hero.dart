@@ -93,6 +93,21 @@ abstract final class VideoSpatialTransition {
   static double geometryProgress(double routeProgress) =>
       motionCurve.transform(_clampProgress(routeProgress));
 
+  /// Lets the flying shared element travel just beyond its destination before
+  /// settling. Page chrome remains bounded by [geometryProgress], so opacity
+  /// and clipping values always stay in their valid 0–1 range.
+  static double flightGeometryProgress(double routeProgress) {
+    final progress = _clampProgress(routeProgress);
+    final base = geometryProgress(progress);
+    if (progress <= 0.78 || progress >= 1) return base;
+
+    final settleProgress = ((progress - 0.78) / 0.22).clamp(0.0, 1.0);
+    final bounce = math.sin(
+      math.pi * Curves.easeInOut.transform(settleProgress),
+    );
+    return base + 0.012 * bounce * bounce;
+  }
+
   /// Progress reserved for related-video placeholders and separators.
   static double secondaryProgress(double routeProgress) {
     final value = _clampProgress(routeProgress);
@@ -1138,7 +1153,7 @@ class _VideoRectTween extends RectTween {
 
   @override
   Rect? lerp(double t) =>
-      super.lerp(VideoSpatialTransition.motionCurve.transform(t));
+      super.lerp(VideoSpatialTransition.flightGeometryProgress(t));
 }
 
 class _VideoSpatialCurve extends Curve {

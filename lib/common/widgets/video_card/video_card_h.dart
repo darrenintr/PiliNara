@@ -2,6 +2,7 @@ import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/badge.dart';
 import 'package:PiliPlus/common/widgets/image/image_save.dart';
 import 'package:PiliPlus/common/widgets/image/network_img_layer.dart';
+import 'package:PiliPlus/common/widgets/press_scale.dart';
 import 'package:PiliPlus/common/widgets/progress_bar/video_progress_indicator.dart';
 import 'package:PiliPlus/common/widgets/stat/stat.dart';
 import 'package:PiliPlus/common/widgets/video_card/video_hero.dart';
@@ -104,20 +105,22 @@ class VideoCardH extends StatelessWidget {
         child: Stack(
           clipBehavior: .none,
           children: [
-            InkWell(
-              onLongPress: onLongPress,
-              onSecondaryTap: PlatformUtils.isMobile ? null : onLongPress,
-              onTap: onTapWithTransition == null
-                  ? onTap ?? () => _openVideo(transition)
-                  : () => onTapWithTransition!(transition),
-              child: Padding(
-                padding: const .symmetric(
-                  horizontal: Style.safeSpace,
-                  vertical: 5,
-                ),
-                child: Row(
-                  crossAxisAlignment: .start,
-                  children: [
+            PressScale(
+              pressedScale: 0.95,
+              child: InkWell(
+                onLongPress: onLongPress,
+                onSecondaryTap: PlatformUtils.isMobile ? null : onLongPress,
+                onTap: onTapWithTransition == null
+                    ? onTap ?? () => _openVideo(transition)
+                    : () => onTapWithTransition!(transition),
+                child: Padding(
+                  padding: const .symmetric(
+                    horizontal: Style.safeSpace,
+                    vertical: 5,
+                  ),
+                  child: Row(
+                    crossAxisAlignment: .start,
+                    children: [
                     AspectRatio(
                       aspectRatio: Style.aspectRatio,
                       child: LayoutBuilder(
@@ -178,8 +181,9 @@ class VideoCardH extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 10),
-                    content(theme, transition),
-                  ],
+                      content(theme, transition),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:PiliPlus/common/widgets/fullscreen_player_transition.dart';
+import 'package:PiliPlus/common/widgets/press_scale.dart';
 import 'package:PiliPlus/common/widgets/video_card/video_hero.dart';
 import 'package:PiliPlus/router/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +65,12 @@ void main() {
         inExclusiveRange(0, 1),
       );
       expect(VideoSpatialTransition.destinationBackdropProgress(1), 1);
+    });
+
+    test('flight geometry overshoots slightly before settling at the edge', () {
+      expect(VideoSpatialTransition.flightGeometryProgress(0), 0);
+      expect(VideoSpatialTransition.flightGeometryProgress(0.9), greaterThan(1));
+      expect(VideoSpatialTransition.flightGeometryProgress(1), 1);
     });
 
     test('destination backdrop follows forward Hero progress on pop', () {
@@ -263,6 +270,32 @@ void main() {
       tester.getRect(find.byKey(playerKey)),
       const Rect.fromLTWH(20, 30, 100, 50),
     );
+  });
+
+  testWidgets('press scale compresses on down and restores on release', (
+    tester,
+  ) async {
+    final childKey = GlobalKey();
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Center(
+          child: PressScale(
+            pressedScale: 0.95,
+            child: SizedBox.square(key: childKey, dimension: 100),
+          ),
+        ),
+      ),
+    );
+
+    final gesture = await tester.startGesture(
+      tester.getCenter(find.byKey(childKey)),
+    );
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(tester.getRect(find.byKey(childKey)).width, closeTo(95, 0.01));
+
+    await gesture.up();
+    await tester.pumpAndSettle();
+    expect(tester.getRect(find.byKey(childKey)).width, closeTo(100, 0.01));
   });
 
   test('the real /videoV named route creates the spatial route', () {
