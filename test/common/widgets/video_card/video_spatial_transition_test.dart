@@ -1,3 +1,4 @@
+import 'package:PiliPlus/common/widgets/fullscreen_player_transition.dart';
 import 'package:PiliPlus/common/widgets/video_card/video_hero.dart';
 import 'package:PiliPlus/router/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -192,6 +193,76 @@ void main() {
       VideoSpatialTransitionRegistry.remove('source-test');
       VideoSpatialTransitionRegistry.remove('invalid-test');
     });
+  });
+
+  testWidgets('player surface animates into and out of fullscreen bounds', (
+    tester,
+  ) async {
+    final fullscreen = ValueNotifier(false);
+    final playerKey = GlobalKey();
+    final transitionKey = GlobalKey();
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: ValueListenableBuilder(
+          valueListenable: fullscreen,
+          builder: (context, isFullscreen, _) => Stack(
+            children: [
+              Positioned(
+                left: isFullscreen ? 0 : 20,
+                top: isFullscreen ? 0 : 30,
+                width: isFullscreen ? 300 : 100,
+                height: isFullscreen ? 200 : 50,
+                child: FullscreenPlayerTransition(
+                  key: transitionKey,
+                  isFullscreen: isFullscreen,
+                  duration: const Duration(milliseconds: 100),
+                  curve: Curves.linear,
+                  child: ColoredBox(key: playerKey, color: Colors.black),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    expect(
+      tester.getRect(find.byKey(playerKey)),
+      const Rect.fromLTWH(20, 30, 100, 50),
+    );
+
+    fullscreen.value = true;
+    await tester.pump();
+    expect(
+      tester.getRect(find.byKey(playerKey)),
+      const Rect.fromLTWH(20, 30, 100, 50),
+    );
+
+    await tester.pump(const Duration(milliseconds: 50));
+    expect(
+      tester.getRect(find.byKey(playerKey)),
+      const Rect.fromLTWH(10, 15, 200, 125),
+    );
+
+    await tester.pumpAndSettle();
+    expect(
+      tester.getRect(find.byKey(playerKey)),
+      const Rect.fromLTWH(0, 0, 300, 200),
+    );
+
+    fullscreen.value = false;
+    await tester.pump();
+    expect(
+      tester.getRect(find.byKey(playerKey)),
+      const Rect.fromLTWH(0, 0, 300, 200),
+    );
+
+    await tester.pumpAndSettle();
+    expect(
+      tester.getRect(find.byKey(playerKey)),
+      const Rect.fromLTWH(20, 30, 100, 50),
+    );
   });
 
   test('the real /videoV named route creates the spatial route', () {

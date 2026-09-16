@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:PiliPlus/common/assets.dart';
 import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/custom_icon.dart';
+import 'package:PiliPlus/common/widgets/fullscreen_player_transition.dart';
 import 'package:PiliPlus/common/widgets/flutter/pop_scope.dart';
 import 'package:PiliPlus/common/widgets/flutter/popup_menu.dart';
 import 'package:PiliPlus/common/widgets/image/network_img_layer.dart';
@@ -125,6 +126,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
   // 页面根节点 key：归位目标矩形以页面根为参照系量取——路由转场期间页面
   // 整体在移动，相对页面根的矩形 == 页面落定后的全局矩形
   final _pageRootKey = GlobalKey();
+  final _fullscreenPlayerTransitionKey = GlobalKey();
 
   // intro ctr
   late final CommonIntroController introController =
@@ -2300,15 +2302,20 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
       ],
     );
     // 点/悬停视频区 → 归还键盘焦点给播放器（方向键恢复音量控制）
-    return MouseRegion(
-      onEnter: (_) => playerFocusNode.requestFocus(),
-      child: Listener(
-        onPointerDown: (_) => playerFocusNode.requestFocus(),
-        child: VideoSpatialTransition.destination(
-          tag: _videoHeroTag,
-          poster: poster,
-          child: playerContent,
-          liveReadiness: plPlayerController?.videoOutputReady,
+    return FullscreenPlayerTransition(
+      key: _fullscreenPlayerTransitionKey,
+      isFullscreen: isFullScreen,
+      enabled: Pref.enableVideoSharedElement,
+      child: MouseRegion(
+        onEnter: (_) => playerFocusNode.requestFocus(),
+        child: Listener(
+          onPointerDown: (_) => playerFocusNode.requestFocus(),
+          child: VideoSpatialTransition.destination(
+            tag: _videoHeroTag,
+            poster: poster,
+            child: playerContent,
+            liveReadiness: plPlayerController?.videoOutputReady,
+          ),
         ),
       ),
     );
