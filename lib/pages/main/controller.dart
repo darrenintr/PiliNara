@@ -70,6 +70,8 @@ class MainController extends GetxController
   late bool isPlaying = false;
 
   static const _period = 5 * 60 * 1000;
+  static const _navigationTransitionDuration = Duration(milliseconds: 400);
+  static const _navigationTransitionCurve = Cubic(0.2, 0, 0, 1);
   late int _lastSelectTime = 0;
 
   @override
@@ -298,9 +300,17 @@ class MainController extends GetxController
     if (value != selectedIndex.value) {
       selectedIndex.value = value;
       if (mainTabBarView) {
-        controller.animateTo(value);
+        controller.animateTo(
+          value,
+          duration: _navigationTransitionDuration,
+          curve: _navigationTransitionCurve,
+        );
       } else {
-        controller.jumpToPage(value);
+        controller.animateToPage(
+          value,
+          duration: _navigationTransitionDuration,
+          curve: _navigationTransitionCurve,
+        );
       }
       if (currentNav == NavigationBarType.home) {
         checkDefaultSearch();
