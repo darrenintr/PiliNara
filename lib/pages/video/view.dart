@@ -157,6 +157,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
       videoDetailController.plPlayerController.pipNoDanmaku;
 
   bool isShowing = true;
+  int _resumeGeneration = 0;
 
   bool get isFullScreen =>
       videoDetailController.plPlayerController.isFullScreen.value;
@@ -654,6 +655,28 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
     return plPlayerController?.play();
   }
 
+  /// Reveal the inline surface only after this page has reclaimed the shared
+  /// player. Video detail pages share one [PlPlayerController], so a popped
+  /// recommendation may finish disposing or initialising after the previous
+  /// page's [didPopNext] has already started.
+  void _revealInlinePlayerIfCurrent(int generation) {
+    if (!mounted || !isShowing || generation != _resumeGeneration) return;
+
+    final controller = videoDetailController.plPlayerController;
+    if (controller.videoPlayerController == null ||
+        !controller.isCurrentVideoSource(
+          bvid: videoDetailController.bvid,
+          cid: videoDetailController.cid.value,
+        )) {
+      return;
+    }
+
+    plPlayerController = controller;
+    videoDetailController.videoState.value = true;
+    videoDetailController.videoState.refresh();
+    setState(() {});
+  }
+
   // 播放器状态监听
   Future<void> playerListener(PlayerStatus status) async {
     final isPlaying = status.isPlaying;
@@ -839,6 +862,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
   // 离开当前页面时
   void didPushNext() {
     super.didPushNext();
+    _resumeGeneration++;
     isShowing = false;
 
     removeObserverMobile(this);
@@ -914,6 +938,7 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
     }
 
     isShowing = true;
+    final resumeGeneration = ++_resumeGeneration;
 
     addObserverMobile(this);
 
@@ -1041,6 +1066,11 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
       await videoDetailController.playerInit(
         autoplay: videoDetailController.playerStatus?.isPlaying ?? false,
       );
+      if (!mounted ||
+          !isShowing ||
+          resumeGeneration != _resumeGeneration) {
+        return;
+      }
       plPlayerController = videoDetailController.plPlayerController;
     } else {
       // 场景 3：直接恢复关联的小窗/后台播放器，确保界面正常显示
@@ -1063,14 +1093,15 @@ class _VideoDetailPageVState extends State<VideoDetailPageV>
       if (expected?.isPlaying ?? plPlayerController!.playerStatus.isPlaying) {
         videoDetailController.autoPlay = true;
       }
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!mounted) return;
-        videoDetailController.videoState.value = true;
-        videoDetailController.videoState.refresh();
-        // 强制触发一次同步 UI 刷新，确保 sliver 和 layout 正确响应
-        setState(() {});
-      });
     }
+
+    // Both paths must explicitly remount the inline surface. Previously only
+    // the no-recovery path did this; returning from another video depended on
+    // the media backend's onInit callback and could remain a blank placeholder.
+    _revealInlinePlayerIfCurrent(resumeGeneration);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _revealInlinePlayerIfCurrent(resumeGeneration),
+    );
 
     _syncCurrentMediaSessionOnResume();
 
