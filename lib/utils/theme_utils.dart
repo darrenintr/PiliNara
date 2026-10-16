@@ -236,7 +236,9 @@ abstract final class ThemeUtils {
         color: colorScheme.surfaceContainerLow,
         shadowColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
-        shape: const RoundedRectangleBorder(borderRadius: Style.cardRadius),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(Style.radiusLg)),
+        ),
       ),
       progressIndicatorTheme: isDark
           ? ProgressIndicatorThemeData(

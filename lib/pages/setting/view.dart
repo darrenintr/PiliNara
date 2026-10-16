@@ -1,3 +1,5 @@
+import 'package:PiliPlus/common/expressive/expressive_colors.dart';
+import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/flutter/list_tile.dart';
 import 'package:PiliPlus/common/widgets/scaffold/simple_scaffold.dart';
 import 'package:PiliPlus/common/widgets/view_safe_area.dart';
@@ -172,53 +174,127 @@ class _SettingPageState extends State<SettingPage> {
     if (_isPortrait) {
       return null;
     } else {
-      return type == _type ? theme.colorScheme.onInverseSurface : null;
+      return type == _type ? theme.colorScheme.secondaryContainer : null;
     }
+  }
+
+  /// One tile of a grouped list: the group's outer corners are large,
+  /// the joins between tiles stay tight.
+  Widget _groupTile({
+    required int index,
+    required int count,
+    required IconData icon,
+    required int accent,
+    required String title,
+    String? subtitle,
+    Color? tileColor,
+    required VoidCallback onTap,
+  }) {
+    final colorScheme = theme.colorScheme;
+    final colors = ExpressiveAccent.of(accent, theme.brightness);
+    const outer = Radius.circular(Style.radiusXxl);
+    const inner = Radius.circular(6);
+    return Padding(
+      padding: EdgeInsets.only(bottom: index == count - 1 ? 0 : 3),
+      child: ListTile(
+        onTap: onTap,
+        minTileHeight: 72,
+        tileColor: tileColor ?? colorScheme.surfaceContainerLow,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: index == 0 ? outer : inner,
+            bottom: index == count - 1 ? outer : inner,
+          ),
+        ),
+        leading: Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            color: colors.container,
+            borderRadius: BorderRadius.all(
+              Radius.circular(index.isEven ? Style.radiusMd : 22),
+            ),
+          ),
+          child: Icon(icon, color: colors.onContainer),
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+        ),
+        subtitle: subtitle == null
+            ? null
+            : Text(
+                subtitle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: colorScheme.onSurfaceVariant,
+                ),
+              ),
+        trailing: Icon(
+          Icons.chevron_right_rounded,
+          color: colorScheme.outline,
+        ),
+      ),
+    );
   }
 
   Widget _buildList(ThemeData theme) {
     final padding = MediaQuery.viewPaddingOf(context);
-    TextStyle titleStyle = theme.textTheme.titleMedium!;
-    TextStyle subTitleStyle = theme.textTheme.labelMedium!.copyWith(
-      color: theme.colorScheme.outline,
-    );
+    final settings = _items.take(_items.length - 1).toList();
     return ListView(
-      padding: EdgeInsets.only(bottom: padding.bottom + 100),
+      padding: EdgeInsets.fromLTRB(16, 0, 16, padding.bottom + 100),
       children: [
         _buildSearchItem(theme),
-        ..._items
-            .take(_items.length - 1)
-            .map(
-              (item) => ListTile(
-                tileColor: _getTileColor(theme, item.type),
-                onTap: () => _toPage(item.type),
-                leading: item.icon,
-                title: Text(item.type.title, style: titleStyle),
-                subtitle: item.subtitle == null
-                    ? null
-                    : Text(item.subtitle!, style: subTitleStyle),
-              ),
+        for (final (index, item) in settings.indexed)
+          _groupTile(
+            index: index,
+            count: settings.length,
+            icon: item.icon.icon!,
+            accent: index,
+            title: item.type.title,
+            subtitle: item.subtitle,
+            tileColor: _getTileColor(theme, item.type),
+            onTap: () => _toPage(item.type),
+          ),
+        const SizedBox(height: 18),
+        Obx(() {
+          final account = <Widget Function(int index, int count)>[
+            (index, count) => _groupTile(
+              index: index,
+              count: count,
+              icon: Icons.switch_account_rounded,
+              accent: 2,
+              title: '切换账号',
+              onTap: () => LoginPageController.switchAccountDialog(context),
             ),
-        ListTile(
-          onTap: () => LoginPageController.switchAccountDialog(context),
-          leading: const Icon(Icons.switch_account_outlined),
-          title: Text('切换账号', style: titleStyle),
-        ),
-        Obx(
-          () => _noAccount.value
-              ? const SizedBox.shrink()
-              : ListTile(
-                  leading: const Icon(Icons.logout_outlined),
-                  onTap: () => _logoutDialog(context),
-                  title: Text('退出登录', style: titleStyle),
-                ),
-        ),
-        ListTile(
-          tileColor: _getTileColor(theme, _items.last.type),
-          onTap: () => _toPage(_items.last.type),
-          leading: _items.last.icon,
-          title: Text(_items.last.type.title, style: titleStyle),
-        ),
+            if (!_noAccount.value)
+              (index, count) => _groupTile(
+                index: index,
+                count: count,
+                icon: Icons.logout_rounded,
+                accent: 0,
+                title: '退出登录',
+                onTap: () => _logoutDialog(context),
+              ),
+            (index, count) => _groupTile(
+              index: index,
+              count: count,
+              icon: _items.last.icon.icon!,
+              accent: 4,
+              title: _items.last.type.title,
+              tileColor: _getTileColor(theme, _items.last.type),
+              onTap: () => _toPage(_items.last.type),
+            ),
+          ];
+          return Column(
+            children: [
+              for (final (index, build) in account.indexed)
+                build(index, account.length),
+            ],
+          );
+        }),
       ],
     );
   }
@@ -305,35 +381,31 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   Widget _buildSearchItem(ThemeData theme) => Padding(
-    padding: const EdgeInsets.only(
-      left: 16,
-      right: 16,
-      bottom: 8,
-    ),
+    padding: const EdgeInsets.only(bottom: 16),
     child: Material(
-      color: theme.colorScheme.onInverseSurface,
-      borderRadius: const BorderRadius.all(Radius.circular(50)),
+      color: theme.colorScheme.surfaceContainerHighest,
+      borderRadius: const BorderRadius.all(Radius.circular(28)),
       child: InkWell(
         onTap: () => Get.toNamed('/settingsSearch'),
-        borderRadius: const BorderRadius.all(Radius.circular(50)),
-        child: const Padding(
-          padding: EdgeInsets.symmetric(vertical: 8),
-          child: Center(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  size: 18,
-                  applyTextScaling: true,
-                  Icons.search,
+        borderRadius: const BorderRadius.all(Radius.circular(28)),
+        child: SizedBox(
+          height: 56,
+          child: Row(
+            children: [
+              const SizedBox(width: 20),
+              Icon(
+                Icons.search_rounded,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+              const SizedBox(width: 12),
+              Text(
+                '搜索设置项',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: theme.colorScheme.onSurfaceVariant,
                 ),
-                Text(
-                  ' 搜索',
-                  style: TextStyle(height: 1),
-                  strutStyle: StrutStyle(height: 1, leading: 0),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
