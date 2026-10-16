@@ -1,4 +1,5 @@
 import 'package:PiliPlus/common/assets.dart';
+import 'package:PiliPlus/common/expressive/expressive_shapes.dart';
 import 'package:PiliPlus/common/widgets/image/network_img_layer.dart';
 import 'package:PiliPlus/models/common/dynamic/up_panel_position.dart';
 import 'package:PiliPlus/models/dynamics/up.dart';
@@ -160,16 +161,16 @@ class _UpPanelState extends State<UpPanel> {
     Widget avatar;
     if (isAll) {
       avatar = DecoratedBox(
-        decoration: const BoxDecoration(
-          shape: .circle,
-          color: Color(0xFF5CB67B),
+        decoration: ShapeDecoration(
+          shape: ExpressiveShape.sunny8.border,
+          color: theme.colorScheme.primary,
         ),
         child: Image.asset(
           width: 38,
           height: 38,
           cacheWidth: 38.cacheSize(context),
           Assets.logo2,
-          color: Colors.white,
+          color: theme.colorScheme.onPrimary,
         ),
       );
     } else {
@@ -243,7 +244,9 @@ class _UpPanelState extends State<UpPanel> {
               Padding(
                 padding: const .symmetric(horizontal: 4),
                 child: Text(
-                  isTop ? '${remarkedName(item.mid, item.uname!)}\n' : remarkedName(item.mid, item.uname!),
+                  isTop
+                      ? '${remarkedName(item.mid, item.uname!)}\n'
+                      : remarkedName(item.mid, item.uname!),
                   maxLines: 2,
                   textAlign: .center,
                   style: TextStyle(

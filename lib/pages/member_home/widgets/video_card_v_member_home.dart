@@ -84,7 +84,7 @@ class VideoCardVMemberHome extends StatelessWidget {
         onTap: onPushDetail,
         onLongPress: onLongPress,
         onSecondaryTap: PlatformUtils.isMobile ? null : onLongPress,
-        borderRadius: const .all(.circular(12)),
+        borderRadius: const .all(.circular(20)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -101,7 +101,7 @@ class VideoCardVMemberHome extends StatelessWidget {
                         src: videoItem.cover,
                         width: maxWidth,
                         height: maxHeight,
-                        borderRadius: const .vertical(top: .circular(12)),
+                        borderRadius: const .vertical(top: .circular(20)),
                       ),
                       if (videoItem.duration > 0)
                         PBadge(

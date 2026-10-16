@@ -40,10 +40,15 @@ class ActionItem extends StatelessWidget {
     late final primary = !expand && colorScheme.isLight
         ? colorScheme.inversePrimary
         : colorScheme.primary;
+    // Inside a group the selected tile is filled with primary.
+    final selectedFg = expand ? colorScheme.onPrimary : primary;
     Widget child = Icon(
       selectStatus ? selectIcon!.icon! : icon.icon,
-      size: 18,
-      color: selectStatus ? primary : icon.color ?? colorScheme.outline,
+      size: expand ? 20 : 18,
+      color: selectStatus
+          ? selectedFg
+          : icon.color ??
+                (expand ? colorScheme.onSurfaceVariant : colorScheme.outline),
       semanticLabel: semanticsLabel,
     );
 
@@ -65,9 +70,16 @@ class ActionItem extends StatelessWidget {
     }
 
     child = Material(
-      type: .transparency,
+      type: expand ? .canvas : .transparency,
+      color: expand
+          ? selectStatus
+                ? colorScheme.primary
+                : colorScheme.surfaceContainerHighest
+          : null,
+      borderRadius: expand ? const .all(.circular(10)) : null,
+      clipBehavior: expand ? .antiAlias : .none,
       child: InkWell(
-        borderRadius: const .all(.circular(6)),
+        borderRadius: expand ? null : const .all(.circular(6)),
         onTap: _isThumbsUp ? null : onTap,
         onLongPress: _isThumbsUp ? null : onLongPress,
         onSecondaryTap: PlatformUtils.isMobile || _isThumbsUp
@@ -94,9 +106,10 @@ class ActionItem extends StatelessWidget {
       key: hasText ? ValueKey(text!) : null,
       style: TextStyle(
         color: selectStatus
-            ? theme.colorScheme.primary
-            : theme.colorScheme.outline,
-        fontSize: theme.textTheme.labelSmall!.fontSize,
+            ? theme.colorScheme.onPrimary
+            : theme.colorScheme.onSurfaceVariant,
+        fontSize: 12,
+        fontWeight: selectStatus ? FontWeight.w700 : null,
       ),
     );
     if (hasText) {
@@ -108,5 +121,24 @@ class ActionItem extends StatelessWidget {
       );
     }
     return child;
+  }
+}
+
+/// Connected button group: tiles keep tight inner corners while the group
+/// is clipped to a pill, so only the outer ends are fully rounded.
+class ActionGroup extends StatelessWidget {
+  const ActionGroup({super.key, required this.children});
+
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 64,
+      child: ClipRRect(
+        borderRadius: const .all(.circular(32)),
+        child: Row(spacing: 3, children: children),
+      ),
+    );
   }
 }

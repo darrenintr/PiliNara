@@ -32,12 +32,13 @@ class LiveCardVApp extends StatelessWidget {
     );
     return Stack(
       children: [
-        Card(
+        Material(
+          type: .transparency,
           child: InkWell(
             onTap: () => PageUtils.toLiveRoom(item.roomid),
             onLongPress: onLongPress,
             onSecondaryTap: PlatformUtils.isMobile ? null : onLongPress,
-            borderRadius: const .all(.circular(12)),
+            borderRadius: const .all(.circular(Style.radiusXl)),
             child: Column(
               crossAxisAlignment: .start,
               children: [
@@ -51,7 +52,7 @@ class LiveCardVApp extends StatelessWidget {
                           src: showFirstFrame ? item.systemCover : item.cover,
                           width: boxConstraints.maxWidth,
                           height: boxConstraints.maxHeight,
-                          borderRadius: const .vertical(top: .circular(12)),
+                          borderRadius: const .all(.circular(Style.radiusXl)),
                         ),
                         Positioned(
                           left: 0,
@@ -190,6 +191,7 @@ class LiveCardVApp extends StatelessWidget {
       height: 50,
       padding: const EdgeInsets.only(top: 26, left: 10, right: 10),
       decoration: const BoxDecoration(
+        borderRadius: .vertical(bottom: .circular(Style.radiusXl)),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,

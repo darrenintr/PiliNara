@@ -1,3 +1,4 @@
+import 'package:PiliPlus/common/expressive/expressive_colors.dart';
 import 'package:PiliPlus/models/common/badge_type.dart';
 import 'package:PiliPlus/utils/extension/string_ext.dart';
 import 'package:PiliPlus/utils/extension/theme_ext.dart';
@@ -53,10 +54,10 @@ class PBadge extends StatelessWidget {
         bgColor = theme.primary;
         color = theme.onPrimary;
       case PBadgeType.secondary:
-        bgColor = theme.secondaryContainer.withValues(alpha: 0.5);
-        color = theme.onSecondaryContainer;
+        bgColor = theme.tertiaryContainer;
+        color = theme.onTertiaryContainer;
       case PBadgeType.gray:
-        bgColor = Colors.black45;
+        bgColor = ExpressiveColors.thumbScrim;
         color = Colors.white;
       case PBadgeType.error:
         if (theme.isDark) {
@@ -82,10 +83,17 @@ class PBadge extends StatelessWidget {
         color = theme.onSurfaceVariant;
     }
 
-    late EdgeInsets paddingStyle = const .symmetric(vertical: 2, horizontal: 3);
-    final BorderRadius br = size == .small
-        ? const .all(.circular(3))
-        : const .all(.circular(4));
+    // Overlay badges on thumbnails are pills, inline tags are soft squares.
+    final isPill =
+        type == PBadgeType.gray || (isStack && type == PBadgeType.primary);
+    late EdgeInsets paddingStyle = isPill
+        ? const .symmetric(vertical: 3, horizontal: 7)
+        : const .symmetric(vertical: 2, horizontal: 5);
+    final BorderRadius br = isPill
+        ? const .all(.circular(11))
+        : size == .small
+        ? const .all(.circular(5))
+        : const .all(.circular(6));
 
     Widget content = Container(
       padding: padding ?? paddingStyle,

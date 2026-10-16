@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:PiliPlus/common/assets.dart';
+import 'package:PiliPlus/common/expressive/expressive_colors.dart';
+import 'package:PiliPlus/common/expressive/expressive_shapes.dart';
 import 'package:PiliPlus/common/style.dart';
-import 'package:PiliPlus/common/widgets/flutter/list_tile.dart';
 import 'package:PiliPlus/common/widgets/flutter/refresh_indicator.dart';
 import 'package:PiliPlus/common/widgets/image/network_img_layer.dart';
 import 'package:PiliPlus/http/loading_state.dart';
@@ -29,7 +30,7 @@ import 'package:PiliPlus/utils/utils.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:material_ui/material_ui.dart' hide ListTile;
+import 'package:material_ui/material_ui.dart';
 
 class MinePage extends StatefulWidget {
   const MinePage({super.key, this.showBackBtn = false});
@@ -91,93 +92,186 @@ class _MediaPageState extends CommonPageState<MinePage>
     super.build(context);
     final theme = Theme.of(context);
     final secondary = theme.colorScheme.secondary;
-    return Column(
-      children: [
-        Padding(
-          padding: const .symmetric(vertical: 10),
-          child: _buildHeaderActions,
+    return Material(
+      type: .transparency,
+      child: refreshIndicator(
+        key: controller.refreshKey,
+        onRefresh: controller.onRefresh,
+        child: onBuild(
+          ListView(
+            padding: const .only(bottom: 100),
+            physics: const AlwaysScrollableScrollPhysics(),
+            children: [
+              _buildProfilePanel(theme, secondary),
+              const SizedBox(height: 20),
+              _buildActions(theme),
+              for (final card in _mineCards)
+                switch (card) {
+                  MineCardType.history => Obx(
+                    () => controller.historyLoadingState.value is Loading
+                        ? const SizedBox.shrink()
+                        : _buildHistory(theme, secondary),
+                  ),
+                  MineCardType.fav => Obx(
+                    () => controller.loadingState.value is Loading
+                        ? const SizedBox.shrink()
+                        : _buildFav(theme, secondary),
+                  ),
+                  MineCardType.toView => Obx(
+                    () => controller.toViewLoadingState.value is Loading
+                        ? const SizedBox.shrink()
+                        : _buildToView(theme, secondary),
+                  ),
+                },
+            ],
+          ),
         ),
-        Expanded(
-          child: Material(
-            type: .transparency,
-            child: refreshIndicator(
-              key: controller.refreshKey,
-              onRefresh: controller.onRefresh,
-              child: onBuild(
-                ListView(
-                  padding: const .only(bottom: 100),
-                  physics: const AlwaysScrollableScrollPhysics(),
+      ),
+    );
+  }
+
+  /// Rose panel holding the header actions, avatar, name and stats.
+  Widget _buildProfilePanel(ThemeData theme, Color secondary) {
+    final colorScheme = theme.colorScheme;
+    return ClipRRect(
+      borderRadius: const .vertical(bottom: .circular(48)),
+      child: ColoredBox(
+        color: colorScheme.primaryContainer,
+        child: Stack(
+          children: [
+            CornerBlob(
+              shape: ExpressiveShape.sunny8,
+              color: colorScheme.inversePrimary.withValues(alpha: 0.45),
+              size: 280,
+              right: -70,
+              top: -60,
+            ),
+            Padding(
+              padding: const .only(top: 10, bottom: 20),
+              child: Column(
+                mainAxisSize: .min,
+                children: [
+                  _buildHeaderActions,
+                  _buildUserInfo(theme, secondary),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _sectionHeader(
+    ThemeData theme, {
+    required String title,
+    int? count,
+    required VoidCallback onTap,
+    required VoidCallback onRefresh,
+  }) {
+    final colorScheme = theme.colorScheme;
+    return Padding(
+      padding: const .fromLTRB(20, 20, 8, 0),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(text: title),
+                  if (count != null)
+                    TextSpan(
+                      text: '  $count',
+                      style: TextStyle(color: colorScheme.primary),
+                    ),
+                ],
+              ),
+              style: const TextStyle(fontSize: 18, fontWeight: .w800),
+            ),
+          ),
+          IconButton(
+            tooltip: '刷新',
+            onPressed: onRefresh,
+            icon: Icon(
+              Icons.refresh_rounded,
+              size: 20,
+              color: colorScheme.onSurfaceVariant,
+            ),
+          ),
+          TextButton(
+            onPressed: onTap,
+            style: TextButton.styleFrom(
+              padding: const .only(left: 12, right: 4),
+            ),
+            child: const Row(
+              mainAxisSize: .min,
+              children: [
+                Text('全部'),
+                Icon(Icons.chevron_right_rounded, size: 20),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActions(ThemeData theme) {
+    return Padding(
+      padding: const .symmetric(horizontal: 12),
+      child: Row(
+        mainAxisAlignment: .spaceEvenly,
+        children: controller.list.indexed.map((e) {
+          final (index, item) = e;
+          final accent = ExpressiveAccent.of(index + 1, theme.brightness);
+          final shape = ExpressiveShape.of(index);
+          return Flexible(
+            child: InkWell(
+              onTap: item.onTap,
+              borderRadius: const .all(.circular(Style.radiusLg)),
+              child: Padding(
+                padding: const .symmetric(vertical: 6, horizontal: 4),
+                child: Column(
+                  spacing: 8,
+                  mainAxisSize: .min,
                   children: [
-                    _buildUserInfo(theme, secondary),
-                    _buildActions(secondary),
-                    for (final card in _mineCards)
-                      switch (card) {
-                        MineCardType.history => Obx(
-                          () => controller.historyLoadingState.value is Loading
-                              ? const SizedBox.shrink()
-                              : _buildHistory(theme, secondary),
-                        ),
-                        MineCardType.fav => Obx(
-                          () => controller.loadingState.value is Loading
-                              ? const SizedBox.shrink()
-                              : _buildFav(theme, secondary),
-                        ),
-                        MineCardType.toView => Obx(
-                          () => controller.toViewLoadingState.value is Loading
-                              ? const SizedBox.shrink()
-                              : _buildToView(theme, secondary),
-                        ),
-                      },
+                    ShapeBlob(
+                      shape: shape,
+                      color: accent.container,
+                      size: 64,
+                      child: Icon(item.icon, color: accent.onContainer),
+                    ),
+                    Text(
+                      item.title,
+                      maxLines: 1,
+                      style: const TextStyle(fontSize: 12, fontWeight: .w600),
+                    ),
                   ],
                 ),
               ),
             ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildActions(Color primary) {
-    return Row(
-      mainAxisAlignment: .spaceEvenly,
-      children: controller.list
-          .map(
-            (e) => Flexible(
-              child: InkWell(
-                onTap: e.onTap,
-                borderRadius: Style.mdRadius,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 80),
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: Column(
-                      spacing: 6,
-                      mainAxisSize: .min,
-                      mainAxisAlignment: .center,
-                      children: [
-                        Icon(e.icon, color: primary),
-                        Text(
-                          e.title,
-                          style: const TextStyle(fontSize: 13),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
-          .toList(),
+          );
+        }).toList(),
+      ),
     );
   }
 
   Widget get _buildHeaderActions {
     const iconSize = 22.0;
-    const padding = EdgeInsets.all(8);
-    const style = ButtonStyle(tapTargetSize: .shrinkWrap);
+    const padding = EdgeInsets.all(12);
+    final colorScheme = ColorScheme.of(context);
+    final style = ButtonStyle(
+      tapTargetSize: .shrinkWrap,
+      foregroundColor: WidgetStatePropertyAll(colorScheme.onPrimaryContainer),
+      backgroundColor: WidgetStatePropertyAll(
+        colorScheme.surface.withValues(alpha: 0.55),
+      ),
+      shape: const WidgetStatePropertyAll(
+        RoundedRectangleBorder(borderRadius: .all(.circular(Style.radiusMd))),
+      ),
+    );
     return Row(
-      spacing: 5,
+      spacing: 8,
       mainAxisAlignment: .end,
       children: [
         if (widget.showBackBtn)
@@ -259,21 +353,20 @@ class _MediaPageState extends CommonPageState<MinePage>
   }
 
   Widget _buildUserInfo(ThemeData theme, Color secondary) {
-    final style = TextStyle(
-      fontSize: theme.textTheme.titleMedium!.fontSize,
-      fontWeight: FontWeight.bold,
-    );
-    final labelStyle = theme.textTheme.labelMedium!.copyWith(
-      color: theme.colorScheme.outline,
+    final colorScheme = theme.colorScheme;
+    const style = TextStyle(fontSize: 24, fontWeight: FontWeight.w900);
+    final labelStyle = TextStyle(
+      fontSize: 12,
+      color: colorScheme.onSurfaceVariant,
     );
     final coinLabelStyle = TextStyle(
       fontSize: theme.textTheme.labelMedium!.fontSize,
-      color: theme.colorScheme.outline,
+      color: colorScheme.onPrimaryContainer.withValues(alpha: 0.8),
     );
     final coinValStyle = TextStyle(
       fontSize: theme.textTheme.labelMedium!.fontSize,
-      fontWeight: FontWeight.bold,
-      color: secondary,
+      fontWeight: FontWeight.w800,
+      color: colorScheme.onPrimaryContainer,
     );
     return Obx(() {
       final userInfo = controller.userInfo.value;
@@ -302,11 +395,16 @@ class _MediaPageState extends CommonPageState<MinePage>
                     ? Stack(
                         clipBehavior: .none,
                         children: [
-                          NetworkImgLayer(
-                            src: userInfo.face,
-                            type: .avatar,
-                            width: 55,
-                            height: 55,
+                          ShapeBlob(
+                            shape: ExpressiveShape.cookie9,
+                            color: colorScheme.primary,
+                            size: 88,
+                            child: NetworkImgLayer(
+                              src: userInfo.face,
+                              type: .avatar,
+                              width: 64,
+                              height: 64,
+                            ),
                           ),
                           if (isVip)
                             Positioned(
@@ -320,13 +418,18 @@ class _MediaPageState extends CommonPageState<MinePage>
                             ),
                         ],
                       )
-                    : ClipOval(
-                        child: Image.asset(
-                          width: 55,
-                          height: 55,
-                          cacheHeight: 55.cacheSize(context),
-                          Assets.avatarPlaceHolder,
-                          semanticLabel: "默认头像",
+                    : ShapeBlob(
+                        shape: ExpressiveShape.cookie9,
+                        color: colorScheme.primary,
+                        size: 88,
+                        child: ClipOval(
+                          child: Image.asset(
+                            width: 64,
+                            height: 64,
+                            cacheHeight: 64.cacheSize(context),
+                            Assets.avatarPlaceHolder,
+                            semanticLabel: "默认头像",
+                          ),
                         ),
                       ),
                 const SizedBox(width: 16),
@@ -342,11 +445,13 @@ class _MediaPageState extends CommonPageState<MinePage>
                           Flexible(
                             child: Text(
                               userInfo.uname ?? '点击登录',
-                              style: theme.textTheme.titleMedium!.copyWith(
-                                height: 1,
+                              style: TextStyle(
+                                height: 1.1,
+                                fontSize: 24,
+                                fontWeight: FontWeight.w900,
                                 color: isVip && userInfo.vipType == 2
-                                    ? theme.colorScheme.vipColor
-                                    : null,
+                                    ? colorScheme.vipColor
+                                    : colorScheme.onPrimaryContainer,
                               ),
                               maxLines: 1,
                               overflow: .ellipsis,
@@ -390,14 +495,17 @@ class _MediaPageState extends CommonPageState<MinePage>
                       ConstrainedBox(
                         constraints: const BoxConstraints(maxWidth: 225),
                         child: LinearProgressIndicator(
-                          minHeight: 2.25,
+                          minHeight: 4,
+                          borderRadius: const .all(.circular(2)),
                           value: hasLevel
                               ? levelInfo.currentExp! / levelInfo.nextExp!
                               : 0,
-                          backgroundColor: theme.colorScheme.outline.withValues(
-                            alpha: 0.4,
+                          backgroundColor: colorScheme.surface.withValues(
+                            alpha: 0.6,
                           ),
-                          valueColor: AlwaysStoppedAnimation<Color>(secondary),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            colorScheme.primary,
+                          ),
                           stopIndicatorColor: Colors.transparent,
                         ),
                       ),
@@ -408,11 +516,13 @@ class _MediaPageState extends CommonPageState<MinePage>
               ],
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 20),
           Row(
-            mainAxisAlignment: .spaceEvenly,
+            spacing: 4,
             children: [
+              const SizedBox(width: 12),
               _btn(
+                index: 0,
                 count: userStat.dynamicCount,
                 countStyle: style,
                 name: '动态',
@@ -420,6 +530,7 @@ class _MediaPageState extends CommonPageState<MinePage>
                 onTap: () => controller.push('memberDynamics'),
               ),
               _btn(
+                index: 1,
                 count: userStat.following,
                 countStyle: style,
                 name: '关注',
@@ -427,12 +538,14 @@ class _MediaPageState extends CommonPageState<MinePage>
                 onTap: () => controller.push('follow'),
               ),
               _btn(
+                index: 2,
                 count: userStat.follower,
                 countStyle: style,
                 name: '粉丝',
                 labelStyle: labelStyle,
                 onTap: () => controller.push('fan'),
               ),
+              const SizedBox(width: 12),
             ],
           ),
         ],
@@ -440,24 +553,31 @@ class _MediaPageState extends CommonPageState<MinePage>
     });
   }
 
+  /// One tile of the connected stats group.
   Widget _btn({
+    required int index,
     required int? count,
     required TextStyle countStyle,
     required String name,
     required TextStyle? labelStyle,
     required VoidCallback onTap,
   }) {
-    return Flexible(
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: Style.mdRadius,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 80),
-          child: AspectRatio(
-            aspectRatio: 1,
+    final borderRadius = Style.connectedRadius(
+      first: index == 0,
+      last: index == 2,
+      outer: Style.radiusXl,
+    );
+    return Expanded(
+      child: Material(
+        color: ColorScheme.of(context).surface,
+        borderRadius: borderRadius,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: borderRadius,
+          child: SizedBox(
+            height: 72,
             child: Column(
-              spacing: 4,
-              mainAxisSize: .min,
+              spacing: 2,
               mainAxisAlignment: .center,
               children: [
                 Text(
@@ -484,41 +604,11 @@ class _MediaPageState extends CommonPageState<MinePage>
   Widget _buildToView(ThemeData theme, Color secondary) {
     return Column(
       children: [
-        Divider(
-          height: 20,
-          color: theme.dividerColor.withValues(alpha: 0.1),
-        ),
-        ListTile(
+        _sectionHeader(
+          theme,
+          title: '稍后再看',
           onTap: () => Get.toNamed('/later'),
-          dense: true,
-          title: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: '稍后再看  ',
-                    style: TextStyle(
-                      fontSize: theme.textTheme.titleMedium!.fontSize,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  WidgetSpan(
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 18,
-                      color: secondary,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          trailing: IconButton(
-            tooltip: '刷新',
-            onPressed: controller.queryToView,
-            icon: const Icon(Icons.refresh, size: 20),
-          ),
+          onRefresh: controller.queryToView,
         ),
         _buildToViewBody(theme, secondary, controller.toViewLoadingState.value),
       ],
@@ -552,7 +642,9 @@ class _MediaPageState extends CommonPageState<MinePage>
                       child: IconButton(
                         tooltip: '查看更多',
                         style: ButtonStyle(
-                          padding: const WidgetStatePropertyAll(EdgeInsets.zero),
+                          padding: const WidgetStatePropertyAll(
+                            EdgeInsets.zero,
+                          ),
                           backgroundColor: WidgetStatePropertyAll(
                             theme.colorScheme.secondaryContainer.withValues(
                               alpha: 0.5,
@@ -591,41 +683,11 @@ class _MediaPageState extends CommonPageState<MinePage>
   Widget _buildHistory(ThemeData theme, Color secondary) {
     return Column(
       children: [
-        Divider(
-          height: 20,
-          color: theme.dividerColor.withValues(alpha: 0.1),
-        ),
-        ListTile(
+        _sectionHeader(
+          theme,
+          title: '观看记录',
           onTap: () => Get.toNamed('/history'),
-          dense: true,
-          title: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: '观看记录  ',
-                    style: TextStyle(
-                      fontSize: theme.textTheme.titleMedium!.fontSize,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  WidgetSpan(
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 18,
-                      color: secondary,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          trailing: IconButton(
-            tooltip: '刷新',
-            onPressed: controller.queryHistory,
-            icon: const Icon(Icons.refresh, size: 20),
-          ),
+          onRefresh: controller.queryHistory,
         ),
         _buildHistoryBody(
           theme,
@@ -704,49 +766,12 @@ class _MediaPageState extends CommonPageState<MinePage>
   Widget _buildFav(ThemeData theme, Color secondary) {
     return Column(
       children: [
-        Divider(
-          height: 20,
-          color: theme.dividerColor.withValues(alpha: 0.1),
-        ),
-        ListTile(
+        _sectionHeader(
+          theme,
+          title: '我的收藏',
+          count: controller.favFolderCount,
           onTap: () => Get.toNamed('/fav')?.whenComplete(_autoRefresh),
-          dense: true,
-          title: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: '我的收藏  ',
-                    style: TextStyle(
-                      fontSize: theme.textTheme.titleMedium!.fontSize,
-                      fontWeight: .bold,
-                    ),
-                  ),
-                  if (controller.favFolderCount != null)
-                    TextSpan(
-                      text: "${controller.favFolderCount}  ",
-                      style: TextStyle(
-                        fontSize: theme.textTheme.titleSmall!.fontSize,
-                        color: secondary,
-                      ),
-                    ),
-                  WidgetSpan(
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 18,
-                      color: secondary,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          trailing: IconButton(
-            tooltip: '刷新',
-            onPressed: controller.onRefresh,
-            icon: const Icon(Icons.refresh, size: 20),
-          ),
+          onRefresh: controller.onRefresh,
         ),
         _buildFavBody(theme, secondary, controller.loadingState.value),
       ],

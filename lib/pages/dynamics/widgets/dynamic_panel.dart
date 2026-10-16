@@ -1,3 +1,4 @@
+import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/avatars.dart';
 import 'package:PiliPlus/common/widgets/image/image_save.dart';
 import 'package:PiliPlus/http/loading_state.dart';
@@ -86,7 +87,7 @@ class DynamicPanel extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(12, 12, 12, 6),
+              padding: const EdgeInsets.fromLTRB(16, 16, 12, 6),
               child: authorWidget,
             ),
             if (item.modules.moduleDispute case final moduleDispute?)
@@ -126,18 +127,17 @@ class DynamicPanel extends StatelessWidget {
     if (isSave || (isDetail && !isDetailPortraitW)) {
       return child;
     }
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            width: 8,
-            color: theme.dividerColor.withValues(alpha: 0.05),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+      child: ClipRRect(
+        borderRadius: Style.cardRadius,
+        child: ColoredBox(
+          color: theme.colorScheme.surfaceContainerLow,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: child,
           ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 8),
-        child: child,
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:PiliPlus/common/expressive/expressive_shapes.dart';
 import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/custom_height_widget.dart';
 import 'package:PiliPlus/common/widgets/image/network_img_layer.dart';
@@ -48,18 +49,21 @@ class _HomePageState extends CommonPageState<HomePage>
     Widget tabBar;
     if (_homeController.tabs.length > 1) {
       tabBar = Padding(
-        padding: const EdgeInsets.only(top: 4),
+        padding: const EdgeInsets.fromLTRB(12, 8, 12, 4),
         child: SizedBox(
-          height: 42,
+          height: 40,
           width: double.infinity,
           child: TabBar(
             controller: _homeController.tabController,
             tabs: _homeController.tabs.map((e) => Tab(text: e.label)).toList(),
             isScrollable: true,
-            dividerColor: Colors.transparent,
-            dividerHeight: 0,
-            splashBorderRadius: Style.mdRadius,
-            tabAlignment: TabAlignment.center,
+            // Primary pill marks the active home section.
+            indicator: BoxDecoration(
+              color: _colorScheme.primary,
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
+            labelColor: _colorScheme.onPrimary,
+            tabAlignment: TabAlignment.start,
             onTap: (_) {
               feedBack();
               if (!_homeController.tabController.indexIsChanging) {
@@ -105,13 +109,13 @@ class _HomePageState extends CommonPageState<HomePage>
   }
 
   Widget customAppBar() {
-    const padding = EdgeInsets.fromLTRB(14, 6, 14, 0);
+    const padding = EdgeInsets.fromLTRB(16, 8, 16, 0);
     final child = Row(
       children: [
         searchBar(),
         const SizedBox(width: 4),
         msgBadge(_mainController),
-        const SizedBox(width: 8),
+        const SizedBox(width: 4),
         userAvatar(colorScheme: _colorScheme, mainController: _mainController),
       ],
     );
@@ -156,18 +160,15 @@ class _HomePageState extends CommonPageState<HomePage>
   }
 
   Widget searchBar() {
-    const borderRadius = BorderRadius.all(Radius.circular(25));
+    const borderRadius = BorderRadius.all(Radius.circular(28));
     return Expanded(
       child: SizedBox(
-        height: 44,
+        height: 56,
         child: Material(
           borderRadius: borderRadius,
-          color: _colorScheme.onSecondaryContainer.withValues(alpha: 0.05),
+          color: _colorScheme.surfaceContainerHighest,
           child: InkWell(
             borderRadius: borderRadius,
-            splashColor: _colorScheme.primaryContainer.withValues(
-              alpha: 0.3,
-            ),
             onTap: () => Get.toNamed(
               '/search',
               parameters: _homeController.enableSearchWord
@@ -176,24 +177,27 @@ class _HomePageState extends CommonPageState<HomePage>
             ),
             child: Row(
               children: [
-                const SizedBox(width: 14),
+                const SizedBox(width: 20),
                 Icon(
-                  Icons.search_outlined,
-                  color: _colorScheme.onSecondaryContainer,
+                  Icons.search_rounded,
+                  color: _colorScheme.onSurfaceVariant,
                   semanticLabel: '搜索',
                 ),
-                const SizedBox(width: 10),
+                const SizedBox(width: 12),
                 Expanded(
                   child: Obx(
                     () => Text(
                       _homeController.defaultSearch.value,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: _colorScheme.outline),
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: _colorScheme.onSurfaceVariant,
+                      ),
                     ),
                   ),
                 ),
-                const SizedBox(width: 5),
+                const SizedBox(width: 16),
               ],
             ),
           ),
@@ -215,21 +219,24 @@ Widget userAvatar({
           return Stack(
             clipBehavior: .none,
             children: [
-              NetworkImgLayer(
-                type: .avatar,
-                width: 34,
-                height: 34,
-                src: mainController.accountService.face.value,
+              // Avatar framed by the cookie shape.
+              ShapeBlob(
+                shape: ExpressiveShape.cookie9,
+                color: colorScheme.tertiaryContainer,
+                size: 48,
+                child: NetworkImgLayer(
+                  type: .avatar,
+                  width: 34,
+                  height: 34,
+                  src: mainController.accountService.face.value,
+                ),
               ),
               Positioned.fill(
                 child: Material(
                   type: .transparency,
                   child: InkWell(
                     onTap: mainController.toMinePage,
-                    splashColor: colorScheme.primaryContainer.withValues(
-                      alpha: 0.3,
-                    ),
-                    customBorder: const CircleBorder(),
+                    customBorder: ExpressiveShape.cookie9.border,
                   ),
                 ),
               ),
@@ -258,20 +265,20 @@ Widget userAvatar({
             ],
           );
         }
-        return SizedBox(
-          width: 38,
-          height: 38,
+        return SizedBox.square(
+          dimension: 48,
           child: IconButton(
             tooltip: '点击登录',
             style: IconButton.styleFrom(
               padding: .zero,
-              backgroundColor: colorScheme.onInverseSurface,
+              shape: ExpressiveShape.cookie9.border,
+              backgroundColor: colorScheme.tertiaryContainer,
             ),
             onPressed: mainController.toMinePage,
             icon: Icon(
               Icons.person_rounded,
-              size: 22,
-              color: colorScheme.primary,
+              size: 24,
+              color: colorScheme.onTertiaryContainer,
             ),
           ),
         );

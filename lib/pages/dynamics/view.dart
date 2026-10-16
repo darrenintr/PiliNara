@@ -1,3 +1,4 @@
+import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/scroll_physics.dart' show tabBarView;
 import 'package:PiliPlus/http/loading_state.dart';
 import 'package:PiliPlus/models/common/dynamic/dynamics_type.dart';
@@ -32,22 +33,27 @@ class _DynamicsPageState extends CommonPageState<DynamicsPage>
 
   Widget _createDynamicBtn(ColorScheme colorScheme, {bool isRight = true}) =>
       Container(
-        width: 34,
-        height: 34,
+        width: 48,
+        height: 48,
         margin: isRight ? const .only(right: 16) : const .only(left: 16),
         child: IconButton(
           tooltip: '发布动态',
           style: ButtonStyle(
             padding: const WidgetStatePropertyAll(EdgeInsets.zero),
+            shape: const WidgetStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: .all(.circular(Style.radiusMd)),
+              ),
+            ),
             backgroundColor: WidgetStatePropertyAll(
-              colorScheme.secondaryContainer,
+              colorScheme.primaryContainer,
             ),
           ),
           onPressed: () => CreateDynPanel.onCreateDyn(context),
           icon: Icon(
-            Icons.add,
-            size: 18,
-            color: colorScheme.onSecondaryContainer,
+            Icons.edit_rounded,
+            size: 22,
+            color: colorScheme.onPrimaryContainer,
           ),
         ),
       );
@@ -171,36 +177,50 @@ class _DynamicsPageState extends CommonPageState<DynamicsPage>
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
       appBar: PreferredSize(
-        preferredSize: const .fromHeight(50),
+        preferredSize: const .fromHeight(64),
         child: Row(
           children: [
             ?leading,
             Expanded(
-              child: TabBar(
-                dividerHeight: 0,
-                isScrollable: true,
-                tabAlignment: .start,
-                dividerColor: Colors.transparent,
-                labelColor: colorScheme.primary,
-                indicatorColor: colorScheme.primary,
-                controller: _dynamicsController.tabController,
-                unselectedLabelColor: colorScheme.onSurface,
-                labelStyle:
-                    TabBarTheme.of(context).labelStyle
-                        ?.copyWith(fontSize: 13) ??
-                    const TextStyle(fontSize: 13),
-                tabs: DynamicsTabType.values
-                    .map((e) => Tab(text: e.label))
-                    .toList(),
-                onTap: (index) {
-                  if (!_dynamicsController.tabController.indexIsChanging) {
-                    if (Pref.enableCurrentPageRefresh) {
-                      _dynamicsController.toTopAndRefresh();
-                    } else {
-                      _dynamicsController.animateToTop();
+              // Segmented track with a primary pill for the active type.
+              child: Container(
+                height: 48,
+                margin: const .fromLTRB(16, 8, 8, 8),
+                padding: const .all(4),
+                decoration: BoxDecoration(
+                  color: colorScheme.surfaceContainer,
+                  borderRadius: const .all(.circular(Style.radiusXl)),
+                ),
+                child: TabBar(
+                  isScrollable: true,
+                  tabAlignment: .start,
+                  indicator: BoxDecoration(
+                    color: colorScheme.primary,
+                    borderRadius: const .all(.circular(20)),
+                  ),
+                  labelColor: colorScheme.onPrimary,
+                  controller: _dynamicsController.tabController,
+                  labelStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  unselectedLabelStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  tabs: DynamicsTabType.values
+                      .map((e) => Tab(text: e.label))
+                      .toList(),
+                  onTap: (index) {
+                    if (!_dynamicsController.tabController.indexIsChanging) {
+                      if (Pref.enableCurrentPageRefresh) {
+                        _dynamicsController.toTopAndRefresh();
+                      } else {
+                        _dynamicsController.animateToTop();
+                      }
                     }
-                  }
-                },
+                  },
+                ),
               ),
             ),
             actions,

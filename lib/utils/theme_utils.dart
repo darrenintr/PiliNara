@@ -35,7 +35,21 @@ abstract final class ThemeUtils {
     final fontFamily = Pref.appFont;
 
     TextTheme? textTheme;
-    if (fontWeight != .normal) {
+    if (fontWeight == .normal) {
+      // Expressive type: heavy display/headline/title, regular body.
+      textTheme = const TextTheme(
+        displayLarge: TextStyle(fontWeight: FontWeight.w900),
+        displayMedium: TextStyle(fontWeight: FontWeight.w900),
+        displaySmall: TextStyle(fontWeight: FontWeight.w900),
+        headlineLarge: TextStyle(fontWeight: FontWeight.w900),
+        headlineMedium: TextStyle(fontWeight: FontWeight.w800),
+        headlineSmall: TextStyle(fontWeight: FontWeight.w800),
+        titleLarge: TextStyle(fontWeight: FontWeight.w800),
+        titleMedium: TextStyle(fontWeight: FontWeight.w700),
+        titleSmall: TextStyle(fontWeight: FontWeight.w700),
+        labelLarge: TextStyle(fontWeight: FontWeight.w700),
+      );
+    } else {
       final textStyle = TextStyle(fontWeight: fontWeight);
       textTheme = TextTheme(
         displayLarge: textStyle,
@@ -68,24 +82,127 @@ abstract final class ThemeUtils {
         scrolledUnderElevation: 0,
         backgroundColor: colorScheme.surface,
         titleTextStyle: TextStyle(
-          fontSize: 16,
-          fontWeight: fontWeight,
+          fontSize: 18,
+          fontWeight: fontWeight == .normal ? FontWeight.w800 : fontWeight,
           fontFamily: fontFamily,
           color: colorScheme.onSurface,
         ),
       ),
       navigationBarTheme: NavigationBarThemeData(
-        surfaceTintColor: isDark ? colorScheme.surfaceContainerHighest : null,
+        height: 80,
+        elevation: 0,
+        backgroundColor: colorScheme.surfaceContainer,
+        surfaceTintColor: Colors.transparent,
+        indicatorColor: colorScheme.secondaryContainer,
+        indicatorShape: const StadiumBorder(),
+        iconTheme: WidgetStateProperty<IconThemeData?>.fromMap({
+          WidgetState.selected: IconThemeData(
+            color: colorScheme.onSecondaryContainer,
+          ),
+          WidgetState.any: IconThemeData(color: colorScheme.onSurfaceVariant),
+        }),
+        labelTextStyle: WidgetStateProperty<TextStyle?>.fromMap({
+          WidgetState.selected: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w800,
+            fontFamily: fontFamily,
+            color: colorScheme.onSurface,
+          ),
+          WidgetState.any: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            fontFamily: fontFamily,
+            color: colorScheme.onSurfaceVariant,
+          ),
+        }),
+      ),
+      navigationRailTheme: NavigationRailThemeData(
+        backgroundColor: colorScheme.surface,
+        indicatorColor: colorScheme.secondaryContainer,
+        indicatorShape: const StadiumBorder(),
+        selectedIconTheme: IconThemeData(
+          color: colorScheme.onSecondaryContainer,
+        ),
+        unselectedIconTheme: IconThemeData(
+          color: colorScheme.onSurfaceVariant,
+        ),
+        selectedLabelTextStyle: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w800,
+          fontFamily: fontFamily,
+          color: colorScheme.onSurface,
+        ),
+        unselectedLabelTextStyle: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          fontFamily: fontFamily,
+          color: colorScheme.onSurfaceVariant,
+        ),
+      ),
+      tabBarTheme: TabBarThemeData(
+        // Pill tabs: the selected tab sits in a tonal capsule.
+        indicator: BoxDecoration(
+          color: colorScheme.secondaryContainer,
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+        ),
+        indicatorSize: TabBarIndicatorSize.tab,
+        dividerColor: Colors.transparent,
+        dividerHeight: 0,
+        labelColor: colorScheme.onSecondaryContainer,
+        unselectedLabelColor: colorScheme.onSurfaceVariant,
+        labelStyle: TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w800,
+          fontFamily: fontFamily,
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w500,
+          fontFamily: fontFamily,
+        ),
+        labelPadding: const EdgeInsets.symmetric(horizontal: 16),
+        splashBorderRadius: const BorderRadius.all(Radius.circular(20)),
+        overlayColor: WidgetStatePropertyAll(
+          colorScheme.onSurface.withValues(alpha: 0.06),
+        ),
+      ),
+      searchBarTheme: SearchBarThemeData(
+        elevation: const WidgetStatePropertyAll(0),
+        backgroundColor: WidgetStatePropertyAll(
+          colorScheme.surfaceContainerHighest,
+        ),
+        constraints: const BoxConstraints(minHeight: 56),
+        shape: const WidgetStatePropertyAll(StadiumBorder()),
+      ),
+      chipTheme: ChipThemeData(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(Style.radiusSm)),
+        ),
+        side: BorderSide(color: colorScheme.outlineVariant),
+        selectedColor: colorScheme.secondaryContainer,
+        checkmarkColor: colorScheme.onSecondaryContainer,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        elevation: 3,
+        backgroundColor: colorScheme.primaryContainer,
+        foregroundColor: colorScheme.onPrimaryContainer,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(Style.radiusXl)),
+        ),
       ),
       snackBarTheme: SnackBarThemeData(
-        elevation: 20,
-        actionTextColor: colorScheme.primary,
-        closeIconColor: colorScheme.secondary,
-        backgroundColor: colorScheme.secondaryContainer,
+        elevation: 6,
+        behavior: SnackBarBehavior.floating,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(Style.radiusLg)),
+        ),
+        actionTextColor: colorScheme.inversePrimary,
+        closeIconColor: colorScheme.onInverseSurface,
+        backgroundColor: colorScheme.inverseSurface,
         contentTextStyle: TextStyle(
           fontFamily: fontFamily,
           fontWeight: fontWeight,
-          color: colorScheme.onSecondaryContainer,
+          color: colorScheme.onInverseSurface,
         ),
       ),
       popupMenuTheme: PopupMenuThemeData(
@@ -94,7 +211,7 @@ abstract final class ThemeUtils {
         shadowColor: colorScheme.shadow,
         surfaceTintColor: Colors.transparent,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(16)),
+          borderRadius: BorderRadius.all(Radius.circular(Style.radiusLg)),
         ),
         menuPadding: const EdgeInsets.symmetric(vertical: 4),
         labelTextStyle: WidgetStatePropertyAll(
@@ -109,15 +226,19 @@ abstract final class ThemeUtils {
       ),
       listTileTheme: const ListTileThemeData(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderRadius: BorderRadius.all(Radius.circular(Style.radiusLg)),
         ),
         controlAffinity: .leading,
       ),
       cardTheme: CardThemeData(
-        elevation: 1,
+        elevation: 0,
         margin: EdgeInsets.zero,
+        color: colorScheme.surfaceContainerLow,
         shadowColor: Colors.transparent,
-        surfaceTintColor: isDark ? colorScheme.onSurfaceVariant : null,
+        surfaceTintColor: Colors.transparent,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(Style.radiusLg)),
+        ),
       ),
       progressIndicatorTheme: isDark
           ? ProgressIndicatorThemeData(
@@ -129,16 +250,17 @@ abstract final class ThemeUtils {
           : const ProgressIndicatorThemeData(year2023: false),
       dialogTheme: DialogThemeData(
         titleTextStyle: TextStyle(
-          fontSize: 18,
-          fontWeight: fontWeight,
+          fontSize: 22,
+          fontWeight: fontWeight == .normal ? FontWeight.w800 : fontWeight,
           fontFamily: fontFamily,
           color: colorScheme.onSurface,
         ),
-        backgroundColor: colorScheme.surface,
+        backgroundColor: colorScheme.surfaceContainerHigh,
+        shape: const RoundedRectangleBorder(borderRadius: Style.cardRadius),
         constraints: const BoxConstraints(minWidth: 280, maxWidth: 420),
       ),
       bottomSheetTheme: BottomSheetThemeData(
-        backgroundColor: colorScheme.surface,
+        backgroundColor: colorScheme.surfaceContainerLow,
         shape: const RoundedRectangleBorder(
           borderRadius: Style.bottomSheetRadius,
         ),
@@ -148,13 +270,13 @@ abstract final class ThemeUtils {
       tooltipTheme: TooltipThemeData(
         textStyle: TextStyle(
           fontSize: 14,
-          color: Colors.white,
+          color: colorScheme.onInverseSurface,
           fontFamily: fontFamily,
           fontWeight: fontWeight,
         ),
-        decoration: const BoxDecoration(
-          color: Color(0xE6616161), // Colors.grey[700]!.withValues(alpha: 0.9)
-          borderRadius: BorderRadius.all(Radius.circular(4)),
+        decoration: BoxDecoration(
+          color: colorScheme.inverseSurface,
+          borderRadius: const BorderRadius.all(Radius.circular(Style.radiusXs)),
         ),
       ),
       cupertinoOverrideTheme: CupertinoThemeData(
@@ -177,7 +299,11 @@ abstract final class ThemeUtils {
       filledButtonTheme: const FilledButtonThemeData(
         style: ButtonStyle(
           shadowColor: WidgetStatePropertyAll(Colors.transparent),
+          shape: WidgetStatePropertyAll(StadiumBorder()),
         ),
+      ),
+      outlinedButtonTheme: const OutlinedButtonThemeData(
+        style: ButtonStyle(shape: WidgetStatePropertyAll(StadiumBorder())),
       ),
       pageTransitionsTheme: PageTransitionsTheme(
         builders: {

@@ -26,7 +26,7 @@ class LiveCardVFollow extends StatelessWidget {
         onTap: () => PageUtils.toLiveRoom(liveItem.roomid),
         onLongPress: onLongPress,
         onSecondaryTap: PlatformUtils.isMobile ? null : onLongPress,
-        borderRadius: const .all(.circular(12)),
+        borderRadius: const .all(.circular(20)),
         child: Column(
           crossAxisAlignment: .start,
           children: [
@@ -43,7 +43,7 @@ class LiveCardVFollow extends StatelessWidget {
                         src: liveItem.roomCover!,
                         width: maxWidth,
                         height: maxHeight,
-                        borderRadius: const .vertical(top: .circular(12)),
+                        borderRadius: const .vertical(top: .circular(20)),
                       ),
                       Positioned(
                         left: 0,
