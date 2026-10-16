@@ -105,6 +105,7 @@ class VideoCardH extends StatelessWidget {
           clipBehavior: .none,
           children: [
             InkWell(
+              borderRadius: const .all(.circular(Style.radiusLg)),
               onLongPress: onLongPress,
               onSecondaryTap: PlatformUtils.isMobile ? null : onLongPress,
               onTap: onTapWithTransition == null
@@ -177,7 +178,7 @@ class VideoCardH extends StatelessWidget {
                         },
                       ),
                     ),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 12),
                     content(theme, transition),
                   ],
                 ),
@@ -266,6 +267,7 @@ class VideoCardH extends StatelessWidget {
                       fontSize: theme.textTheme.bodyMedium!.fontSize,
                       height: 1.42,
                       letterSpacing: 0.3,
+                      fontWeight: FontWeight.w500,
                       color: isClicked ? theme.colorScheme.outline : null,
                     ),
                     maxLines: 2,
@@ -279,7 +281,7 @@ class VideoCardH extends StatelessWidget {
               style: TextStyle(
                 fontSize: 12,
                 height: 1,
-                color: theme.colorScheme.outline,
+                color: theme.colorScheme.onSurfaceVariant,
                 overflow: .clip,
               ),
             ),
