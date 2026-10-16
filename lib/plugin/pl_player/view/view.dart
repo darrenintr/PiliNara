@@ -2051,6 +2051,7 @@ class _PLVideoPlayerState extends State<PLVideoPlayer>
                           thumbGlowColor: thumbGlowColor,
                           barHeight: 3.5,
                           thumbRadius: 2.5,
+                          isWavy: true,
                         ),
                       ),
                       if (plPlayerController.enableBlock &&

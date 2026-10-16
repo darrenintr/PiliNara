@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io' show Platform;
 import 'dart:math' show max, min;
 
+import 'package:PiliPlus/common/expressive/expressive_colors.dart';
+import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/pip_control_button.dart';
 import 'package:PiliPlus/pages/video/controller.dart';
 import 'package:PiliPlus/plugin/pl_player/controller.dart';
@@ -334,13 +336,14 @@ class PipOverlayService {
     // 旧 controller 仍在路由栈内时，不能完整 onClose：
     // TabController/ScrollController 仍会被旧页面再次使用。
     // 若 controller 已由 GetX 关闭，页面已离栈，此时再执行完整清理。
-    if (shouldResetState && _savedController is VideoDetailController) {
-      final ctrl = _savedController as VideoDetailController;
-      ctrl.isEnteringPip = false;
-      ctrl.cancelBlockListener();
-      if (ctrl.isClosed) {}
-      for (final controller in _savedControllers.values) {
-        _setEnteringPipFlag(controller, false);
+    if (shouldResetState) {
+      if (_savedController case final VideoDetailController ctrl) {
+        ctrl
+          ..isEnteringPip = false
+          ..cancelBlockListener();
+        for (final controller in _savedControllers.values) {
+          _setEnteringPipFlag(controller, false);
+        }
       }
     }
 
@@ -706,7 +709,7 @@ class _PipWidgetState extends State<PipWidget>
       if (isNative) {
         return Positioned.fill(
           child: ColoredBox(
-            color: Colors.black,
+            color: ExpressiveColors.playerSurface,
             child: AbsorbPointer(
               child: widget.videoPlayerBuilder(
                 true,
@@ -737,7 +740,10 @@ class _PipWidgetState extends State<PipWidget>
             miniRect: miniRect,
             progress: progress,
           );
-          final radius = _transition.resolveRadius(base: 8, progress: progress);
+          final radius = _transition.resolveRadius(
+            base: Style.radiusMd,
+            progress: progress,
+          );
           final bool inTransition =
               phase == PipPhase.entering || phase == PipPhase.restoring;
           final bool interactive = phase == PipPhase.active && !_isClosing;
@@ -813,7 +819,7 @@ class _PipWidgetState extends State<PipWidget>
                           width: rect.width,
                           height: rect.height,
                           decoration: BoxDecoration(
-                            color: Colors.black,
+                            color: ExpressiveColors.playerSurface,
                             borderRadius: BorderRadius.circular(radius),
                             boxShadow: [
                               BoxShadow(
@@ -875,9 +881,24 @@ class _PipWidgetState extends State<PipWidget>
                                 if (interactive && _showControls) ...[
                                   Positioned.fill(
                                     child: IgnorePointer(
-                                      child: Container(
-                                        color: Colors.black.withValues(
-                                          alpha: 0.4,
+                                      child: DecoratedBox(
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            colors: [
+                                              Colors.black.withValues(
+                                                alpha: 0.34,
+                                              ),
+                                              Colors.black.withValues(
+                                                alpha: 0.08,
+                                              ),
+                                              Colors.black.withValues(
+                                                alpha: 0.48,
+                                              ),
+                                            ],
+                                            stops: const [0, 0.48, 1],
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -893,7 +914,6 @@ class _PipWidgetState extends State<PipWidget>
                                       onTap: _beginClose,
                                       icon: const Icon(
                                         Icons.close,
-                                        color: Colors.white,
                                         size: 21,
                                       ),
                                     ),
@@ -911,7 +931,6 @@ class _PipWidgetState extends State<PipWidget>
                                       },
                                       icon: const Icon(
                                         Icons.open_in_full,
-                                        color: Colors.white,
                                         size: 19,
                                       ),
                                     ),
@@ -955,7 +974,6 @@ class _PipWidgetState extends State<PipWidget>
                                               },
                                               icon: const Icon(
                                                 Icons.replay_10,
-                                                color: Colors.white,
                                                 size: 22,
                                               ),
                                             ),
@@ -981,6 +999,7 @@ class _PipWidgetState extends State<PipWidget>
                                                       PlayerStatus.playing;
                                               return PipControlButton(
                                                 targetSize: bottomControl,
+                                                isPrimary: true,
                                                 onTap: () {
                                                   _resetHideTimer();
                                                   if (isPlaying) {
@@ -993,7 +1012,6 @@ class _PipWidgetState extends State<PipWidget>
                                                   isPlaying
                                                       ? Icons.pause
                                                       : Icons.play_arrow,
-                                                  color: Colors.white,
                                                   size: 30,
                                                 ),
                                               );
@@ -1031,7 +1049,6 @@ class _PipWidgetState extends State<PipWidget>
                                               },
                                               icon: const Icon(
                                                 Icons.forward_10,
-                                                color: Colors.white,
                                                 size: 22,
                                               ),
                                             ),

@@ -1,3 +1,5 @@
+import 'package:PiliPlus/common/expressive/expressive_colors.dart';
+import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/custom_icon.dart';
 import 'package:PiliPlus/common/widgets/flutter/popup_menu.dart';
 import 'package:PiliPlus/pages/live_room/controller.dart';
@@ -52,11 +54,22 @@ class _BottomControlState extends State<BottomControl> with HeaderMixin {
         bottom: (kToolbarHeight - 30) / 2,
       ),
       child: Material(
-        type: .transparency,
+        color: ExpressiveColors.playerSurface.withValues(alpha: 0.74),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Style.radiusXxl),
+          side: BorderSide(
+            color: ExpressiveColors.dark.outlineVariant.withValues(alpha: 0.34),
+          ),
+        ),
+        clipBehavior: Clip.antiAlias,
         child: Row(
           children: [
-            PlayOrPauseButton(plPlayerController: plPlayerController),
+            PlayOrPauseButton(
+              plPlayerController: plPlayerController,
+              expressive: true,
+            ),
             ComBtn(
+              expressive: true,
               height: 30,
               tooltip: '刷新',
               icon: const Icon(
@@ -68,6 +81,7 @@ class _BottomControlState extends State<BottomControl> with HeaderMixin {
             ),
             const Spacer(),
             ComBtn(
+              expressive: true,
               height: 30,
               tooltip: '屏蔽',
               icon: const Icon(
@@ -95,6 +109,7 @@ class _BottomControlState extends State<BottomControl> with HeaderMixin {
                 final enableShowLiveDanmaku =
                     plPlayerController.enableShowLiveDanmaku.value;
                 return ComBtn(
+                  expressive: true,
                   height: 30,
                   tooltip: "${enableShowLiveDanmaku ? '关闭' : '开启'}弹幕",
                   icon: enableShowLiveDanmaku
@@ -122,6 +137,7 @@ class _BottomControlState extends State<BottomControl> with HeaderMixin {
               },
             ),
             ComBtn(
+              expressive: true,
               height: 30,
               tooltip: '弹幕设置',
               icon: const Icon(
@@ -207,6 +223,7 @@ class _BottomControlState extends State<BottomControl> with HeaderMixin {
             ),
             if (!plPlayerController.isDesktopPip)
               ComBtn(
+                expressive: true,
                 height: 30,
                 tooltip: isFullScreen ? '退出全屏' : '全屏',
                 icon: isFullScreen

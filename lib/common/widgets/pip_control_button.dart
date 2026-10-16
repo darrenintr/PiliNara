@@ -1,3 +1,5 @@
+import 'package:PiliPlus/common/expressive/expressive_colors.dart';
+import 'package:PiliPlus/common/style.dart';
 import 'package:material_ui/material_ui.dart';
 
 /// 小窗控制按钮:固定触控目标 + hover 高亮。
@@ -8,8 +10,8 @@ import 'package:material_ui/material_ui.dart';
 /// - 次要操作(关闭/还原)传小 [targetSize],仅比图标大一圈,降低误触。
 ///
 /// 触控目标由外层布局约束自适应:小窗较窄(竖屏视频/最小缩放)时会被
-/// 约束收缩,不会溢出。桌面鼠标 hover 时显示白色半透明圆角底,与系统
-/// PiP 的 hover 反馈一致,同时直观展示触控范围。
+/// 约束收缩,不会溢出。桌面鼠标 hover 时使用 Expressive 主色回馈,
+/// 同时直观展示触控范围。
 ///
 /// 注意:GestureDetector 默认 deferToChild 下,Padding 空白区不参与命中,
 /// 因此必须 [HitTestBehavior.opaque] 让整个盒子可点——否则触控目标会
@@ -18,12 +20,14 @@ class PipControlButton extends StatefulWidget {
   final Widget icon;
   final VoidCallback? onTap;
   final double targetSize;
+  final bool isPrimary;
 
   const PipControlButton({
     super.key,
     required this.icon,
     required this.onTap,
     this.targetSize = 48,
+    this.isPrimary = false,
   });
 
   @override
@@ -35,6 +39,15 @@ class _PipControlButtonState extends State<PipControlButton> {
 
   @override
   Widget build(BuildContext context) {
+    const colors = ExpressiveColors.dark;
+    final surface = widget.isPrimary
+        ? colors.primaryContainer
+        : colors.surfaceContainerHigh.withValues(alpha: 0.94);
+    final foreground = widget.isPrimary
+        ? _hovering
+              ? colors.onPrimary
+              : colors.onPrimaryContainer
+        : colors.onSurface;
     return MouseRegion(
       onEnter: (_) => setState(() => _hovering = true),
       onExit: (_) => setState(() => _hovering = false),
@@ -44,14 +57,31 @@ class _PipControlButtonState extends State<PipControlButton> {
         child: SizedBox.square(
           dimension: widget.targetSize,
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 120),
-            decoration: BoxDecoration(
+            duration: const Duration(milliseconds: 160),
+            curve: Curves.easeOutCubic,
+            decoration: ShapeDecoration(
               color: _hovering
-                  ? Colors.white.withValues(alpha: 0.15)
-                  : Colors.transparent,
-              borderRadius: BorderRadius.circular(10),
+                  ? widget.isPrimary
+                        ? colors.primary
+                        : colors.primary.withValues(alpha: 0.24)
+                  : surface,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  widget.targetSize >= 40 ? Style.radiusLg : Style.radiusSm,
+                ),
+                side: BorderSide(
+                  color: widget.isPrimary
+                      ? colors.primary.withValues(alpha: 0.46)
+                      : colors.outlineVariant.withValues(alpha: 0.46),
+                ),
+              ),
             ),
-            child: Center(child: widget.icon),
+            child: Center(
+              child: IconTheme.merge(
+                data: IconThemeData(color: foreground),
+                child: widget.icon,
+              ),
+            ),
           ),
         ),
       ),

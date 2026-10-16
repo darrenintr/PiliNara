@@ -1,3 +1,4 @@
+import 'package:PiliPlus/common/expressive/expressive_colors.dart';
 import 'package:material_ui/material_ui.dart';
 
 class ComBtn extends StatelessWidget {
@@ -8,6 +9,7 @@ class ComBtn extends StatelessWidget {
   final double width;
   final double height;
   final String? tooltip;
+  final bool expressive;
 
   const ComBtn({
     super.key,
@@ -18,6 +20,7 @@ class ComBtn extends StatelessWidget {
     this.width = 34,
     this.height = 34,
     this.tooltip,
+    this.expressive = false,
   });
 
   @override
@@ -30,7 +33,25 @@ class ComBtn extends StatelessWidget {
         onLongPress: onLongPress,
         onSecondaryTap: onSecondaryTap,
         behavior: HitTestBehavior.opaque,
-        child: icon,
+        child: Container(
+          alignment: Alignment.center,
+          decoration: expressive
+              ? ShapeDecoration(
+                  color: ExpressiveColors.dark.surfaceContainerHigh.withValues(
+                    alpha: 0.92,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(height / 2),
+                    side: BorderSide(
+                      color: ExpressiveColors.dark.outlineVariant.withValues(
+                        alpha: 0.38,
+                      ),
+                    ),
+                  ),
+                )
+              : null,
+          child: icon,
+        ),
       ),
     );
     if (tooltip != null) {
