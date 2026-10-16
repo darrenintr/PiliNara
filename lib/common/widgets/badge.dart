@@ -84,7 +84,8 @@ class PBadge extends StatelessWidget {
     }
 
     // Overlay badges on thumbnails are pills, inline tags are soft squares.
-    final isPill = type == PBadgeType.gray || type == PBadgeType.primary;
+    final isPill =
+        type == PBadgeType.gray || (isStack && type == PBadgeType.primary);
     late EdgeInsets paddingStyle = isPill
         ? const .symmetric(vertical: 3, horizontal: 7)
         : const .symmetric(vertical: 2, horizontal: 5);

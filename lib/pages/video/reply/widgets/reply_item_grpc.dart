@@ -572,8 +572,8 @@ class ReplyItemGrpc extends StatelessWidget {
       padding: const .only(left: 42, right: 4),
       child: Material(
         animationDuration: .zero,
-        color: colorScheme.onInverseSurface,
-        borderRadius: const .all(.circular(6)),
+        color: colorScheme.surfaceContainer,
+        borderRadius: const .all(.circular(18)),
         child: Column(
           crossAxisAlignment: .stretch,
           children: [
@@ -582,17 +582,17 @@ class ReplyItemGrpc extends StatelessWidget {
                 final EdgeInsets padding;
                 BorderRadius? borderRadius;
                 if (length == 1) {
-                  padding = const .fromLTRB(8, 5, 8, 5);
-                  borderRadius = const .all(.circular(6));
+                  padding = const .fromLTRB(14, 8, 14, 8);
+                  borderRadius = const .all(.circular(18));
                 } else {
                   if (index == 0) {
-                    padding = const .fromLTRB(8, 8, 8, 4);
-                    borderRadius = const .vertical(top: .circular(6));
+                    padding = const .fromLTRB(14, 10, 14, 4);
+                    borderRadius = const .vertical(top: .circular(18));
                   } else if (index == length - 1) {
-                    padding = const .fromLTRB(8, 4, 8, 8);
-                    borderRadius = const .vertical(bottom: .circular(6));
+                    padding = const .fromLTRB(14, 4, 14, 10);
+                    borderRadius = const .vertical(bottom: .circular(18));
                   } else {
-                    padding = const .fromLTRB(8, 4, 8, 4);
+                    padding = const .fromLTRB(14, 4, 14, 4);
                   }
                 }
                 void showMore() => showModalBottomSheet(
@@ -634,7 +634,10 @@ class ReplyItemGrpc extends StatelessWidget {
                               childReply.member.mid.toInt(),
                               childReply.member.name,
                             ),
-                            style: TextStyle(color: colorScheme.primary),
+                            style: TextStyle(
+                              color: colorScheme.primary,
+                              fontWeight: FontWeight.w700,
+                            ),
                             recognizer: NoDeadlineTapGestureRecognizer()
                               ..onTap = () {
                                 feedBack();
@@ -680,12 +683,12 @@ class ReplyItemGrpc extends StatelessWidget {
               InkWell(
                 onTap: () => replyReply?.call(replyItem, null),
                 borderRadius: length == 1
-                    ? const .all(.circular(6))
-                    : const .vertical(bottom: .circular(6)),
+                    ? const .all(.circular(18))
+                    : const .vertical(bottom: .circular(18)),
                 child: Padding(
                   padding: length == 1
-                      ? const .fromLTRB(8, 6, 8, 6)
-                      : const .fromLTRB(8, 5, 8, 8),
+                      ? const .fromLTRB(14, 8, 14, 8)
+                      : const .fromLTRB(14, 5, 14, 10),
                   child: Text.rich(
                     TextSpan(
                       style: const TextStyle(fontSize: 12),
@@ -878,16 +881,19 @@ class ReplyItemGrpc extends StatelessWidget {
             isValid =
                 DurationUtils.parseDuration(matchStr) * 1000 <=
                 ctr.duration.value * 1000;
-            if (kDebugMode) debugPrint('Found AudioController, isValid: $isValid');
+            if (kDebugMode)
+              debugPrint('Found AudioController, isValid: $isValid');
           } catch (_) {
             try {
               final ctr = Get.find<VideoDetailController>(tag: heroTag);
               isValid =
                   DurationUtils.parseDuration(matchStr) * 1000 <=
                   ctr.data.timeLength!;
-              if (kDebugMode) debugPrint('Found VideoDetailController, isValid: $isValid');
+              if (kDebugMode)
+                debugPrint('Found VideoDetailController, isValid: $isValid');
             } catch (e) {
-              if (kDebugMode) debugPrint('No controller found for tag: $heroTag, error: $e');
+              if (kDebugMode)
+                debugPrint('No controller found for tag: $heroTag, error: $e');
             }
           }
           spanChildren.add(
@@ -906,18 +912,24 @@ class ReplyItemGrpc extends StatelessWidget {
                           );
                           SmartDialog.showToast('跳转至：$matchStr');
                           if (kDebugMode) {
-                            debugPrint('Seeking to $duration with tag: $heroTag');
+                            debugPrint(
+                              'Seeking to $duration with tag: $heroTag',
+                            );
                           }
                           try {
                             final ctr = Get.find<AudioController>(tag: heroTag);
-                            if (kDebugMode) debugPrint('Seeking AudioController');
+                            if (kDebugMode)
+                              debugPrint('Seeking AudioController');
                             ctr.seekTo(
                               duration,
                               isSeek: false,
                             );
                           } catch (_) {
-                            final ctr = Get.find<VideoDetailController>(tag: heroTag);
-                            if (kDebugMode) debugPrint('Seeking VideoDetailController');
+                            final ctr = Get.find<VideoDetailController>(
+                              tag: heroTag,
+                            );
+                            if (kDebugMode)
+                              debugPrint('Seeking VideoDetailController');
                             ctr.plPlayerController.seekTo(
                               duration,
                               isSeek: false,

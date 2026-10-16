@@ -1,5 +1,6 @@
+import 'package:PiliPlus/common/expressive/expressive_colors.dart';
+import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/flutter/refresh_indicator.dart';
-import 'package:PiliPlus/common/widgets/image/network_img_layer.dart';
 import 'package:PiliPlus/common/widgets/loading_widget/http_error.dart';
 import 'package:PiliPlus/common/widgets/scaffold/simple_scaffold.dart';
 import 'package:PiliPlus/common/widgets/video_card/video_card_h.dart';
@@ -30,29 +31,40 @@ class _HotPageState extends State<HotPage>
   @override
   bool get wantKeepAlive => true;
 
+  /// Tonal shortcut tile; [accent] picks one of the Expressive accents.
   Widget _buildEntranceItem({
-    required String iconUrl,
+    required IconData icon,
     required String title,
+    required int accent,
     required VoidCallback onTap,
   }) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        spacing: 4,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          NetworkImgLayer(
-            width: 35,
-            height: 35,
-            type: .emote,
-            src: iconUrl,
+    final colors = ExpressiveAccent.of(accent, Theme.brightnessOf(context));
+    return Expanded(
+      child: Material(
+        color: colors.container,
+        borderRadius: const .all(.circular(Style.radiusXl)),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: const .all(.circular(Style.radiusXl)),
+          child: SizedBox(
+            height: 76,
+            child: Column(
+              spacing: 4,
+              mainAxisAlignment: .center,
+              children: [
+                Icon(icon, color: colors.onContainer),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: colors.onContainer,
+                  ),
+                ),
+              ],
+            ),
           ),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 12),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -70,12 +82,13 @@ class _HotPageState extends State<HotPage>
           if (Pref.showHotRcmd)
             SliverToBoxAdapter(
               child: Padding(
-                padding: const .only(left: 12, top: 12, right: 12),
+                padding: const .only(left: 16, top: 12, right: 16),
                 child: Row(
-                  mainAxisAlignment: .spaceEvenly,
+                  spacing: 8,
                   children: [
                     _buildEntranceItem(
-                      iconUrl: 'https://i0.hdslb.com/bfs/archive/a3f11218aaf4521b4967db2ae164ecd3052586b9.png',
+                      icon: Icons.leaderboard_rounded,
+                      accent: 1,
                       title: '排行榜',
                       onTap: () {
                         try {
@@ -97,12 +110,14 @@ class _HotPageState extends State<HotPage>
                       },
                     ),
                     _buildEntranceItem(
-                      iconUrl: 'https://i0.hdslb.com/bfs/archive/552ebe8c4794aeef30ebd1568b59ad35f15e21ad.png',
+                      icon: Icons.calendar_month_rounded,
+                      accent: 2,
                       title: '每周必看',
                       onTap: () => Get.toNamed('/popularSeries'),
                     ),
                     _buildEntranceItem(
-                      iconUrl: 'https://i0.hdslb.com/bfs/archive/3693ec9335b78ca57353ac0734f36a46f3d179a9.png',
+                      icon: Icons.workspace_premium_rounded,
+                      accent: 3,
                       title: '入站必刷',
                       onTap: () => Get.toNamed('/popularPrecious'),
                     ),

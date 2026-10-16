@@ -190,7 +190,7 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
                   ),
                   // 点赞收藏转发 布局样式2
                   if (!isHorizontal) ...[
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
                     VideoSpatialTransition.chrome(
                       child: actionGrid(
                         context,
@@ -438,14 +438,22 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
       if (isSelectable) {
         return SelectionText.rich(
           textSpan,
-          style: const TextStyle(fontSize: 16),
+          style: const TextStyle(
+            fontSize: 18,
+            height: 1.35,
+            fontWeight: FontWeight.w800,
+          ),
         );
       }
       return Text.rich(
         textSpan,
         maxLines: isExpand ? null : 2,
         overflow: isExpand ? null : .ellipsis,
-        style: const TextStyle(fontSize: 16),
+        style: const TextStyle(
+          fontSize: 18,
+          height: 1.35,
+          fontWeight: FontWeight.w800,
+        ),
       );
     }
 
@@ -464,12 +472,13 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
           style: TextButton.styleFrom(
             tapTargetSize: .shrinkWrap,
             visualDensity: const VisualDensity(vertical: -2.8),
+            padding: const .symmetric(horizontal: 16),
             foregroundColor: attr != 0
-                ? colorScheme.outline
-                : colorScheme.onSecondaryContainer,
+                ? colorScheme.onPrimaryContainer
+                : colorScheme.onPrimary,
             backgroundColor: attr != 0
-                ? colorScheme.onInverseSurface
-                : colorScheme.secondaryContainer,
+                ? colorScheme.primaryContainer
+                : colorScheme.primary,
           ),
           child: Text(
             switch (attr) {
@@ -478,9 +487,9 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
               4 || 6 => '已互关',
               128 => '已拉黑',
               -10 => '特别关注',
-              _ => ' 关注 ',
+              _ => '+ 关注',
             },
-            style: const TextStyle(fontSize: 13),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
           ),
         );
       },
@@ -493,89 +502,85 @@ class _UgcIntroPanelState extends State<UgcIntroPanel> {
     UgcIntroController introController,
     VideoStat? stat,
   ) {
-    return SizedBox(
-      height: 48,
-      child: Row(
-        crossAxisAlignment: .start,
-        children: [
-          Obx(
-            () => ActionItem(
-              animation: introController.tripleAnimation,
-              icon: const Icon(FontAwesomeIcons.thumbsUp),
-              selectIcon: const Icon(FontAwesomeIcons.solidThumbsUp),
-              selectStatus: introController.hasLike.value,
-              semanticsLabel: '点赞',
-              text: !isLoading ? NumUtils.numFormat(stat!.like) : null,
-              onStartTriple: introController.onStartTriple,
-              onCancelTriple: introController.onCancelTriple,
-            ),
+    return ActionGroup(
+      children: [
+        Obx(
+          () => ActionItem(
+            animation: introController.tripleAnimation,
+            icon: const Icon(FontAwesomeIcons.thumbsUp),
+            selectIcon: const Icon(FontAwesomeIcons.solidThumbsUp),
+            selectStatus: introController.hasLike.value,
+            semanticsLabel: '点赞',
+            text: !isLoading ? NumUtils.numFormat(stat!.like) : null,
+            onStartTriple: introController.onStartTriple,
+            onCancelTriple: introController.onCancelTriple,
           ),
-          Obx(
-            () => ActionItem(
-              icon: const Icon(FontAwesomeIcons.thumbsDown),
-              selectIcon: const Icon(FontAwesomeIcons.solidThumbsDown),
-              onTap: () => introController.handleAction(
-                introController.actionDislikeVideo,
-              ),
-              selectStatus: introController.hasDislike.value,
-              semanticsLabel: '点踩',
-              text: "点踩",
+        ),
+        Obx(
+          () => ActionItem(
+            icon: const Icon(FontAwesomeIcons.thumbsDown),
+            selectIcon: const Icon(FontAwesomeIcons.solidThumbsDown),
+            onTap: () => introController.handleAction(
+              introController.actionDislikeVideo,
             ),
+            selectStatus: introController.hasDislike.value,
+            semanticsLabel: '点踩',
+            text: "点踩",
           ),
-          Obx(
-            () => ActionItem(
-              animation: introController.tripleAnimation,
-              icon: const Icon(FontAwesomeIcons.b),
-              selectIcon: const Icon(FontAwesomeIcons.b),
-              onTap: introController.actionCoinVideo,
-              selectStatus: introController.hasCoin,
-              semanticsLabel: '投币',
-              text: !isLoading ? NumUtils.numFormat(stat!.coin) : null,
+        ),
+        Obx(
+          () => ActionItem(
+            animation: introController.tripleAnimation,
+            icon: const Icon(FontAwesomeIcons.b),
+            selectIcon: const Icon(FontAwesomeIcons.b),
+            onTap: introController.actionCoinVideo,
+            selectStatus: introController.hasCoin,
+            semanticsLabel: '投币',
+            text: !isLoading ? NumUtils.numFormat(stat!.coin) : null,
+          ),
+        ),
+        Obx(
+          () => ActionItem(
+            animation: introController.tripleAnimation,
+            icon: const Icon(FontAwesomeIcons.star),
+            selectIcon: const Icon(FontAwesomeIcons.solidStar),
+            onTap: () => introController.showFavBottomSheet(context),
+            onLongPress: () => introController.showFavBottomSheet(
+              context,
+              isLongPress: true,
             ),
+            selectStatus: introController.hasFav.value,
+            semanticsLabel: '收藏',
+            text: !isLoading ? NumUtils.numFormat(stat!.favorite) : null,
           ),
-          Obx(
-            () => ActionItem(
-              animation: introController.tripleAnimation,
-              icon: const Icon(FontAwesomeIcons.star),
-              selectIcon: const Icon(FontAwesomeIcons.solidStar),
-              onTap: () => introController.showFavBottomSheet(context),
-              onLongPress: () => introController.showFavBottomSheet(
-                context,
-                isLongPress: true,
-              ),
-              selectStatus: introController.hasFav.value,
-              semanticsLabel: '收藏',
-              text: !isLoading ? NumUtils.numFormat(stat!.favorite) : null,
-            ),
+        ),
+        Obx(
+          () => ActionItem(
+            icon: const Icon(FontAwesomeIcons.clock),
+            selectIcon: const Icon(FontAwesomeIcons.solidClock),
+            onTap: () =>
+                introController.handleAction(introController.viewLater),
+            selectStatus: introController.hasLater.value,
+            semanticsLabel: '再看',
+            text: '再看',
           ),
-          Obx(
-            () => ActionItem(
-              icon: const Icon(FontAwesomeIcons.clock),
-              selectIcon: const Icon(FontAwesomeIcons.solidClock),
-              onTap: () =>
-                  introController.handleAction(introController.viewLater),
-              selectStatus: introController.hasLater.value,
-              semanticsLabel: '再看',
-              text: '再看',
-            ),
-          ),
+        ),
+        ActionItem(
+          icon: const Icon(FontAwesomeIcons.shareFromSquare),
+          onTap: () => introController.actionShareVideo(context),
+          selectStatus: false,
+          semanticsLabel: '分享',
+          text: !isLoading ? NumUtils.numFormat(stat!.share!) : null,
+        ),
+        if (Pref.enableAiChat)
           ActionItem(
-            icon: const Icon(FontAwesomeIcons.shareFromSquare),
-            onTap: () => introController.actionShareVideo(context),
+            icon: const Icon(Icons.auto_awesome),
+            onTap: widget.showAiChatBottomSheet,
             selectStatus: false,
-            semanticsLabel: '分享',
-            text: !isLoading ? NumUtils.numFormat(stat!.share!) : null,
+            semanticsLabel: 'AI分析',
+            text: 'AI',
           ),
-          if (Pref.enableAiChat)
-            ActionItem(
-              icon: const Icon(Icons.auto_awesome),
-              onTap: widget.showAiChatBottomSheet,
-              selectStatus: false,
-              semanticsLabel: 'AI分析',
-              text: 'AI',
-            ),
-        ],
-      ),
+      ],
     );
   }
 
