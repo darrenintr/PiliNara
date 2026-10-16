@@ -86,12 +86,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   PreferredSizeWidget get _buildAppBar => AppBar(
-    shape: Border(
-      bottom: BorderSide(
-        color: theme.dividerColor.withValues(alpha: 0.08),
-        width: 1,
-      ),
-    ),
+    toolbarHeight: 64,
     actions: [
       Obx(
         () => _searchController.showUidBtn.value
@@ -116,18 +111,30 @@ class _SearchPageState extends State<SearchPage> {
       ),
       const SizedBox(width: 10),
     ],
-    title: TextField(
-      autofocus: true,
-      focusNode: _searchController.searchFocusNode,
-      controller: _searchController.controller,
-      textInputAction: TextInputAction.search,
-      onChanged: _searchController.onChange,
-      decoration: InputDecoration(
-        visualDensity: .standard,
-        hintText: _searchController.hintText ?? '搜索',
-        border: InputBorder.none,
+    title: Container(
+      height: 48,
+      padding: const .symmetric(horizontal: 18),
+      alignment: .centerLeft,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerHighest,
+        borderRadius: const .all(.circular(24)),
       ),
-      onSubmitted: (value) => _searchController.submit(),
+      child: TextField(
+        autofocus: true,
+        focusNode: _searchController.searchFocusNode,
+        controller: _searchController.controller,
+        textInputAction: TextInputAction.search,
+        onChanged: _searchController.onChange,
+        style: const TextStyle(fontSize: 16),
+        decoration: InputDecoration(
+          isDense: true,
+          visualDensity: .standard,
+          hintText: _searchController.hintText ?? '搜索',
+          hintStyle: TextStyle(color: theme.colorScheme.onSurfaceVariant),
+          border: InputBorder.none,
+        ),
+        onSubmitted: (value) => _searchController.submit(),
+      ),
     ),
   );
 

@@ -41,7 +41,9 @@ extension ColorExtension on Color {
     // The default brand colour maps to the hand-tuned Expressive tokens
     // instead of a generated scheme.
     if (this == ExpressiveColors.seed) {
-      return brightness.isLight ? ExpressiveColors.light : ExpressiveColors.dark;
+      return brightness.isLight
+          ? ExpressiveColors.light
+          : ExpressiveColors.dark;
     }
     return SeedColorScheme.fromSeeds(
       primaryKey: this,

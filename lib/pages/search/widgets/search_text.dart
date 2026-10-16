@@ -23,8 +23,8 @@ class SearchText extends StatelessWidget {
     this.textColor,
     this.textAlign,
     this.height,
-    this.padding = const .symmetric(horizontal: 11, vertical: 5),
-    this.borderRadius = const .all(.circular(6)),
+    this.padding = const .symmetric(horizontal: 14, vertical: 8),
+    this.borderRadius = const .all(.circular(12)),
   });
 
   @override
@@ -32,7 +32,7 @@ class SearchText extends StatelessWidget {
     late final colorScheme = ColorScheme.of(context);
     final hasLongPress = onLongPress != null;
     return Material(
-      color: bgColor ?? colorScheme.onInverseSurface,
+      color: bgColor ?? colorScheme.surfaceContainerHigh,
       borderRadius: borderRadius,
       child: InkWell(
         onTap: () => onTap?.call(text),
