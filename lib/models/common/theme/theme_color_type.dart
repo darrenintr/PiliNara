@@ -1,7 +1,8 @@
+import 'package:PiliPlus/common/expressive/expressive_colors.dart';
 import 'package:material_ui/material_ui.dart';
 
 const List<({Color color, String label})> colorThemeTypes = [
-  (color: Color(0xFF5CB67B), label: '默认绿'),
+  (color: ExpressiveColors.seed, label: '默认玫瑰'),
   (color: Color(0xFFFF7299), label: '粉红色'),
   (color: Colors.red, label: '红色'),
   (color: Colors.orange, label: '橙色'),

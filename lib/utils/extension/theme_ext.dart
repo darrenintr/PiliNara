@@ -1,3 +1,4 @@
+import 'package:PiliPlus/common/expressive/expressive_colors.dart';
 import 'package:PiliPlus/utils/bili_colors.dart';
 import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:material_ui/material_ui.dart'
@@ -36,12 +37,19 @@ extension ColorExtension on Color {
   ColorScheme asColorSchemeSeed([
     FlexSchemeVariant variant = .material,
     Brightness brightness = .light,
-  ]) => SeedColorScheme.fromSeeds(
-    primaryKey: this,
-    variant: variant,
-    brightness: brightness,
-    useExpressiveOnContainerColors: false,
-  );
+  ]) {
+    // The default brand colour maps to the hand-tuned Expressive tokens
+    // instead of a generated scheme.
+    if (this == ExpressiveColors.seed) {
+      return brightness.isLight ? ExpressiveColors.light : ExpressiveColors.dark;
+    }
+    return SeedColorScheme.fromSeeds(
+      primaryKey: this,
+      variant: variant,
+      brightness: brightness,
+      useExpressiveOnContainerColors: false,
+    );
+  }
 }
 
 extension BrightnessExt on Brightness {

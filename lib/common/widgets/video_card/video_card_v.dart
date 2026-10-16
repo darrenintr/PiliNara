@@ -106,12 +106,13 @@ class VideoCardV extends StatelessWidget {
       builder: (context, transition) => Stack(
         clipBehavior: Clip.none,
         children: [
-          Card(
+          Material(
+            type: .transparency,
             child: InkWell(
               onTap: () => onPushDetail(videoHeroTag: transition.tag),
               onLongPress: onLongPress,
               onSecondaryTap: PlatformUtils.isMobile ? null : onLongPress,
-              borderRadius: const .all(.circular(12)),
+              borderRadius: const .all(.circular(Style.radiusLg)),
               child: Column(
                 crossAxisAlignment: .start,
                 children: [
@@ -125,13 +126,20 @@ class VideoCardV extends StatelessWidget {
                           clipBehavior: Clip.none,
                           children: [
                             transition.wrap(
-                              _buildCover(maxWidth, maxHeight),
-                              borderRadius: const .vertical(top: .circular(12)),
+                              ClipRRect(
+                                borderRadius: const .all(
+                                  .circular(Style.radiusLg),
+                                ),
+                                child: _buildCover(maxWidth, maxHeight),
+                              ),
+                              borderRadius: const .all(
+                                .circular(Style.radiusLg),
+                              ),
                             ),
                             if (videoItem.duration > 0)
                               PBadge(
-                                bottom: 6,
-                                right: 7,
+                                bottom: 8,
+                                right: 8,
                                 size: .small,
                                 type: .gray,
                                 text: DurationUtils.formatDuration(
@@ -186,7 +194,7 @@ class VideoCardV extends StatelessWidget {
     return Expanded(
       child: transition.wrapInfo(
         Padding(
-          padding: const .fromLTRB(6, 5, 6, 5),
+          padding: const .fromLTRB(4, 8, 4, 4),
           child: Column(
             crossAxisAlignment: .start,
             children: [
@@ -195,7 +203,10 @@ class VideoCardV extends StatelessWidget {
                   videoItem.title,
                   maxLines: 2,
                   overflow: .ellipsis,
-                  style: const TextStyle(height: 1.38),
+                  style: const TextStyle(
+                    height: 1.42,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
               videoStat(theme),
@@ -246,7 +257,7 @@ class VideoCardV extends StatelessWidget {
                       style: TextStyle(
                         height: 1.5,
                         fontSize: theme.textTheme.labelMedium!.fontSize,
-                        color: theme.colorScheme.outline,
+                        color: theme.colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ),
