@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io' show Platform;
 import 'dart:math' show max, min;
 
+import 'package:PiliPlus/common/expressive/expressive_colors.dart';
+import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/pip_control_button.dart';
 import 'package:PiliPlus/common/widgets/pip_mini_video_content.dart';
 import 'package:PiliPlus/pages/live_room/controller.dart';
@@ -564,7 +566,7 @@ class _LivePipWidgetState extends State<LivePipWidget>
       if (isNative) {
         return Positioned.fill(
           child: ColoredBox(
-            color: Colors.black,
+            color: ExpressiveColors.playerSurface,
             child: AbsorbPointer(
               child: PipMiniVideoContent(
                 plPlayerController: widget.plPlayerController,
@@ -594,7 +596,10 @@ class _LivePipWidgetState extends State<LivePipWidget>
             miniRect: miniRect,
             progress: progress,
           );
-          final radius = _transition.resolveRadius(base: 8, progress: progress);
+          final radius = _transition.resolveRadius(
+            base: Style.radiusMd,
+            progress: progress,
+          );
           final bool inTransition =
               phase == PipPhase.entering || phase == PipPhase.restoring;
           final bool interactive = phase == PipPhase.active && !_isClosing;
@@ -670,7 +675,7 @@ class _LivePipWidgetState extends State<LivePipWidget>
                           width: rect.width,
                           height: rect.height,
                           decoration: BoxDecoration(
-                            color: Colors.black,
+                            color: ExpressiveColors.playerSurface,
                             borderRadius: BorderRadius.circular(radius),
                             boxShadow: [
                               BoxShadow(
@@ -733,9 +738,24 @@ class _LivePipWidgetState extends State<LivePipWidget>
                                 if (interactive && _showControls) ...[
                                   Positioned.fill(
                                     child: IgnorePointer(
-                                      child: Container(
-                                        color: Colors.black.withValues(
-                                          alpha: 0.4,
+                                      child: DecoratedBox(
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            colors: [
+                                              Colors.black.withValues(
+                                                alpha: 0.34,
+                                              ),
+                                              Colors.black.withValues(
+                                                alpha: 0.08,
+                                              ),
+                                              Colors.black.withValues(
+                                                alpha: 0.48,
+                                              ),
+                                            ],
+                                            stops: const [0, 0.48, 1],
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -751,7 +771,6 @@ class _LivePipWidgetState extends State<LivePipWidget>
                                       onTap: _beginClose,
                                       icon: const Icon(
                                         Icons.close,
-                                        color: Colors.white,
                                         size: 21,
                                       ),
                                     ),
@@ -769,7 +788,6 @@ class _LivePipWidgetState extends State<LivePipWidget>
                                       },
                                       icon: const Icon(
                                         Icons.open_in_full,
-                                        color: Colors.white,
                                         size: 18,
                                       ),
                                     ),
@@ -800,6 +818,7 @@ class _LivePipWidgetState extends State<LivePipWidget>
                                                   PlayerStatus.playing;
                                               return PipControlButton(
                                                 targetSize: bottomControl,
+                                                isPrimary: true,
                                                 onTap: () {
                                                   _resetHideTimer();
                                                   if (isPlaying) {
@@ -814,16 +833,14 @@ class _LivePipWidgetState extends State<LivePipWidget>
                                                   isPlaying
                                                       ? Icons.pause
                                                       : Icons.play_arrow,
-                                                  color: Colors.white,
                                                   size: 30,
                                                 ),
                                               );
                                             }),
                                           ),
                                         ),
-                                        // 刷新:直播卡死自救;低频操作降为
-                                        // 70% 白(medium-emphasis),平衡主键
-                                        // 居中后偏右的视觉重量
+                                        // 刷新:直播卡死自救;次要色階保持低調,
+                                        // 平衡主鍵居中後偏右的視覺重量
                                         Expanded(
                                           child: Center(
                                             child: PipControlButton(
@@ -831,7 +848,6 @@ class _LivePipWidgetState extends State<LivePipWidget>
                                               onTap: _onRefresh,
                                               icon: const Icon(
                                                 Icons.refresh,
-                                                color: Colors.white70,
                                                 size: 22,
                                               ),
                                             ),

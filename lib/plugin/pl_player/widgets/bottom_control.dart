@@ -107,6 +107,7 @@ class BottomControl extends StatelessWidget {
                         onHoverEnd: isDesktop
                             ? controller.onDesktopProgressHoverEnd
                             : null,
+                        isWavy: true,
                       ),
                     ),
                     if (controller.enableBlock &&

@@ -38,6 +38,7 @@ class ProgressBar extends LeafRenderObjectWidget {
     this.onHoverUpdate,
     this.onHoverEnd,
     this.barHeight = 5.0,
+    this.isWavy = false,
     required this.baseBarColor,
     required this.progressBarColor,
     required this.bufferedBarColor,
@@ -132,6 +133,10 @@ class ProgressBar extends LeafRenderObjectWidget {
   /// The vertical thickness of the progress bar.
   final double barHeight;
 
+  /// Paints the track as a low-amplitude wave while keeping the same
+  /// drag, hover, and seek interaction as a standard progress bar.
+  final bool isWavy;
+
   /// The color of the progress bar before playback has started.
   ///
   /// By default it is a transparent version of your theme's primary color.
@@ -203,6 +208,7 @@ class ProgressBar extends LeafRenderObjectWidget {
       onHoverUpdate: onHoverUpdate,
       onHoverEnd: onHoverEnd,
       barHeight: barHeight,
+      isWavy: isWavy,
       baseBarColor: baseBarColor,
       progressBarColor: progressBarColor,
       bufferedBarColor: bufferedBarColor,
@@ -232,6 +238,7 @@ class ProgressBar extends LeafRenderObjectWidget {
       ..onHoverUpdate = onHoverUpdate
       ..onHoverEnd = onHoverEnd
       ..barHeight = barHeight
+      ..isWavy = isWavy
       ..baseBarColor = baseBarColor
       ..progressBarColor = progressBarColor
       ..bufferedBarColor = bufferedBarColor
@@ -300,6 +307,15 @@ class ProgressBar extends LeafRenderObjectWidget {
         ),
       )
       ..add(DoubleProperty('barHeight', barHeight))
+      ..add(
+        FlagProperty(
+          'isWavy',
+          value: isWavy,
+          ifTrue: 'true',
+          ifFalse: 'false',
+          showName: true,
+        ),
+      )
       ..add(ColorProperty('baseBarColor', baseBarColor))
       ..add(ColorProperty('progressBarColor', progressBarColor))
       ..add(ColorProperty('bufferedBarColor', bufferedBarColor))
@@ -387,6 +403,7 @@ class RenderProgressBar extends RenderBox implements MouseTrackerAnnotation {
     ThumbHoverCallback? onHoverUpdate,
     VoidCallback? onHoverEnd,
     required this._barHeight,
+    bool isWavy = false,
     required this._baseBarColor,
     required this._progressBarColor,
     required this._bufferedBarColor,
@@ -402,6 +419,8 @@ class RenderProgressBar extends RenderBox implements MouseTrackerAnnotation {
        _onHoverStartUserCallback = onHoverStart,
        _onHoverUpdateUserCallback = onHoverUpdate,
        _onHoverEndUserCallback = onHoverEnd,
+       // ignore: prefer_initializing_formals
+       _isWavy = isWavy,
        _thumbRadius = thumbRadius,
        // ignore: prefer_initializing_formals
        _minHeight = minHeight,
@@ -666,7 +685,15 @@ class RenderProgressBar extends RenderBox implements MouseTrackerAnnotation {
   set barHeight(double value) {
     if (_barHeight == value) return;
     _barHeight = value;
-    markNeedsPaint();
+    markNeedsLayout();
+  }
+
+  bool get isWavy => _isWavy;
+  bool _isWavy;
+  set isWavy(bool value) {
+    if (_isWavy == value) return;
+    _isWavy = value;
+    markNeedsLayout();
   }
 
   /// The color of the progress bar before any playing or buffering.
@@ -793,7 +820,13 @@ class RenderProgressBar extends RenderBox implements MouseTrackerAnnotation {
   }
 
   double _heightWhenNoLabels() {
-    return max(_minHeight ?? 0, max(2 * _thumbRadius, _barHeight));
+    final waveHeight = _isWavy
+        ? 2 * (_thumbRadius + min(_barHeight * 0.7, 1.8))
+        : 0.0;
+    return max(
+      _minHeight ?? 0,
+      max(waveHeight, max(2 * _thumbRadius, _barHeight)),
+    );
   }
 
   @override
@@ -874,7 +907,24 @@ class RenderProgressBar extends RenderBox implements MouseTrackerAnnotation {
     final dy = availableSize.height / 2;
     final startPoint = Offset(capRadius, dy);
     final endPoint = Offset(dx, dy);
-    canvas.drawLine(startPoint, endPoint, baseBarPaint);
+    if (!_isWavy) {
+      canvas.drawLine(startPoint, endPoint, baseBarPaint);
+      return;
+    }
+
+    // Keep one shared phase for the base, buffered, and played portions so
+    // the layers join cleanly while the thumb moves over the wavy track.
+    const waveLength = 34.0;
+    const step = 3.0;
+    final amplitude = min(_barHeight * 0.7, 1.8);
+    final path = Path()..moveTo(startPoint.dx, startPoint.dy);
+    for (var x = startPoint.dx + step; x < endPoint.dx; x += step) {
+      final phase = (x - startPoint.dx) * 2 * pi / waveLength;
+      path.lineTo(x, dy + sin(phase) * amplitude);
+    }
+    final phase = (endPoint.dx - startPoint.dx) * 2 * pi / waveLength;
+    path.lineTo(endPoint.dx, dy + sin(phase) * amplitude);
+    canvas.drawPath(path, baseBarPaint);
   }
 
   void _drawThumb(Canvas canvas, Size localSize) {
@@ -885,7 +935,14 @@ class RenderProgressBar extends RenderBox implements MouseTrackerAnnotation {
     if (!_thumbCanPaintOutsideBar) {
       thumbDx = thumbDx.clamp(_thumbRadius, localSize.width - _thumbRadius);
     }
-    final center = Offset(thumbDx, localSize.height / 2);
+    var thumbDy = localSize.height / 2;
+    if (_isWavy) {
+      const waveLength = 34.0;
+      final amplitude = min(_barHeight * 0.7, 1.8);
+      final phase = (thumbDx - barCapRadius) * 2 * pi / waveLength;
+      thumbDy += sin(phase) * amplitude;
+    }
+    final center = Offset(thumbDx, thumbDy);
     if (_userIsDraggingThumb && _paintThumbGlow) {
       final thumbGlowPaint = Paint()..color = thumbGlowColor;
       canvas.drawCircle(center, thumbGlowRadius, thumbGlowPaint);

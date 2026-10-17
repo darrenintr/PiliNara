@@ -1,6 +1,7 @@
 import 'dart:io' show Platform;
 import 'dart:math' as math;
 
+import 'package:PiliPlus/common/expressive/expressive_colors.dart';
 import 'package:PiliPlus/common/style.dart';
 import 'package:PiliPlus/common/widgets/draggable_sheet/dyn.dart';
 import 'package:PiliPlus/common/widgets/flutter/popup_menu.dart';
@@ -116,16 +117,27 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
 
     const btnHeight = 30.0;
 
-    return Padding(
-      padding: const .only(
+    return Container(
+      margin: const .only(
         left: 14,
         right: 14,
         top: (kToolbarHeight - btnHeight) / 2,
       ),
+      decoration: ShapeDecoration(
+        color: ExpressiveColors.playerSurface.withValues(alpha: 0.74),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Style.radiusXxl),
+          side: BorderSide(
+            color: ExpressiveColors.dark.outlineVariant.withValues(alpha: 0.34),
+          ),
+        ),
+      ),
+      clipBehavior: Clip.antiAlias,
       child: Row(
         children: [
           if (isFullScreen || plPlayerController.isDesktopPip)
             ComBtn(
+              expressive: true,
               height: btnHeight,
               tooltip: '返回',
               icon: const Icon(FontAwesomeIcons.arrowLeft, size: 15),
@@ -144,6 +156,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
             Obx(() {
               final isAlwaysOnTop = plPlayerController.isAlwaysOnTop.value;
               return ComBtn(
+                expressive: true,
                 height: btnHeight,
                 tooltip: '${isAlwaysOnTop ? '取消' : ''}置顶',
                 icon: isAlwaysOnTop
@@ -162,6 +175,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
             }),
           if (isFullScreen || PlatformUtils.isDesktop)
             ComBtn(
+              expressive: true,
               height: btnHeight,
               tooltip: '发弹幕',
               icon: const Icon(
@@ -173,6 +187,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
             ),
           if (Platform.isAndroid || (PlatformUtils.isDesktop && !isFullScreen))
             ComBtn(
+              expressive: true,
               height: btnHeight,
               tooltip: '画中画',
               onTap: () {
@@ -192,6 +207,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
             ),
           if (showCastButton)
             ComBtn(
+              expressive: true,
               height: 30,
               tooltip: '投屏',
               onTap: liveController.onCast,
@@ -203,6 +219,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
             ),
           Obx(
             () => ComBtn(
+              expressive: true,
               height: btnHeight,
               tooltip: '仅播放音频',
               onTap: () {
@@ -229,6 +246,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
               final continuePlayInBackground =
                   plPlayerController.continuePlayInBackground.value;
               return ComBtn(
+                expressive: true,
                 height: btnHeight,
                 tooltip: '${continuePlayInBackground ? '关闭' : ''}后台播放',
                 onTap: plPlayerController.setContinuePlayInBackground,
@@ -246,6 +264,7 @@ class _LiveHeaderControlState extends State<LiveHeaderControl>
               );
             }),
           ComBtn(
+            expressive: true,
             height: btnHeight,
             tooltip: '定时关闭',
             onTap: () => shutdownTimerService.showScheduleExitDialog(

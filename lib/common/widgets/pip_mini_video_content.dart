@@ -1,3 +1,4 @@
+import 'package:PiliPlus/common/expressive/expressive_colors.dart';
 import 'package:PiliPlus/plugin/pl_player/controller.dart';
 import 'package:PiliPlus/services/pip_transition_coordinator.dart';
 import 'package:material_ui/material_ui.dart';
@@ -30,7 +31,7 @@ class PipMiniVideoContent extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         ColoredBox(
-          color: Colors.black,
+          color: ExpressiveColors.playerSurface,
           child: Obx(() {
             final videoController = plPlayerController.videoController;
             if (videoController == null) {
