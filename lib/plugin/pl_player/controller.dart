@@ -32,6 +32,7 @@ import 'package:PiliPlus/plugin/pl_player/models/play_status.dart';
 import 'package:PiliPlus/plugin/pl_player/models/speed_lock_hint.dart';
 import 'package:PiliPlus/plugin/pl_player/models/video_fit_type.dart';
 import 'package:PiliPlus/plugin/pl_player/utils/fullscreen.dart';
+import 'package:PiliPlus/services/btr_media_proxy.dart';
 import 'package:PiliPlus/services/live_pip_overlay_service.dart';
 import 'package:PiliPlus/services/pip_overlay_service.dart';
 import 'package:PiliPlus/services/service_locator.dart';
@@ -1144,6 +1145,15 @@ class PlPlayerController with BlockConfigMixin, AudioNormalizationMixin {
       if (isAnim && superResolutionType.value != .disable) {
         await setShader();
       }
+    }
+
+    if (!isLive && dataSource is NetworkSource) {
+      dataSource = await BtrMediaProxy.instance.wrapSource(
+        dataSource,
+        enabled: Pref.enableBtrAcceleration,
+        audioEnabled: Pref.btrAudioAcceleration,
+        threadCount: Pref.btrThreadCount,
+      );
     }
 
     final Map<String, String> extras = {

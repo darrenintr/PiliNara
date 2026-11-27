@@ -503,6 +503,17 @@ abstract final class Pref {
     return value is String && value.isNotEmpty ? value : null;
   }
 
+  static bool get enableBtrAcceleration =>
+      _setting.get(SettingBoxKey.enableBtrAcceleration, defaultValue: false);
+
+  static bool get btrAudioAcceleration =>
+      _setting.get(SettingBoxKey.btrAudioAcceleration, defaultValue: true);
+
+  static int get btrThreadCount {
+    final value = _setting.get(SettingBoxKey.btrThreadCount, defaultValue: 8);
+    return value is int && value > 0 ? value : 8;
+  }
+
   static String get banWordForRecommend =>
       _setting.get(SettingBoxKey.banWordForRecommend, defaultValue: '');
 
