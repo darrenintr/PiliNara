@@ -504,7 +504,7 @@ abstract final class Pref {
   }
 
   static bool get enableBtrAcceleration =>
-      _setting.get(SettingBoxKey.enableBtrAcceleration, defaultValue: false);
+      _setting.get(SettingBoxKey.enableBtrAcceleration, defaultValue: true);
 
   static bool get btrAudioAcceleration =>
       _setting.get(SettingBoxKey.btrAudioAcceleration, defaultValue: true);

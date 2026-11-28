@@ -20,20 +20,26 @@ final class BtrMediaProxy {
     this._enabledOverride,
     this._threadCountOverride,
     this._allowAnyHost = false,
+    this._candidatesOverride,
   });
 
   static final BtrMediaProxy instance = BtrMediaProxy._();
 
   @visibleForTesting
-  factory BtrMediaProxy.testing({int threadCount = 4}) => BtrMediaProxy._(
+  factory BtrMediaProxy.testing({
+    int threadCount = 4,
+    List<Uri> Function(Uri source)? candidatesOverride,
+  }) => BtrMediaProxy._(
     enabledOverride: true,
     threadCountOverride: threadCount,
     allowAnyHost: true,
+    candidatesOverride: candidatesOverride,
   );
 
   final bool? _enabledOverride;
   final int? _threadCountOverride;
   final bool _allowAnyHost;
+  final List<Uri> Function(Uri source)? _candidatesOverride;
 
   static const int _chunkSize = 256 * 1024;
   static const int _maxChunkAttempts = 4;
@@ -194,9 +200,12 @@ final class BtrMediaProxy {
         await response.close();
         return;
       }
-      var candidates = BtrRangeUtils.buildCandidateUrls(rawSource);
+      final source = Uri.parse(rawSource);
+      var candidates =
+          _candidatesOverride?.call(source) ??
+          BtrRangeUtils.buildCandidateUrls(rawSource);
       if (candidates.isEmpty && _allowAnyHost) {
-        candidates = [Uri.parse(rawSource)];
+        candidates = [source];
       }
       if (candidates.isEmpty) {
         response.statusCode = HttpStatus.badRequest;
@@ -205,7 +214,7 @@ final class BtrMediaProxy {
       }
       final session = _BtrDownloadSession(
         proxy: this,
-        source: Uri.parse(rawSource),
+        source: source,
         candidates: candidates,
         isAudio: request.uri.queryParameters['kind'] == 'audio',
         threadCount:
@@ -233,6 +242,14 @@ final class BtrMediaProxy {
     }
   }
 
+  List<Uri> _orderedCandidates(List<Uri> candidates) {
+    return List<Uri>.of(candidates)..sort((a, b) {
+      final scoreA = _hostStats[a.host]?.score ?? 0;
+      final scoreB = _hostStats[b.host]?.score ?? 0;
+      return scoreB.compareTo(scoreA);
+    });
+  }
+
   Uri _selectCandidate(
     List<Uri> candidates,
     int assignment,
@@ -241,12 +258,7 @@ final class BtrMediaProxy {
     if (candidates.length == 1) {
       return candidates.first;
     }
-    final ordered = List<Uri>.of(candidates)
-      ..sort((a, b) {
-        final scoreA = _hostStats[a.host]?.score ?? 0;
-        final scoreB = _hostStats[b.host]?.score ?? 0;
-        return scoreB.compareTo(scoreA);
-      });
+    final ordered = _orderedCandidates(candidates);
     // 节点尚无测速结果时保持轮转，先完成测速；之后也保留轮转偏移，让所有
     // 快节点都能分到分片，而不是把全部并发压到单一 host。
     final offset = (assignment + attempt) % ordered.length;
@@ -329,6 +341,29 @@ final class BtrMediaProxy {
       watch.stop();
     }
   }
+}
+
+Future<T> _firstSuccess<T>(List<Future<T>> futures) {
+  var remaining = futures.length;
+  Object? lastError;
+  final completer = Completer<T>();
+  for (final future in futures) {
+    future.then(
+      (value) {
+        if (!completer.isCompleted) {
+          completer.complete(value);
+        }
+      },
+      onError: (Object error) {
+        lastError = error;
+        remaining--;
+        if (remaining == 0 && !completer.isCompleted) {
+          completer.completeError(lastError ?? StateError('并行请求全部失败'));
+        }
+      },
+    );
+  }
+  return completer.future;
 }
 
 final class _BtrContentRange {
@@ -666,6 +701,17 @@ final class _BtrDownloadSession {
 
   Future<_BtrChunkResult> _downloadChunkWithRetry(int start, int end) async {
     Object? lastError;
+    if (start == _baseStart && candidates.length > 1) {
+      try {
+        return await _downloadFirstChunkRaced(start, end);
+      } catch (e) {
+        if (e is _BtrAbortException) {
+          rethrow;
+        }
+        lastError = e;
+      }
+    }
+
     final attempts = math.min(
       BtrMediaProxy._maxChunkAttempts,
       math.max(2, candidates.length),
@@ -700,5 +746,62 @@ final class _BtrDownloadSession {
       }
     }
     throw lastError ?? StateError('BTR 分片下载失败');
+  }
+
+  Future<_BtrChunkResult> _downloadFirstChunkRaced(int start, int end) {
+    final laneCount = math.min(3, candidates.length);
+    final ordered = proxy._orderedCandidates(candidates);
+    final raceCandidates = <Uri>[source];
+    for (final candidate in ordered) {
+      if (raceCandidates.length == laneCount) {
+        break;
+      }
+      if (candidate.host != source.host || candidate.port != source.port) {
+        raceCandidates.add(candidate);
+      }
+    }
+    final lanes = <Future<_BtrChunkResult>>[];
+    final laneTokens = <_BtrAbortToken>[];
+    for (var lane = 0; lane < raceCandidates.length; lane++) {
+      final laneIndex = lane;
+      final candidate = raceCandidates[lane];
+      final laneToken = _BtrAbortToken();
+      laneTokens.add(laneToken);
+      void cancelLane() => laneToken.cancel();
+      _abortToken.addListener(cancelLane);
+      lanes.add(
+        () async {
+          try {
+            final result = await proxy._downloadSingleRange(
+              candidate,
+              start,
+              end,
+              laneToken,
+            );
+            proxy._recordSuccess(
+              candidate,
+              result.bytes.length,
+              result.elapsed,
+            );
+            return result;
+          } catch (e) {
+            if (e is! _BtrAbortException) {
+              proxy._recordFailure(candidate);
+            }
+            rethrow;
+          } finally {
+            _abortToken.removeListener(cancelLane);
+          }
+        }().then((result) {
+          for (var other = 0; other < laneTokens.length; other++) {
+            if (other != laneIndex) {
+              laneTokens[other].cancel();
+            }
+          }
+          return result;
+        }),
+      );
+    }
+    return _firstSuccess(lanes);
   }
 }

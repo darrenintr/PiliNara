@@ -80,9 +80,9 @@ List<SettingsModel> get videoSettings => [
   const SwitchModel(
     title: '线程撕裂者加速',
     leading: Icon(Icons.bolt_outlined),
-    subtitle: '本地代理将视频 Range 分片并行分配到多个 CDN 节点，适合海外高码率卡顿；异常时可关闭',
+    subtitle: '默认开启。本地代理将视频 Range 分片并行分配到多个 CDN 节点，起播首分片会多节点竞速；异常时可关闭',
     setKey: SettingBoxKey.enableBtrAcceleration,
-    defaultVal: false,
+    defaultVal: true,
   ),
   NormalModel(
     title: '线程撕裂者线程数',
