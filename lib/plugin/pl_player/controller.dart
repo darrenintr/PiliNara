@@ -32,6 +32,7 @@ import 'package:PiliPlus/plugin/pl_player/models/play_status.dart';
 import 'package:PiliPlus/plugin/pl_player/models/speed_lock_hint.dart';
 import 'package:PiliPlus/plugin/pl_player/models/video_fit_type.dart';
 import 'package:PiliPlus/plugin/pl_player/utils/fullscreen.dart';
+import 'package:PiliPlus/services/btr_media_proxy.dart';
 import 'package:PiliPlus/services/live_pip_overlay_service.dart';
 import 'package:PiliPlus/services/pip_overlay_service.dart';
 import 'package:PiliPlus/services/service_locator.dart';
@@ -1146,6 +1147,15 @@ class PlPlayerController with BlockConfigMixin, AudioNormalizationMixin {
       }
     }
 
+    if (!isLive && dataSource is NetworkSource) {
+      dataSource = await BtrMediaProxy.instance.wrapSource(
+        dataSource,
+        enabled: Pref.enableBtrAcceleration,
+        audioEnabled: Pref.btrAudioAcceleration,
+        threadCount: Pref.btrThreadCount,
+      );
+    }
+
     final Map<String, String> extras = {
       if (dataSource is FileSource)
         'cache': 'no'
@@ -1361,11 +1371,9 @@ class PlPlayerController with BlockConfigMixin, AudioNormalizationMixin {
                   final customHost = VideoUtils.customCDNUrl;
                   SmartDialog.showToast(
                     customHost == null
-                        ? '视频链接打开失败，重试中'
-                        : '视频链接打开失败，重试中\n当前自定义CDN节点：$customHost，持续失败可尝试更换或清除',
-                    displayTime: customHost == null
-                        ? const Duration(milliseconds: 500)
-                        : const Duration(milliseconds: 3000),
+                        ? '视频链接打开失败，正在重试；持续失败请在播放器菜单切换 CDN'
+                        : '视频链接打开失败，正在重试\n当前自定义CDN节点：$customHost，持续失败可尝试更换或清除',
+                    displayTime: const Duration(milliseconds: 3000),
                   );
                   refreshPlayer();
                 }

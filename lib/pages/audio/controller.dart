@@ -31,6 +31,7 @@ import 'package:PiliPlus/pages/video/introduction/ugc/widgets/triple_mixin.dart'
 import 'package:PiliPlus/plugin/pl_player/controller.dart';
 import 'package:PiliPlus/plugin/pl_player/models/play_repeat.dart';
 import 'package:PiliPlus/plugin/pl_player/models/play_status.dart';
+import 'package:PiliPlus/services/btr_media_proxy.dart';
 import 'package:PiliPlus/services/service_locator.dart';
 import 'package:PiliPlus/services/shutdown_timer_service.dart';
 import 'package:PiliPlus/utils/accounts.dart';
@@ -343,6 +344,13 @@ class AudioController extends GetxController
     http_model.Volume? volume,
   }) async {
     await _initPlayerIfNeeded();
+    final mediaUrl = await BtrMediaProxy.instance.wrapUrl(
+      url,
+      isAudio: true,
+      enabled: Pref.enableBtrAcceleration,
+      audioEnabled: Pref.btrAudioAcceleration,
+      threadCount: Pref.btrThreadCount,
+    );
     final extras = audioFilterExtras(volume);
     player
       ?..setMediaHeader(
@@ -350,7 +358,7 @@ class AudioController extends GetxController
         // mpv cannot clear referer option
         headers: {'Referer': ?referer},
       )
-      ..open(Media(url, start: _start, extras: extras));
+      ..open(Media(mediaUrl, start: _start, extras: extras));
     _start = null;
   }
 

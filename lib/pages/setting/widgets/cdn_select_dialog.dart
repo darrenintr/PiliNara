@@ -320,18 +320,29 @@ class _CdnSelectDialogState extends State<CdnSelectDialog> {
     final tester = _tester!;
     try {
       final sample = await tester.getSample();
-      for (final service in CDNService.values) {
-        if (!mounted) return;
-        // 显式绕过全局自定义节点，否则每行测到的都是同一个自定义 host
-        final url = VideoUtils.getCdnUrl(
-          sample.playUrls,
-          defaultCDNService: service,
-          applyCustomCDN: false,
-        );
-        final result = await tester.measure(url);
-        if (!mounted) return;
-        _speedResults[service.index].value = result;
+      final pending = List.of(CDNService.values);
+
+      Future<void> worker() async {
+        while (mounted && pending.isNotEmpty) {
+          final service = pending.removeAt(0);
+          String result;
+          try {
+            // 显式绕过全局自定义节点，否则每行测到的都是同一个自定义 host
+            final url = VideoUtils.getCdnUrl(
+              sample.playUrls,
+              defaultCDNService: service,
+              applyCustomCDN: false,
+            );
+            result = await tester.measure(url);
+          } catch (_) {
+            result = '测速失败';
+          }
+          if (!mounted) return;
+          _speedResults[service.index].value = result;
+        }
       }
+
+      await Future.wait(List.generate(4, (_) => worker()));
     } catch (e) {
       if (kDebugMode) debugPrint('CDN speed test failed: $e');
     }

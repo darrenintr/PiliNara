@@ -77,6 +77,26 @@ List<SettingsModel> get videoSettings => [
     setKey: SettingBoxKey.cdnSpeedTest,
     defaultVal: true,
   ),
+  const SwitchModel(
+    title: '线程撕裂者加速',
+    leading: Icon(Icons.bolt_outlined),
+    subtitle: '默认开启。本地代理将视频 Range 分片并行分配到多个 CDN 节点，起播首分片会多节点竞速；异常时可关闭',
+    setKey: SettingBoxKey.enableBtrAcceleration,
+    defaultVal: true,
+  ),
+  NormalModel(
+    title: '线程撕裂者线程数',
+    leading: const Icon(Icons.linear_scale_outlined),
+    getSubtitle: () => '当前：${Pref.btrThreadCount} 线程，修改后对下一次播放生效',
+    onTap: _showBtrThreadCountDialog,
+  ),
+  const SwitchModel(
+    title: '音频也使用线程撕裂者',
+    leading: Icon(Icons.graphic_eq_outlined),
+    subtitle: '默认开启；若出现无声或音画不同步可关闭，仅加速视频流',
+    setKey: SettingBoxKey.btrAudioAcceleration,
+    defaultVal: true,
+  ),
   SwitchModel(
     title: '音频不跟随 CDN 设置',
     subtitle: '直接采用备用 URL，可解决部分视频无声',
@@ -289,6 +309,29 @@ Future<void> _showLiveCDNDialog(
       await GStorage.setting.put(SettingBoxKey.liveCdnUrl, res);
     }
     VideoUtils.liveCdnUrl = res;
+    setState();
+  }
+}
+
+Future<void> _showBtrThreadCountDialog(
+  BuildContext context,
+  VoidCallback setState,
+) async {
+  final res = await showDialog<int>(
+    context: context,
+    builder: (context) => SelectDialog<int>(
+      title: '线程撕裂者线程数',
+      value: Pref.btrThreadCount,
+      values: const [
+        (4, '4 线程（省流量/低负载）'),
+        (8, '8 线程（推荐）'),
+        (16, '16 线程（高码率）'),
+        (32, '32 线程（激进）'),
+      ],
+    ),
+  );
+  if (res != null) {
+    await GStorage.setting.put(SettingBoxKey.btrThreadCount, res);
     setState();
   }
 }

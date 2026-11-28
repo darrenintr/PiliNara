@@ -449,6 +449,18 @@ class HeaderControlState extends State<HeaderControl>
       (context, setState) {
         final theme = Theme.of(context);
 
+        Future<void> toggleBtrAcceleration() async {
+          final value = !Pref.enableBtrAcceleration;
+          await setting.put(SettingBoxKey.enableBtrAcceleration, value);
+          setState(() {});
+          SmartDialog.showToast(
+            value
+                ? '已开启线程撕裂者，正在重载视频'
+                : '已关闭线程撕裂者，正在重载视频',
+          );
+          videoDetailCtr.queryVideoUrl(fromReset: true);
+        }
+
         return Padding(
           padding: const EdgeInsets.all(12),
           child: Material(
@@ -591,7 +603,7 @@ class HeaderControlState extends State<HeaderControl>
                         ),
                       ),
                     ),
-                if (!isFileSource)
+                if (!isFileSource) ...[
                   ListTile(
                     dense: true,
                     title: const Text('CDN 设置', style: titleStyle),
@@ -617,6 +629,23 @@ class HeaderControlState extends State<HeaderControl>
                       }
                     },
                   ),
+                  ListTile(
+                    dense: true,
+                    title: const Text('线程撕裂者加速', style: titleStyle),
+                    leading: const Icon(Icons.bolt_outlined, size: 20),
+                    subtitle: Text(
+                      Pref.enableBtrAcceleration
+                          ? '已开启，异常时可关闭'
+                          : '已关闭，卡顿时可开启',
+                      style: subTitleStyle,
+                    ),
+                    trailing: Switch(
+                      value: Pref.enableBtrAcceleration,
+                      onChanged: (_) => toggleBtrAcceleration(),
+                    ),
+                    onTap: toggleBtrAcceleration,
+                  ),
+                ],
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   padding: const EdgeInsets.symmetric(horizontal: 16),
